@@ -178,3 +178,33 @@ class HWTask_Edit(UpdateView):
 ```
 
 
+
+### DetailView
+
+**view.py**
+```python
+class HWTask_Detail(DetailView): 
+    model = HW
+    template_name = 'HW/Detail.html'
+    context_object_name = 'task'
+    pk_url_kwarg = 'hwtask_id'
+```
+
+比如你希望一個用戶只能查看或編輯自己發表的文章對象。<br>
+當用戶查看別人的對象時，返回http 404錯誤。<br>
+這時候你可以通過更具體的get_object（）方法來返回一個更具體的對象。如下：<br>
+
+**view.py**
+```python
+class HWTask_Detail(DetailView): 
+    model = HW
+    template_name = 'HW/Detail.html'
+    context_object_name = 'task'
+    pk_url_kwarg = 'hwtask_id'
+ 
+    def get_object(self, queryset=None):
+        obj = super().get_object(queryset=queryset)
+        if obj.author != self.request.user:
+            raise Http404()
+
+```
