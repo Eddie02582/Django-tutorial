@@ -161,7 +161,7 @@ class User(AbstractBaseUser, PermissionsMixin):
 
 USERNAME_FIELD：描述用戶模型上用作唯一標識符的字段名稱的字符串。該字段必須是唯一的（即，在其定義中設置unique = True）<br>
 REQUIRED_FIELDS：通過createsuperuser管理命令創建用戶時將提示的字段名稱列表<br>
-is_active**：一個布爾屬性，指示用戶是否被視為“活動”<br>
+is_active：一個布爾屬性，指示用戶是否被視為“活動”<br>
 get_full_name（）：用戶的較長的正式標識符。常見的解釋是用戶的全名，但它可以是標識用戶的任何字符串。<br>
 get_short_name（）：用戶的簡短非正式標識符。常見的解釋是用戶的名字。<br>
 
@@ -228,7 +228,7 @@ class Course(models.Model):
 ```
 
 <br> 
-**Using a Custom Model Extending AbstractUser
+##Using a Custom Model Extending AbstractUser
 
 
 ```python 
