@@ -8,7 +8,7 @@
 >
 > > 3.最後，如果您只想修改模型的Python級行為，而不更改模型字段，無論如何，您可以使用代理模型。
     
-## 1.Abstract base classes
+## 1.Abstract base classes 
 class Meta 寫入abstract=True，注意父類並不會建立Model在資料庫內<br/>
 
 ```python
