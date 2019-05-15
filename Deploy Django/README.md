@@ -23,23 +23,25 @@
 > Listen 8008
 
 3.設定python 路徑 和 wsgi路徑
-> #
-> # Dynamic Shared Object (DSO) Support
-> #
-> # To be able to use the functionality of a module which was built as a DSO you
-> # have to place corresponding `LoadModule' lines at this location so the
-> # directives contained in it are actually available _before_ they are used.
-> # Statically compiled modules (those listed by `httpd -l') do not need
-> # to be loaded here.
-> #
-> # Example:
-> # LoadModule foo_module modules/mod_foo.so
-> #
+'''
+#
+# Dynamic Shared Object (DSO) Support
+#
+# To be able to use the functionality of a module which was built as a DSO you
+# have to place corresponding `LoadModule' lines at this location so the
+# directives contained in it are actually available _before_ they are used.
+# Statically compiled modules (those listed by `httpd -l') do not need
+# to be loaded here.
+#
+# Example:
+# LoadModule foo_module modules/mod_foo.so
+#
 
-> **LoadFile** "D:\Python\Python_Venv\Python36\djsc\Scripts\python36.dll"  
-> **LoadModule** wsgi_module "D:\Python\Python_Venv\Python36\djsc\Lib\site-packages\mod_wsgi\server\mod_wsgi.cp36-win_amd64.pyd"
-> LoadModule access_compat_module modules/mod_access_compat.so
-> LoadModule actions_module modules/mod_actions.so
+**LoadFile** "D:\Python\Python_Venv\Python36\djsc\Scripts\python36.dll"  
+**LoadModule** wsgi_module "D:\Python\Python_Venv\Python36\djsc\Lib\site-packages\mod_wsgi\server\mod_wsgi.cp36-win_amd64.pyd"
 
+LoadModule access_compat_module modules/mod_access_compat.so
+LoadModule actions_module modules/mod_actions.so
 
+'''
 
