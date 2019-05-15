@@ -9,7 +9,7 @@
 > > 3.最後，如果您只想修改模型的Python級行為，而不更改模型字段，無論如何，您可以使用代理模型。
     
 ## 1.Abstract base classes
->  class Meta 寫入abstract=True，注意父類並不會建立Model在資料庫內
+class Meta 寫入abstract=True，注意父類並不會建立Model在資料庫內<br/>
 
 ```python
 from django.db import models
@@ -24,7 +24,7 @@ class Student(CommonInfo):
 
 ### Meta inheritance
 當創建一個抽象基類時，Django使在父類中聲明的任何Meta內部類可用一個屬性。<br /> 
-如果子類沒有聲明它自己的Meta類，它將繼承父類的Meta。 如果子類別想要擴展父類的Meta類，它可以繼承它。 例如：<br />
+如果子類沒有聲明它自己的Meta類，它將繼承父類的Meta。 如果子類別想要擴展父類的Meta類，它可以繼承它。 例如：<br/>
 
 ```python
 from django.db import models
