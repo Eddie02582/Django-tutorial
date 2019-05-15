@@ -16,14 +16,16 @@
 > ServerRoot "${SRVROOT}"
 
 2.設定port Listen:8008
-
+```
 > # prevent Apache from glomming onto all bound IP addresses.
 > #
 > #Listen 12.34.56.78:80
 > Listen 8008
+```
 
 3.設定python 路徑 和 wsgi路徑
-'''
+```
+
 #
 # Dynamic Shared Object (DSO) Support
 #
@@ -43,5 +45,5 @@
 LoadModule access_compat_module modules/mod_access_compat.so
 LoadModule actions_module modules/mod_actions.so
 
-'''
+```python
 
