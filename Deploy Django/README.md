@@ -7,8 +7,8 @@
 
 ### For Windows
 
-**下載 mod_wsgi**
-首先到 <href> https://www.lfd.uci.edu/~gohlke/pythonlibs/#mod_wsgi</href> 下載對應的版本
+**安裝 mod_wsgi**
+首先到 <href> https://www.lfd.uci.edu/~gohlke/pythonlibs/#mod_wsgi</href> 下載對應的版本<br>
 本範例使用mod_wsgi-4.6.5+ap24vc14-cp36-cp36m-win_amd64.whl
 ```
 pip install mod_wsgi-4.6.5+ap24vc14-cp36-cp36m-win_amd64.whl
@@ -41,7 +41,7 @@ Listen 8008
 LoadFile "D:\Python\Python_Venv\Python36\djsc\Scripts\python36.dll" <br/>
 LoadModule wsgi_module "D:\Python\Python_Venv\Python36\djsc\Lib\site-packages\mod_wsgi\server\mod_wsgi.cp36-win_amd64.pyd"<br/>
 
-
+```
 #
 # Dynamic Shared Object (DSO) Support
 #
@@ -61,6 +61,7 @@ LoadModule wsgi_module "D:\Python\Python_Venv\Python36\djsc\Lib\site-packages\mo
 LoadModule access_compat_module modules/mod_access_compat.so
 LoadModule actions_module modules/mod_actions.so
 ```
+
 
 4.設定python 路徑 和 django路徑
 
@@ -144,26 +145,26 @@ WSGIScriptAlias: 指定wsgi.py 路徑
     
     
     # 指定包含服務腳本的目錄
-    WSGIScriptAlias / D:/02582/Desktop/Web/AutoMation/mydjango/mydjango/wsgi.py	
+    WSGIScriptAlias / D:/Desktop/Web/AutoMation/mydjango/mydjango/wsgi.py	
 	
 	
-    <Directory D:/02582/Desktop/Web/AutoMation/mydjango/mydjango>
+    <Directory D:/Desktop/Web/AutoMation/mydjango/mydjango>
     <Files wsgi.py>
         Require all granted
     </Files>
     </Directory>
  
     # 指定靜態文件的目錄
-    Alias /static D:/02582/Desktop/Web/AutoMation/mydjango/static
-    <Directory D:/02582/Desktop/Web/AutoMation/mydjango/static>
+    Alias /static D:/Desktop/Web/AutoMation/mydjango/static
+    <Directory D:/Desktop/Web/AutoMation/mydjango/static>
         Options Indexes  FollowSymLinks
         AllowOverride None
         Require all granted
     </Directory>
     
     # 指定 media 文件的目錄
-    Alias /media D:\02582\Desktop\Web\AutoMation\mydjango\media
-    <Directory D:\02582\Desktop\Web\AutoMation\mydjango\media>
+    Alias /media D:\Desktop\Web\AutoMation\mydjango\media
+    <Directory D:\Desktop\Web\AutoMation\mydjango\media>
         Options Indexes  FollowSymLinks
         AllowOverride None
         Require all granted
