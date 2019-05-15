@@ -8,7 +8,7 @@
 >
 > > 3.最後，如果您只想修改模型的Python級行為，而不更改模型字段，無論如何，您可以使用代理模型。
     
-## Abstract base classes
+## 1.Abstract base classes
 >  class Meta 寫入abstract=True，注意父類並不會建立Model在資料庫內
 
 ```python
@@ -23,8 +23,8 @@ class Student(CommonInfo):
 ```
 
 ### Meta inheritance
-> 當創建一個抽象基類時，Django使在父類中聲明的任何Meta內部類可用一個屬性。 
-> 如果子類沒有聲明它自己的Meta類，它將繼承父類的Meta。 如果子類別想要擴展父類的Meta類，它可以繼承它。 例如：
+當創建一個抽象基類時，Django使在父類中聲明的任何Meta內部類可用一個屬性。<br /> 
+如果子類沒有聲明它自己的Meta類，它將繼承父類的Meta。 如果子類別想要擴展父類的Meta類，它可以繼承它。 例如：<br />
 
 ```python
 from django.db import models
@@ -42,7 +42,7 @@ class Student(CommonInfo):
 
 ```
 
-## Multi-table inheritance
+## 2.Multi-table inheritance
 Django支持的第二種模型繼承是當每個模型都是模型時本身。<br />
 每個模型對應於自己的數據庫表，可以單獨查詢和創建。 <br />
 繼承relationship引入了子模型與其父模型之間的鏈接（通過自動創建的模型）OneToOneField）<br />
@@ -68,13 +68,28 @@ Place的所有Field也能在Restaurant中取得，但數據將位於不同的數
 ```
 
 
+但是，如果上例中的p不是餐廳p.restaurant出現一個Restaurant.DoesNotExist 的例外。<br/>
+在Restaurant自動創建的OneToOneField將其鏈接到Place，如下所示：
+```python
+place_ptr = models.OneToOneField(
+Place, on_delete=models.CASCADE,
+parent_link=True,
+)
+```
 
+### Meat and Multi-table inheritance
 
+在多表繼承情況下，子類從其父類的Meta類繼承是沒有意義的。<br/>
+所有Meta選項都已應用於父類，並且再次應用它們通常只會導致矛盾的行為（這與抽象基類的情況形成對比，其中基類不存在於其中自己的權利）。<br/>
+因此，子模型無法訪問其父類的Meta類。 但是，有幾個有限的情況下，如果子類別沒有指定排序屬性或get_latest_by屬性，它將從其父級繼承它們。<br/>
+如果父級有一個排序，並且您不希望子級具有任何自然順序，則可以明確禁用它：
 
+```python
+class ChildModel(ParentModel):
+    # ...
+    class Meta:
+        # Remove parent's ordering effect
+        ordering = []
+```
 
-
-
-
-
-
-
+## 3.Proxy
