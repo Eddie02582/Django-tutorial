@@ -1,10 +1,10 @@
 # Django-Model Inheritance
 
-Django中有三種可能的繼承方式。
-    1.如果您不想輸入的信息每個子類，您希望使用父類來保存訊息。 可以使用Abstract base classes
-    2.如果你是現有模型的子類（可能完全是來自另一個應用程序的東西）並且想要每個模型model有自己的數據庫表，多表繼承是要走的路。
-    3.最後，如果您只想修改模型的Python級行為，而不更改模型字段，無論如何，您可以使用代理模型。
+>Django中有三種可能的繼承方式。
+>   1.如果您不想輸入的信息每個子類，您希望使用父類來保存訊息。 可以使用Abstract base classes
+>   2.如果你是現有模型的子類（可能完全是來自另一個應用程序的東西）並且想要每個模型model有自己的數據庫表，多表繼承是要走的路。
+>   3.最後，如果您只想修改模型的Python級行為，而不更改模型字段，無論如何，您可以使用代理模型。
     
  
-Abstract base classes
-    class Meta 寫入abstract=True，注意父類並不會建立Model在資料庫內
+>Abstract base classes
+>   class Meta 寫入abstract=True，注意父類並不會建立Model在資料庫內
