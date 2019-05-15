@@ -1,5 +1,8 @@
 # Extend Django USER Model
 
+
+<href>https://simpleisbetterthancomplex.com/tutorial/2016/07/22/how-to-extend-django-user-model.html<href>
+
 Django的內置身份驗證系統非常棒。 在大多數情況下，我們可以開箱即用，節省了大量的開發和測試工作。它適合大多數用例，非常安全。但有時我們需要做一些微調，以適應我們的Web應用程序。
 通常我們希望存儲與我們的用戶相關的更多數據。如果您的Web應用程序具有社交吸引力，您可能希望存儲簡短的生物，用戶的位置以及其他類似的東西。在本教程中，我將介紹可用於簡單擴展默認Django用戶模型的策略，因此您無需從頭開始實現所有內容。<br>
 
@@ -39,5 +42,82 @@ class Person(User):
 這是在上面的示例中，我們定義了一個名為Person的代理模型。 我們通過在Meta類中添加以下屬性來告訴Django這是一個代理模型：proxy = True。<br>
 在這種情況下，重新定義了默認排序，為模型分配了自定義管理器，還定義了一個新方法do_something。<br>
 值得注意的是，User.objects.all（）和Person.objects.all（）將查詢相同的數據庫表。 唯一的區別在於我們為代理模型定義的行為。<br>
+
+
+## Using One-To-One Link With a User Model(Profile)
+
+**What is a One-To-One Link?**<br>
+它是一個常規的Django模型，它將擁有自己的數據庫表，並通過OneToOneField與現有的用戶模型保持一對一的關係。<br>
+
+**When should I use a One-To-One Link?**<br>
+當您需要存儲與身份驗證過程無關的現有用戶模型的額外信息時，應使用一對一鏈接。 我們通常將其稱為用戶檔案。<br>
+
+這很有可能是你想要的。 就個人而言，這是我大部分時間使用的方法。 我們將創建一個新的Django模型來存儲與用戶模型相關的額外信息<br>
+
+建立Profile模型<br>
+
+```python
+from django.db import models
+from django.contrib.auth.models import User
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+class Profile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    bio = models.TextField(max_length=500, blank=True)
+    location = models.CharField(max_length=30, blank=True)
+    birth_date = models.DateField(null=True, blank=True)  
+```
+
+定義信號，以便在創建/更新用戶實例時自動創建/更新我們的Profile模型。
+```python
+class Profile(models.Model):
+.......
+@receiver(post_save, sender=User)
+def create_user_profile(sender, instance, created, **kwargs):
+    if created:
+        Profile.objects.create(user=instance)
+@receiver(post_save, sender=User)
+def save_user_profile(sender, instance, **kwargs):
+    instance.profile.save() 
+```
+**form.py**
+
+```python
+class UserForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = ('first_name', 'last_name', 'email')
+class ProfileForm(forms.ModelForm):
+    class Meta:
+        model = Profile
+        fields = ('url', 'location', 'company')
+```
+
+**view.py**
+
+```python
+@login_required
+@transaction.atomic
+def update_profile(request):
+    if request.method == 'POST':
+        user_form = UserForm(request.POST, instance=request.user)
+        profile_form = ProfileForm(request.POST, instance=request.user.profile)
+        if user_form.is_valid() and profile_form.is_valid():
+            user_form.save()
+            profile_form.save()
+            messages.success(request, _('Your profile was successfully updated!'))
+            return redirect('settings:profile')
+        else:
+            messages.error(request, _('Please correct the error below.'))
+    else:
+        user_form = UserForm(instance=request.user)
+        profile_form = ProfileForm(instance=request.user.profile)
+    return render(request, 'profiles/profile.html', {
+        'user_form': user_form,
+        'profile_form': profile_form    })
+```
+
+
+
 
 
