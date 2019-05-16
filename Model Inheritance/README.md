@@ -9,7 +9,7 @@
 > > 3.最後，如果您只想修改模型的Python級行為，而不更改模型字段，無論如何，您可以使用代理模型。
     
 ## 1.Abstract base classes 
-class Meta 寫入abstract=True，注意父類並不會建立Model在資料庫內<br/>
+class Meta 寫入abstract=True，*注意父類別並不會建立Model在資料庫內*<br/>
 
 ```python
 from django.db import models
@@ -21,12 +21,12 @@ class CommonInfo(models.Model):
 class Student(CommonInfo):
     home_group = models.CharField(max_length=5)
 ```
-Student模型將包含三個字段：name，age和home_group。CommonInfo模型不能用作普通的Django模型，因為它是一個抽象的基類。它不會生成數據庫表無法直接實例化或保存。從抽象基類繼承的字段可以被覆寫，或者使用None移除。
+Student模型將包含三個字段：name，age和home_group。CommonInfo模型不能用作普通的Django模型，因為它是一個抽象的父類別。它不會生成數據庫表無法直接實例化或保存。從抽象基類繼承的字段可以被覆寫，或者使用None移除。
 
 
 ### Meta inheritance
-當創建一個抽象基類時，Django使在父類中聲明的任何Meta內部類可用一個屬性。<br /> 
-如果子類沒有聲明它自己的Meta類，它將繼承父類的Meta。 如果子類別想要擴展父類的Meta類，它可以繼承它。 例如：<br/>
+當創建一個抽象父類別(base class)時，父類別中聲明的任何一個屬性可以在Meta inner class 使用。<br /> 
+如果子類別(child class)沒有定義它自己的Meta類，它將繼承父類的Meta。 如果子類別想要擴展父類的Meta類，它可以繼承它。 例如：<br/>
 
 ```python
 from django.db import models
@@ -40,7 +40,7 @@ class CommonInfo(models.Model):
 class Student(CommonInfo):
     home_group = models.CharField(max_length=5)
     class Meta(CommonInfo.Meta):
-        db_table = 'student_info'from django.db import models
+        db_table = 'student_info'
 
 ```
 
