@@ -134,10 +134,7 @@ class HWTask_Creat(CreateView):
     template_name = 'Task/HW/Creat.html'
     
     def get_success_url(self):
-        #兩種方法都可 redirect or reverse
-        #return redirect('pltask_detail', pltask_id=self.object.id)         
-        return reverse('HW/Creat.html',args=(self.object.id,))  
-
+        return reverse('hwtask_detail', args=(self.object.id,))
         
 ```
 
@@ -165,11 +162,12 @@ class HWTask_Edit(UpdateView):
 
 **view.py**
 ```python
-class HWTask_Detail(DetailView): 
+class HWTask_Edit(UpdateView):
     model = HW
-    template_name = 'HW/Detail.html'
-    context_object_name = 'task'
+    form_class=HWForm  
+    template_name = 'HW/Edit.html'
     pk_url_kwarg = 'hwtask_id'
+    context_object_name = 'tasks' 
  
     def get_object(self, queryset=None):
         obj = super().get_object(queryset=queryset)
@@ -195,13 +193,11 @@ class HWTask_Edit(UpdateView):
         if self.request.user.username  in username:
             return super().get(request, *args, **kwargs)
         else:
-            return redirect('/accounts/access_error/'
+            return redirect('/accounts/access_error/')
 ```
 
 希望表單驗證時，有些資料需要在後台編輯修改(Form 可能沒完全包含整個Model fields)，可以透過form_valid()
-注意本資料包含Many to Many 資料所以使用
-form.save_m2m()  
-tasks.save()
+注意本資料包含Many to Many 資料所以使用form.save_m2m() 和 tasks.save()
 
 ```python
 class HWTask_Edit(UpdateView):
