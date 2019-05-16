@@ -21,7 +21,7 @@ class CommonInfo(models.Model):
 class Student(CommonInfo):
     home_group = models.CharField(max_length=5)
 ```
-Student模型將包含三個字段：name，age和home_group。 CommonInfo模型不能用作普通的Django模型，因為它是一個抽象的基類。 <font color="red">它不會生成數據庫表</font>，無法直接實例化或保存。從抽象基類繼承的字段可以被覆寫，或者使用None移除。
+Student模型將包含三個字段：name，age和home_group。CommonInfo模型不能用作普通的Django模型，因為它是一個抽象的基類。它不會生成數據庫表無法直接實例化或保存。從抽象基類繼承的字段可以被覆寫，或者使用None移除。
 
 
 ### Meta inheritance
@@ -45,10 +45,7 @@ class Student(CommonInfo):
 ```
 
 ## 2.Multi-table inheritance
-Django支持的第二種模型繼承是當每個模型都是模型時本身。<br />
-每個模型對應於自己的數據庫表，可以單獨查詢和創建。 <br />
-繼承relationship引入了子模型與其父模型之間的鏈接（通過自動創建的模型）OneToOneField）<br />
-
+Django支持的第二種模型繼承是當每個模型都是模型時本身。每個模型對應於自己的數據庫表，可以單獨查詢和創建。繼承relationship引入了子模型與其父模型之間的鏈接(通過自動創建的模型)OneToOneField<br />
 
 
 ```python
@@ -81,9 +78,7 @@ parent_link=True,
 
 ### Meat and Multi-table inheritance
 
-在多表繼承情況下，子類從其父類的Meta類繼承是沒有意義的。<br/>
-所有Meta選項都已應用於父類，並且再次應用它們通常只會導致矛盾的行為（這與抽象基類的情況形成對比，其中基類不存在於其中自己的權利）。<br/>
-因此，子模型無法訪問其父類的Meta類。 但是，有幾個有限的情況下，如果子類別沒有指定排序屬性或get_latest_by屬性，它將從其父級繼承它們。<br/>
+在多表繼承情況下，子類從其父類的Meta類繼承是沒有意義的。所有Meta選項都已應用於父類，並且再次應用它們通常只會導致矛盾的行為(這與抽象基類的情況形成對比，其中基類不存在於其中自己的權利)因此，子模型無法訪問其父類的Meta類。 但是，有幾個有限的情況下，如果子類別沒有指定排序屬性或get_latest_by屬性，它將從其父級繼承它們。<br/>
 如果父級有一個排序，並且您不希望子級具有任何自然順序，則可以明確禁用它：
 
 ```python
