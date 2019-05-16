@@ -21,6 +21,8 @@ class CommonInfo(models.Model):
 class Student(CommonInfo):
     home_group = models.CharField(max_length=5)
 ```
+Student模型將包含三個字段：name，age和home_group。 CommonInfo模型不能用作普通的Django模型，因為它是一個抽象的基類。 <font color="red">它不會生成數據庫表</font>，無法直接實例化或保存。從抽象基類繼承的字段可以被覆寫，或者使用None移除。
+
 
 ### Meta inheritance
 當創建一個抽象基類時，Django使在父類中聲明的任何Meta內部類可用一個屬性。<br /> 
