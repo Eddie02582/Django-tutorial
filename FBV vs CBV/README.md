@@ -66,6 +66,9 @@ def ApLoss_View(request):
         <td>刪除對象</td>
     </tr>
 </table>
+詳細各個View 的方法 可以參考<href>https://ccbv.co.uk/projects/Django/2.1/django.views.generic.edit/CreateView/</href>
+
+
 
 ### FormView
 可以比較一下和FBV 的差異<br>
@@ -121,7 +124,7 @@ class HWTask_Creat(CreateView):
     success_url = reverse_lazy('hwtask_View')   
 ```
 
-進階的寫法,希望成功後進入url**傳入參數**,因此改寫form_valid<br>
+希望成功後進入url傳入參數,因此改寫def get_success_url<br>
 
 **view.py**
 ```python
@@ -129,35 +132,22 @@ class HWTask_Creat(CreateView):
     model = HW
     form_class=HWForm   
     template_name = 'Task/HW/Creat.html'
-    def form_valid(self, form):         
-        tasks = form.save(commit=False)         
-        tasks.save()    
-        return redirect('hwtask_detail', hwtask_id=tasks.pk) )   
+    
+    def get_success_url(self):
+        #兩種方法都可 redirect or reverse
+        #return redirect('pltask_detail', pltask_id=self.object.id)         
+        return reverse('HW/Creat.html',args=(self.object.id,))  
+
+        
 ```
 
-若欄位含有ManytoMany Field 使用form.save_m2m()  使用或者直接使用form.save(commit=True) 
-
-
-**view.py**
-```python
-class HWTask_Creat(CreateView):
-    model = HW
-    form_class=HWForm   
-    template_name = 'Task/HW/Creat.html'  
-    def form_valid(self, form):         
-        tasks = form.save(commit=False)   
-        form.save_m2m()  
-        tasks.save()    
-        return redirect('hwtask_detail', hwtask_id=tasks.pk)
-```
 
 ### UpdateView
 pk_url_kwarg 為傳入參數,與url.py 需一樣,因此tasks=HW.objects.get(id=pk_url_kwarg) <br>
 
 **url.py**
 ```python
-	path('HWTask/<int:hwtask_id>/edit/', views.HWTask_Edit.as_view(), name='hwtask_edit'),
-      
+	path('HWTask/<int:hwtask_id>/edit/', views.HWTask_Edit.as_view(), name='hwtask_edit'),      
 ```
 
 **view.py**
@@ -167,31 +157,10 @@ class HWTask_Edit(UpdateView):
     form_class=HWForm  
     template_name = 'Task/HW/Edit.html'
     pk_url_kwarg = 'hwtask_id'
-    context_object_name = 'tasks'
-    
-    def form_valid(self, form):        
-        tasks = form.save(commit=False)
-        tasks.modify_date = timezone.now()        
-        form.save_m2m()  
-        tasks.save()
-        return redirect('hwtask_detail', hwtask_id=tasks.pk) 
+    context_object_name = 'tasks'  
 ```
 
-
-
-### DetailView
-
-**view.py**
-```python
-class HWTask_Detail(DetailView): 
-    model = HW
-    template_name = 'HW/Detail.html'
-    context_object_name = 'task'
-    pk_url_kwarg = 'hwtask_id'
-```
-
-比如你希望一個用戶只能查看或編輯自己發表的文章對象。<br>
-當用戶查看別人的對象時，返回http 404錯誤。<br>
+比如你希望一個用戶只能查看或編輯自己發表的文章對象。當用戶查看別人的對象時，返回http 404錯誤。<br>
 這時候你可以通過更具體的get_object（）方法來返回一個更具體的對象。如下：<br>
 
 **view.py**
@@ -206,5 +175,82 @@ class HWTask_Detail(DetailView):
         obj = super().get_object(queryset=queryset)
         if obj.author != self.request.user:
             raise Http404()
-
 ```
+
+你希望一個用戶只能查看或編輯自己發表的文章對象，當用戶查看別人的對象時，返回其他網址<br>
+可利用get()，super().get(request, *args, **kwargs) 執行原本為override 的代碼
+
+**view.py**
+```python
+class HWTask_Edit(UpdateView):
+    model = HW
+    form_class=HWForm  
+    template_name = 'HW/Edit.html'
+    pk_url_kwarg = 'hwtask_id'
+    context_object_name = 'tasks' 
+
+    def get(self, request, *args, **kwargs): 
+        obj=self.get_object()
+        username=[ owner.username for owner in obj.owner.all()]
+        if self.request.user.username  in username:
+            return super().get(request, *args, **kwargs)
+        else:
+            return redirect('/accounts/access_error/'
+```
+
+希望表單驗證時，有些資料需要在後台編輯修改(Form 可能沒完全包含整個Model fields)，可以透過form_valid()
+注意本資料包含Many to Many 資料所以使用
+form.save_m2m()  
+tasks.save()
+
+```python
+class HWTask_Edit(UpdateView):
+    model = HW
+    form_class=HWForm  
+    template_name = 'HW/Edit.html'
+    pk_url_kwarg = 'hwtask_id'
+    context_object_name = 'tasks' 
+
+
+    def get(self, request, *args, **kwargs): 
+        obj=self.get_object()
+        username=[ owner.username for owner in obj.owner.all()]
+        if self.request.user.username  in username:
+            return super().get(request, *args, **kwargs)
+        else:
+            return redirect('/accounts/access_error/')
+
+    def form_valid(self, form):         
+        tasks = form.save(commit=False) 
+        if tasks.status=="Close":
+            tasks.end_date=datetime.datetime.now()
+        form.save_m2m()  
+        tasks.save()     
+        return redirect('hwtask_detail', hwtask_id=tasks.pk) 
+```
+
+
+
+
+### DetailView
+
+
+```python
+class HWTask_Detail(DetailView): 
+    model = HW
+    template_name = 'HW/Detail.html'
+    context_object_name = 'task'
+    pk_url_kwarg = 'hwtask_id'
+```
+
+
+
+
+
+
+
+
+
+
+
+
