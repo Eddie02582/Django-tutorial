@@ -65,9 +65,15 @@ Place的所有Field也能在Restaurant中取得，但數據將位於不同的數
 >>> Place.objects.filter(name="Bob's Cafe")
 >>> Restaurant.objects.filter(name="Bob's Cafe")
 ```
+如果有一個Place剛好也是餐廳，您可以從Place物件取得Restaurant物件：<br/>
+```python
+>>> p = Place.objects.get(id=12)
+# If p is a Restaurant object, this will give the child class:
+>>> p.restaurant
+<Restaurant: ...>
+```
 
-
-但是，如果上例中的p不是餐廳p.restaurant出現一個Restaurant.DoesNotExist 的例外。<br/>
+但是，如果上例中的p不是餐廳p.restaurant，會出現出現一個Restaurant.DoesNotExist 的例外。<br/>
 在Restaurant自動創建的OneToOneField將其鏈接到Place，如下所示：
 ```python
 place_ptr = models.OneToOneField(
@@ -75,6 +81,8 @@ Place, on_delete=models.CASCADE,
 parent_link=True,
 )
 ```
+
+You can override that field by declaring your own OneToOneField with parent_link=True on Restaurant..<br/>
 
 ### Meat and Multi-table inheritance
 
