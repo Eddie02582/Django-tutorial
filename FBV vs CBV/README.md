@@ -138,6 +138,21 @@ class HWTask_Creat(CreateView):
         
 ```
 
+或者改寫form_valid
+
+**view.py**
+```python
+class HWTask_Create(CreateView):
+    model = HW
+    form_class=HWForm	
+    template_name = 'HW/Creat.html'  
+    
+    def form_valid(self, form): 
+        tasks = form.save(commit=True)   
+        return redirect('hwtask_detail', hwtask_id=tasks.pk) 
+```
+
+
 
 ### UpdateView
 pk_url_kwarg 為傳入參數,與url.py 需一樣,因此tasks=HW.objects.get(id=pk_url_kwarg) <br>
