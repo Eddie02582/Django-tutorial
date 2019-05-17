@@ -63,7 +63,7 @@ class HWTask_Create(CreateView):
     form_class=HWForm	
     template_name = 'HW/Creat.html'  
     
-    #@method_decorator(login_required()) 
+    @method_decorator(login_required()) 
     def get(self, request, *args, **kwargs): 
         return super().get(request, *args, **kwargs)
 ```      
