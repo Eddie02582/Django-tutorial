@@ -1,7 +1,7 @@
 # FBV Vs CBV
 
 
-原文出處
+
 
 Django視圖本質是一個函數：接受HttpRequest對像作為參數，返回一個HttpResponse對像作為返回.FBV直接就是這樣一個函數，而CBV類的方法as_view（），它的返回也是這樣一個函數。<br>
 Django提供了一些通用視圖，基於通用類的視圖（GCBV），可以加快開發。實現所有內容。<br>
