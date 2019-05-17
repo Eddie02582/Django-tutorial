@@ -3,24 +3,24 @@
 有時候我們會希望特定'網頁需要登入或是規範特定類別的人能使用
 分別介紹兩種decorator
 
-1.permission_required(perm, login_url=None, raise_exception=False) 有三個參數</br>
-  perm:設定權限 </br> 
-    add: user.has_perm('foo.add_hw')</br>
-    change: user.has_perm('foo.change_hw')</br>
-    delete: user.has_perm('foo.delete_hw')</br>
-    view: user.has_perm('foo.view_hw') </br>     
+1.permission_required(perm, login_url=None, raise_exception=False) 
+>> perm:設定權限 </br> 
+>>>   add: user.has_perm('foo.add_hw')</br>
+>>>    change: user.has_perm('foo.change_hw')</br>
+>>> delete: user.has_perm('foo.delete_hw')</br>
+>>>    view: user.has_perm('foo.view_hw') </br>     
   
-  login_url :沒權限導入的網址</br>
-  raise_exception: 是否raise PermissionDenied (403)</br>
+>>  login_url :沒權限導入的網址</br>
+>>  raise_exception: 是否raise PermissionDenied (403)</br>
 
 
 
 
 2.login_required(redirect_field_name='next', login_url=None)</br>
-如果用戶未登錄，則重定向到settings.LOGIN_URL</br>
-如果用戶已登錄，請正常執行視圖。 視圖代碼可以自由地假設用戶已登錄。</br>
-默認情況下，成功驗證時用戶應重定向到的路徑存儲在名為“next”的查詢字符串參數中。 如果您希望為此參數使用其他名稱，則login_required（）將使用可選的redirect_field_name參數：</br>
-基本上直接使用login_required()
+>如果用戶未登錄，則重定向到settings.LOGIN_URL</br>
+>如果用戶已登錄，請正常執行視圖。 視圖代碼可以自由地假設用戶已登錄。</br>
+>默認情況下，成功驗證時用戶應重定向到的路徑存儲在名為“next”的查詢字符串參數中。 如果您希望為此參數使用其他名稱，則login_required（）將使用可選的redirect_field_name參數：</br>
+>基本上直接使用login_required()
 
     
 以下有兩種方法分別在view.py 或是url.py 使用 
@@ -45,7 +45,7 @@ def HWTask_Detail(request,hwtask_id):
 
 **GCBV (Generic Class-Based View)**
 
-裝飾login_required 在dispatch function
+裝飾login_required 在dispatch method
 
 ```python	
 @method_decorator(login_required(),name='dispatch') 		
@@ -55,7 +55,7 @@ class HWTask_Create(CreateView):
     template_name = 'HW/Creat.html'  
 ```       
 
-也可以裝飾在function 上面
+也可以裝飾在method上面
 
 ```python	
 class HWTask_Create(CreateView):
