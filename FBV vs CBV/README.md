@@ -67,9 +67,8 @@ def ApLoss_View(request):
     </tr>
 </table>
 詳細各個View 的方法 可以參考<href>https://ccbv.co.uk/projects/Django/2.1/django.views.generic.edit/CreateView/</href>
-
-Attributes
-介紹一些常用的
+</br>
+介紹一些常用的Attributes
 
 <table>
     <tr>
@@ -145,7 +144,7 @@ class ApLoss_View(FormView):
 
 
 ### ListView
-ListView 搭配資料庫使用<br>
+
 **view.py**
 ```python
 class HWTask_View(ListView):
@@ -158,7 +157,6 @@ class HWTask_View(ListView):
         queryset= HW.objects.all().order_by('-modify_date') 
         return queryset
 ```
-
 
 ### CreatView
 
