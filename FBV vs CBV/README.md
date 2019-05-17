@@ -175,8 +175,32 @@ class HWTask_Edit(UpdateView):
             raise Http404()
 ```
 
-你希望一個用戶只能查看或編輯自己發表的文章對象，當用戶查看別人的對象時，返回其他網址<br>
-可利用get()，super().get(request, *args, **kwargs) 執行原本為override 的代碼
+或者是使用dispatch,好處是get_edit_permission在很多CBV 上可以共用
+
+```python
+from django.core.exceptions import PermissionDenied
+def get_edit_permission(self,request): 
+    obj=self.get_object()   
+    username=[ owner.username for owner in obj.owner.all()]  
+    if self.request.user.username  in username:
+        return request
+    else:
+        raise PermissionDenied
+        #raise Http404()
+        
+class HWTask_Edit(UpdateView):
+    model = HW
+    form_class=HWForm  
+    template_name = 'HW/Edit.html'
+    pk_url_kwarg = 'hwtask_id'
+    context_object_name = 'tasks' 
+
+    def dispatch(self, request, *args, **kwargs):
+        request = get_edit_permission(self,request)
+        return super().dispatch(request, *args, **kwargs)
+```
+
+但是get_object和dispatch無法導向自己希望的網址，可利用get()，super().get(request, *args, **kwargs) 執行原本為override 的代碼
 
 **view.py**
 ```python
