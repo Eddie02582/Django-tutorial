@@ -98,18 +98,15 @@ Attributes
         <td>使用在create,update,detail</td>
     </tr>       
     <tr>
-        <td>queryset  </td>
-        <td></td>
-        <td></td>
+        <td>queryset</td>
+        <td> </td>
+        <td> </td>
     </tr>
-
     <tr>
         <td>success_url</td>
         <td>成功時導入的網址</td>
         <td>通常用在create,update</td>
-    </tr>
-    
-      
+    </tr> 
     <tr>
         <td>template_name</td>
         <td>使用的模板</td>
