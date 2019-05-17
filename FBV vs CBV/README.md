@@ -68,6 +68,75 @@ def ApLoss_View(request):
 </table>
 詳細各個View 的方法 可以參考<href>https://ccbv.co.uk/projects/Django/2.1/django.views.generic.edit/CreateView/</href>
 
+Attributes
+介紹一些常用的
+<table>
+    <tr>
+        <th>名稱</th>
+        <th>目的</th>
+        <th>Note</th>        
+    </tr>
+     <tr>
+        <td>context_object_name</td>
+        <td>傳給template 資料名稱</td>
+    </tr> 
+    <tr>
+        <td>model</td>
+        <td>設定model</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>form_class</td>
+        <td>設定Form</td>
+        <td>不設定會照Model建form</td>
+    </tr>    
+    <tr>
+        <td>pk_url_kwarg </td>
+        <td>url 傳入的參數</td>
+        <td>使用在create,update,detail</td>
+    </tr>       
+    <tr>
+        <td>queryset  </td>
+        <td></td>
+        <td></td>
+    </tr>
+
+    <tr>
+        <td>success_url</td>
+        <td>成功時導入的網址</td>
+        <td>通常用在create,update</td>
+    </tr>
+    
+      
+    <tr>
+        <td>template_name</td>
+        <td>使用的模板</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>paginate_by</td>
+        <td>多少筆資料作為分頁</td>
+        <td>list 專用</td>
+    </tr>  
+    <tr>
+        <td>ordering</td>
+        <td>排序</td>
+        <td>list 專用</td>
+    </tr>   
+</table>
+
+
+
+
+
+
+一些可用的
+>   model :設定model <br>
+>   context_object_name :傳給template 資料名稱<br>
+>   template_name   :使用的模板<br>
+>   paginate_by :分頁
+
+
 
 
 ### FormView
@@ -90,11 +159,6 @@ class ApLoss_View(FormView):
 
 ### ListView
 ListView 搭配資料庫使用<br>
-model :模型<br>
-context_object_name :傳給template 資料名稱<br>
-template_name: 使用的模板<br>
-paginate_by :分頁<br>
-
 **view.py**
 ```python
 class HWTask_View(ListView):
