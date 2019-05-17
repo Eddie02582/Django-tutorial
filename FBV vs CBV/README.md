@@ -126,8 +126,6 @@ Attributes
 
 
 
-
-
 ### FormView
 可以比較一下和FBV 的差異<br>
 
@@ -161,12 +159,8 @@ class HWTask_View(ListView):
         return queryset
 ```
 
-若希望listView 也能有post可自行添<br>
-> def post(self, request, *args, **kwargs):
-
 
 ### CreatView
-注意希望使用自訂Form,可使用form_class=HWForm  <br>
 
 **view.py**
 ```python
@@ -205,11 +199,7 @@ class HWTask_Create(CreateView):
         return redirect('hwtask_detail', hwtask_id=tasks.pk) 
 ```
 
-
-
 ### UpdateView
-pk_url_kwarg 為傳入參數,與url.py 需一樣,因此tasks=HW.objects.get(id=pk_url_kwarg) <br>
-
 **url.py**
 ```python
 	path('HWTask/<int:hwtask_id>/edit/', views.HWTask_Edit.as_view(), name='hwtask_edit'),      
@@ -243,52 +233,35 @@ class HWTask_Edit(UpdateView):
             raise Http404()
 ```
 
-或者是使用dispatch,好處是get_edit_permission在很多CBV 上可以共用
 
+介紹一個View共用的方法，避免重複寫code，定義ActionEditGetMixin，覆寫get method
+
+   
 ```python
-from django.core.exceptions import PermissionDenied
-def get_edit_permission(self,request): 
-    obj=self.get_object()   
-    username=[ owner.username for owner in obj.owner.all()]  
-    if self.request.user.username  in username:
-        return request
-    else:
-        raise PermissionDenied
-        #raise Http404()
-        
-class HWTask_Edit(UpdateView):
-    model = HW
-    form_class=HWForm  
-    template_name = 'HW/Edit.html'
-    pk_url_kwarg = 'hwtask_id'
-    context_object_name = 'tasks' 
-
-    def dispatch(self, request, *args, **kwargs):
-        request = get_edit_permission(self,request)
-        return super().dispatch(request, *args, **kwargs)
-```
-
-但是get_object和dispatch無法導向自己希望的網址，可利用get()，super().get(request, *args, **kwargs) 執行原本為override 的代碼
-
-**view.py**
-```python
-class HWTask_Edit(UpdateView):
-    model = HW
-    form_class=HWForm  
-    template_name = 'HW/Edit.html'
-    pk_url_kwarg = 'hwtask_id'
-    context_object_name = 'tasks' 
-
+class ActionEditGetMixin(object):
     def get(self, request, *args, **kwargs): 
         obj=self.get_object()
         username=[ owner.username for owner in obj.owner.all()]
         if self.request.user.username  in username:
             return super().get(request, *args, **kwargs)
         else:
+            #raise PermissionDenied
             return redirect('/accounts/access_error/')
+
+```
+HWTask_Edit 同時繼承ActionEditGetMixin和UpdateView
+
+```python  
+class HWTask_Edit(ActionEditGetMixin,UpdateView):
+    model = HW
+    form_class=HWForm  
+    template_name = 'HW/Edit.html'
+    pk_url_kwarg = 'hwtask_id'
+    context_object_name = 'tasks' 
 ```
 
-希望表單驗證時，有些資料需要在後台編輯修改(Form 可能沒完全包含整個Model fields)，可以透過form_valid()
+
+希望表單驗證時，有些資料需要在後台編輯修改(Form 可能沒完全包含整個Model fields)，可以透過override form_valid()
 注意本資料包含Many to Many 資料所以使用form.save_m2m() 和 tasks.save()
 
 ```python
@@ -299,15 +272,6 @@ class HWTask_Edit(UpdateView):
     pk_url_kwarg = 'hwtask_id'
     context_object_name = 'tasks' 
 
-
-    def get(self, request, *args, **kwargs): 
-        obj=self.get_object()
-        username=[ owner.username for owner in obj.owner.all()]
-        if self.request.user.username  in username:
-            return super().get(request, *args, **kwargs)
-        else:
-            return redirect('/accounts/access_error/')
-
     def form_valid(self, form):         
         tasks = form.save(commit=False) 
         if tasks.status=="Close":
@@ -316,8 +280,6 @@ class HWTask_Edit(UpdateView):
         tasks.save()     
         return redirect('hwtask_detail', hwtask_id=tasks.pk) 
 ```
-
-
 
 
 ### DetailView
