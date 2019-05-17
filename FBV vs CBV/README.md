@@ -70,6 +70,7 @@ def ApLoss_View(request):
 
 Attributes
 介紹一些常用的
+
 <table>
     <tr>
         <th>名稱</th>
@@ -79,6 +80,7 @@ Attributes
      <tr>
         <td>context_object_name</td>
         <td>傳給template 資料名稱</td>
+        <td></td>
     </tr> 
     <tr>
         <td>model</td>
@@ -125,16 +127,6 @@ Attributes
     </tr>   
 </table>
 
-
-
-
-
-
-一些可用的
->   model :設定model <br>
->   context_object_name :傳給template 資料名稱<br>
->   template_name   :使用的模板<br>
->   paginate_by :分頁
 
 
 
