@@ -228,7 +228,7 @@ class Course(models.Model):
 ```
 
 <br> 
-##Using a Custom Model Extending AbstractUser
+## Using a Custom Model Extending AbstractUser
 
 
 ```python 
