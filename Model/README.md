@@ -41,4 +41,11 @@ python manage.py makemigrations --empty app
     <li>Field Option</li>
 </ul>
 
-<a "href https://simpleisbetterthancomplex.com/series/2017/09/11/a-complete-beginners-guide-to-django-part-2.html" >Inheritance</a>
+
+
+<a href="https://github.com/Eddie02582/Django-tutorial/tree/master/Model/Inheritance">Django-Model Inheritance</a>
+<u1>
+    <li>Abstract base classes</li>
+    <li>Multi-table inheritance</li>
+    <li>Proxy</li>
+</ul>
