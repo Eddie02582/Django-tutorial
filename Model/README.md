@@ -119,7 +119,7 @@ python manage.py makemigrations --empty app
             參數protocol默認值為‘both’，可選‘IPv4’或者‘IPv6’</br> 
         </td>
     </tr>
-        <tr>
+    <tr>
         <td>NullBooleanField</td>
         <td>類似BooleanField，只不過額外允許NULL作為選項之一</td>
     </tr>
