@@ -156,3 +156,46 @@ python manage.py makemigrations --empty app
         <td>用於保存通用唯一識別碼（Universally Unique Identifier）的字段。使用Python的UUID類。在PostgreSQL數據庫中保存為uuid類型，其它數據庫中為char(32)。這個字段是自增主鍵的最佳替代品，後面有例子展示。</td>
     </tr>
 </table>
+
+
+### Field Option
+
+
+
+<table>
+    <tr>
+        <th>Options</th>
+        <th></th>        
+    </tr>
+    <tr>
+        <td>null</td>
+        <td>If True, Django will store empty values as NULL in the database. Default is False.</td>
+    </tr>
+    <tr>
+        <td>blank</td>
+        <td>If True, the field is allowed to be blank. Default is False.</br> 
+            Note that this is different than null. null is purely database-related, whereas blank is validation-related.</br> 
+            If a field has blank=True, form validation will allow entry of an empty value. If a field has blank=False,the field will be required.</br> 
+        </td>
+    </tr>    
+    <tr>
+        <td>choices</td>
+        <td>An iterable (e.g., a list or tuple) of 2-tuples to use as choices for this field. If this is given, the default form widget will be a select box instead of the standard text field and will limit choices to the choices given.The first element in each tuple is the value that will be stored in the database. The second element is displayed by the field’s form widget.</td>
+    </tr>
+    <tr>
+        <td>default</td>
+        <td>The default value for the field. This can be a value or a callable object. If callable it will be called every time a new object is created.</td>
+    </tr>
+    <tr>
+        <td>help_text</td>
+        <td>Extra “help” text to be displayed with the form widget. It’s useful for documentation even if your field isn’t used on a form.</td>
+    </tr>
+    <tr>
+        <td>primary_key</td>
+        <td>If True, this field is the primary key for the model.If you don’t specify primary_key=True for any fields in your model, Django will automatically add an IntegerField to hold the primary key, so you don’t need to set primary_key=True on any of your fields unless you want to override the default primary-key behavior. For more, see Automatic primary key fields. The primary key field is read-only.</td>
+    </tr>
+    <tr>
+        <td>verbose_name</td>
+        <td>Each field type, except for ForeignKey, ManyToManyField and OneToOneField, takes an optional first positional argument – a verbose name. If the verbose name isn’t given, Django will automatically create it using the field’s attribute name, converting underscores to spaces.</td>
+    </tr>
+</table>
