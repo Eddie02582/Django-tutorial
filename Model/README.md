@@ -35,6 +35,9 @@ python manage.py migrate
 python manage.py makemigrations --empty app
 ```
 
+
+以下Model相關介紹
+
 <a href="https://github.com/Eddie02582/Django-tutorial/tree/master/Model/Field">Field</a>
 <u1>
     <li>Field Introduction</li>
