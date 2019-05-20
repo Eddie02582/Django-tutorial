@@ -53,7 +53,6 @@ python manage.py makemigrations --empty app
     <li>One-to-One</li>
 </ul>
 
-
 <a href="https://github.com/Eddie02582/Django-tutorial/tree/master/Model/Inheritance">Django-Model Inheritance</a>
 <u1>
     <li>Abstract base classes</li>
