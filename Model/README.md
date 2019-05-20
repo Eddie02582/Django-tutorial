@@ -3,3 +3,113 @@ Python 模型是採用ORM(object-relational mapping,物件關聯映射) ，它�
 
 以下簡單定義模型(model.py)
 
+
+```python 
+
+from django.db import models
+class Person(models.Model):
+    first_name = models.CharField(max_length=30)
+    last_name = models.CharField(max_length=30)    
+```
+
+以上代碼相當於SQL
+
+```sql
+CREATE TABLE myapp_person (
+    "id" serial NOT NULL PRIMARY KEY,
+    "first_name" varchar(30) NOT NULL,
+    "last_name" varchar(30) NOT NULL
+);
+```
+
+新增修改模型cmd執行以下指令</br>
+
+```
+python manage.py makemigrations [app]
+
+python manage.py migrate
+```
+
+建立migrations folder
+```
+python manage.py makemigrations --empty app
+```
+## Field
+
+### Field Introduction
+介紹一些常用的
+<table>
+    <tr>
+        <th>Fiele</th>
+        <th></th>        
+    </tr>
+    <tr>
+        <td>AutoField</td>
+        <td>一個自動增加的整數類型字段。通常你不需要自己編寫它，Django會自動幫你添加字段：id = models.AutoField(primary_key=True)，這是一個自增字段，從1開始計數。如果你非要自己設置主鍵，那麼請務必將字段設置為primary_key=True。 Django在一個模型中只允許有一個自增字段，並且該字段必須為主鍵！</td>
+    </tr>
+    <tr>
+        <td>BigAutoField</td>
+        <td>對象的詳細信息</td>
+    </tr>    
+    <tr>
+        <td>BigIntegerField</td>
+        <td>提交表單</td>
+    </tr>
+    <tr>
+        <td>BooleanField</td>
+        <td>提交表單</td>
+    </tr>
+    <tr>
+        <td>CharField</td>
+        <td>更新對象</td>
+    </tr>
+    <tr>
+        <td>DateField</td>
+        <td>刪除對象</td>
+    </tr>
+    
+    <tr>
+        <td>DecimalField</td>
+        <td>對象的詳細信息</td>
+    </tr>    
+    <tr>
+        <td>DurationField</td>
+        <td>提交表單</td>
+    </tr>
+    <tr>
+        <td>EmailField</td>
+        <td>提交表單</td>
+    </tr>
+    <tr>
+        <td>FileField</td>
+        <td>更新對象</td>
+    </tr>
+    <tr>
+        <td>FilePathField</td>
+        <td>刪除對象</td>
+    </tr>
+        <tr>
+        <td>FloatField</td>
+        <td>刪除對象</td>
+    </tr>
+        <tr>
+        <td>ImageField</td>
+        <td>刪除對象</td>
+    </tr>
+        <tr>
+        <td>IntegerField</td>
+        <td>刪除對象</td>
+    </tr>
+        <tr>
+        <td>GenericIPAddressField</td>
+        <td>刪除對象</td>
+    </tr>
+        <tr>
+        <td>NullBooleanField</td>
+        <td>刪除對象</td>
+    </tr>
+        <tr>
+        <td>PositiveIntegerField</td>
+        <td>刪除對象</td>
+    </tr>
+</table>
