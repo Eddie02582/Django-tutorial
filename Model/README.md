@@ -37,12 +37,8 @@ python manage.py makemigrations --empty app
 ## Field
 
 ### Field Introduction
-介紹一些常用的
-<table>
-    <tr>
-        <th>Fiele</th>
-        <th></th>        
-    </tr>
+
+<table>    
     <tr>
         <td>AutoField</td>
         <td>一個自動增加的整數類型字段。通常你不需要自己編寫它，Django會自動幫你添加字段：id = models.AutoField(primary_key=True)，這是一個自增字段，從1開始計數。如果你非要自己設置主鍵，那麼請務必將字段設置為primary_key=True。 Django在一個模型中只允許有一個自增字段，並且該字段必須為主鍵！</td>
@@ -81,7 +77,12 @@ python manage.py makemigrations --empty app
     </tr>    
     <tr>
         <td>DecimalField</td>
-        <td>對象的詳細信息</td>
+        <td>class DecimalField(max_digits=None, decimal_places=None, **options)</br> 
+        固定精度的十進制小數。相當於Python的Decimal實例，有兩個指定的參數max_digits：最大的位數，必須大於或等於小數點位數 。 </br> 
+        decimal_places：小數點位數，精度。</br> 
+        例子：儲存最大不超過999，帶有2位小數位精度的數，定義如下：models.DecimalField(..., max_digits=5, decimal_places=2)。</br> 
+        當localize=False時，它在HTML為NumberInput標籤，否則是text類型</br> 
+        </td>
     </tr>    
     <tr>
         <td>DurationField</td>
@@ -93,11 +94,11 @@ python manage.py makemigrations --empty app
     </tr>
     <tr>
         <td>FileField</td>
-        <td>更新對象</td>
+        <td></td>
     </tr>
     <tr>
         <td>FilePathField</td>
-        <td>刪除對象</td>
+        <td></td>
     </tr>
         <tr>
         <td>FloatField</td>
@@ -105,7 +106,7 @@ python manage.py makemigrations --empty app
     </tr>
         <tr>
         <td>ImageField</td>
-        <td>刪除對象</td>
+        <td></td>
     </tr>
         <tr>
         <td>IntegerField</td>
@@ -113,7 +114,10 @@ python manage.py makemigrations --empty app
     </tr>
         <tr>
         <td>GenericIPAddressField</td>
-        <td>刪除對象</td>
+        <td>class GenericIPAddressField(protocol=’both’, unpack_ipv4=False, **options) </br> 
+            IPV4者IPV6地址，字符串形式，例如192.0.2.30或者2a02:42fe::4在HTML中為TextInput標籤。</br> 
+            參數protocol默認值為‘both’，可選‘IPv4’或者‘IPv6’</br> 
+        </td>
     </tr>
         <tr>
         <td>NullBooleanField</td>
@@ -122,5 +126,33 @@ python manage.py makemigrations --empty app
     <tr>
         <td>PositiveIntegerField</td>
         <td>正整數，包含0,最大2147483647。</td>
+    </tr>
+      <tr>
+        <td>PositiveSmallIntegerField</td>
+        <td>正整數，包含0,最大2147483647。</td>
+    </tr>
+      <tr>
+        <td>SlugField</td>
+        <td>slug是一個新聞行業的術語。一個slug就是一個某種東西的簡短標籤，包含字母、數字、下劃線或者連接線，通常用於URLs中。可以設置max_length參數，默認為50</td>
+    </tr>
+      <tr>
+        <td>SmallIntegerField</td>
+        <td>整數，範圍-32768到32767。</td>
+    </tr>
+      <tr>
+        <td>TextField</td>
+        <td>大量文本內容，在HTML中為Textarea標籤，如果設置max_length參數，那麼在前端頁面中會受到輸入字符數量限制，然而在模型和數據庫層面卻不受影響。只有CharField才能同時作用於兩者</td>
+    </tr>
+      <tr>
+        <td>TimeField</td>
+        <td>時間字段，Python中datetime.time的實例。接收同DateField一樣的參數，只作用於小時、分和秒</td>
+    </tr>
+      <tr>
+        <td>URLField</td>
+        <td>一個用於保存URL地址的字符串類型，默認最大長度200。</td>
+    </tr>
+    <tr>
+        <td>UUIDField</td>
+        <td>用於保存通用唯一識別碼（Universally Unique Identifier）的字段。使用Python的UUID類。在PostgreSQL數據庫中保存為uuid類型，其它數據庫中為char(32)。這個字段是自增主鍵的最佳替代品，後面有例子展示。</td>
     </tr>
 </table>
