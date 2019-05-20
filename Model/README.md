@@ -49,23 +49,34 @@ python manage.py makemigrations --empty app
     </tr>
     <tr>
         <td>BigAutoField</td>
-        <td>對象的詳細信息</td>
+        <td>A 64-bit integer, much like an AutoField except that it is guaranteed to fit numbers from 1 to 9223372036854775807.</td>
     </tr>    
     <tr>
         <td>BigIntegerField</td>
-        <td>提交表單</td>
+        <td>範圍為-9223372036854775808 到9223372036854775807。在Django的模板表單為一個textinput標籤。</td>
+    </tr>
+     <tr>
+        <td>BinaryField</td>
+        <td>A field to store raw binary data. It can be assigned bytes, bytearray, or memoryview. By default, BinaryField sets editable to False, in which case it can’t be included in a ModelForm.Older versions don’t allow setting editable to True.</td>
     </tr>
     <tr>
         <td>BooleanField</td>
-        <td>提交表單</td>
+        <td>The default form widget for this field is CheckboxInput, or NullBooleanSelect if null=True.The default value of BooleanField is None when Field.default isn’t defined.</td>
     </tr>
     <tr>
         <td>CharField</td>
-        <td>更新對象</td>
+        <td>字符串類型。必須接收一個max_length參數，表示字符串長度不能超過該值。默認的表單標籤是TextInput</td>
     </tr>
     <tr>
         <td>DateField</td>
-        <td>刪除對象</td>
+        <td>class DateField(auto_now=False, auto_now_add=False, **options)
+            auto_now:每當對像被保存時將字段設為當前日期，常用於保存最後修改時間。 
+            auto_now_add：每當對像被創建時，設為當前日期，常用於保存創建日期(注意是不可以修改)。
+            設置上面兩個參數相當於給field添加了editable=False和blank=True
+            如果想具有修改屬性，請用default參數。
+
+            For DateField: default=date.today - from datetime.date.today()
+            For DateTimeField: default=timezone.now - from django.utils.timezone.now()</td>
     </tr>    
     <tr>
         <td>DecimalField</td>
