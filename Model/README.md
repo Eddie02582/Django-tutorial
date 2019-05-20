@@ -70,13 +70,13 @@ python manage.py makemigrations --empty app
     <tr>
         <td>DateField</td>
         <td>class DateField(auto_now=False, auto_now_add=False, **options)
-            auto_now:每當對像被保存時將字段設為當前日期，常用於保存最後修改時間。 
-            auto_now_add：每當對像被創建時，設為當前日期，常用於保存創建日期(注意是不可以修改)。
-            設置上面兩個參數相當於給field添加了editable=False和blank=True
-            如果想具有修改屬性，請用default參數。
-
-            For DateField: default=date.today - from datetime.date.today()
+            auto_now:每當對像被保存時將字段設為當前日期，常用於保存最後修改時間。</br> 
+            auto_now_add：每當對像被創建時，設為當前日期，常用於保存創建日期(注意是不可以修改)。</br> 
+            設置上面兩個參數相當於給field添加了editable=False和blank=True</br> 
+            如果想具有修改屬性，請用default參數。</br> 
+            For DateField: default=date.today - from datetime.date.today()</br> 
             For DateTimeField: default=timezone.now - from django.utils.timezone.now()</td>
+            
     </tr>    
     <tr>
         <td>DecimalField</td>
