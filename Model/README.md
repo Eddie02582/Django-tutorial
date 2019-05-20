@@ -69,14 +69,15 @@ python manage.py makemigrations --empty app
     </tr>
     <tr>
         <td>DateField</td>
-        <td>class DateField(auto_now=False, auto_now_add=False, **options)
+        <td>class DateField(auto_now=False, auto_now_add=False, **options)</br> 
             auto_now:每當對像被保存時將字段設為當前日期，常用於保存最後修改時間。</br> 
             auto_now_add：每當對像被創建時，設為當前日期，常用於保存創建日期(注意是不可以修改)。</br> 
             設置上面兩個參數相當於給field添加了editable=False和blank=True</br> 
             如果想具有修改屬性，請用default參數。</br> 
             For DateField: default=date.today - from datetime.date.today()</br> 
-            For DateTimeField: default=timezone.now - from django.utils.timezone.now()</td>
-            
+            For DateTimeField: default=timezone.now - from django.utils.timezone.now()</br> 
+            在HTML中為TextInput標籤。在admin後台中，Django會自動產生JS的日曆表和一個“Today”快捷方式，以及附加的日期合法性驗證。兩個重要參數：（參數互斥，不能共存）</br> 
+        </td>            
     </tr>    
     <tr>
         <td>DecimalField</td>
@@ -84,11 +85,11 @@ python manage.py makemigrations --empty app
     </tr>    
     <tr>
         <td>DurationField</td>
-        <td>提交表單</td>
+        <td>持續時間類型。存儲一定期間的時間長度。類似Python中的timedelta。在不同的數據庫實現中有不同的表示方法。常用於進行時間之間的加減運算。但是小心了， PostgreSQL等數據庫之間有兼容性問題！</td>
     </tr>
     <tr>
         <td>EmailField</td>
-        <td>提交表單</td>
+        <td>郵箱類型，默認max_length最大長度254位。使用這個字段的好處是，可以使用DJango內置的EmailValidator進行郵箱地址合法性驗證</td>
     </tr>
     <tr>
         <td>FileField</td>
@@ -100,7 +101,7 @@ python manage.py makemigrations --empty app
     </tr>
         <tr>
         <td>FloatField</td>
-        <td>刪除對象</td>
+        <td>相當於Python的float實例，當localize=False時，它在HTML為NumberInput標籤，否則是TextInput類型</td>
     </tr>
         <tr>
         <td>ImageField</td>
@@ -108,7 +109,7 @@ python manage.py makemigrations --empty app
     </tr>
         <tr>
         <td>IntegerField</td>
-        <td>刪除對象</td>
+        <td>An integer. Values from -2147483648 to 2147483647 are safe in all databases supported by Django.The default form widget for this field is a NumberInput when localize is False or TextInput otherwise.</td>
     </tr>
         <tr>
         <td>GenericIPAddressField</td>
@@ -116,10 +117,10 @@ python manage.py makemigrations --empty app
     </tr>
         <tr>
         <td>NullBooleanField</td>
-        <td>刪除對象</td>
+        <td>類似BooleanField，只不過額外允許NULL作為選項之一</td>
     </tr>
     <tr>
         <td>PositiveIntegerField</td>
-        <td>刪除對象</td>
+        <td>正整數，包含0,最大2147483647。</td>
     </tr>
 </table>
