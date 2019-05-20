@@ -227,7 +227,8 @@ class Course(models.Model):
     tutor = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
 ```
 
-<br> 
+</br> 
+
 ## Using a Custom Model Extending AbstractUser
 
 
