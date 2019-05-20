@@ -66,8 +66,7 @@ python manage.py makemigrations --empty app
     <tr>
         <td>DateField</td>
         <td>刪除對象</td>
-    </tr>
-    
+    </tr>    
     <tr>
         <td>DecimalField</td>
         <td>對象的詳細信息</td>
@@ -108,7 +107,7 @@ python manage.py makemigrations --empty app
         <td>NullBooleanField</td>
         <td>刪除對象</td>
     </tr>
-        <tr>
+    <tr>
         <td>PositiveIntegerField</td>
         <td>刪除對象</td>
     </tr>
