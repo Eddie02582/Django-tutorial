@@ -35,4 +35,10 @@ python manage.py migrate
 python manage.py makemigrations --empty app
 ```
 
-<a "href https://simpleisbetterthancomplex.com/series/2017/09/11/a-complete-beginners-guide-to-django-part-2.html" >Field</a>
+<a href="https://github.com/Eddie02582/Django-tutorial/tree/master/Model/Field">Field</a>
+<u1>
+    <li>Field Introduction</li>
+    <li>Field Option</li>
+</ul>
+
+<a "href https://simpleisbetterthancomplex.com/series/2017/09/11/a-complete-beginners-guide-to-django-part-2.html" >Inheritance</a>
