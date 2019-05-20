@@ -46,9 +46,23 @@ python manage.py makemigrations --empty app
 
 
 
+<a href="https://github.com/Eddie02582/Django-tutorial/tree/master/Model/Relationships">Relationships</a>
+<u1>
+    <li>Many-to-One</li>
+    <li>Many-to-Many</li>
+    <li>One-to-One</li>
+</ul>
+
+
 <a href="https://github.com/Eddie02582/Django-tutorial/tree/master/Model/Inheritance">Django-Model Inheritance</a>
 <u1>
     <li>Abstract base classes</li>
     <li>Multi-table inheritance</li>
     <li>Proxy</li>
 </ul>
+
+
+
+
+
+
