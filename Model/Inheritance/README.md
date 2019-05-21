@@ -127,3 +127,88 @@ class ChildModel(ParentModel):
 ```
 
 ## 3.Proxy
+
+使用Multi-table inheritance時，每個子類會創建一個新的數據庫表。這是我們所預期的，因為子類需要一個位置來存儲base class上不存在的額外數據。但是有時您只想更改模型的Python行為，更改默認管理器或添加新方法。<br/>
+
+這就是代理模型繼承的用途：為原始模型創建代理。 您可以創建，刪除和更新代理模型的實例和所有數據將被保存，就像使用原始(非代理)模型一樣。該區別在於您可以更改代理中的默認模型排序或默認管理器等內容。<br/>
+
+For example, suppose you want to add a method to the Person model. You can do it like this:<br/>
+
+```python
+from django.db import models
+
+class Person(models.Model):
+    first_name = models.CharField(max_length=30)
+    last_name = models.CharField(max_length=30)
+
+class MyPerson(Person):
+    class Meta:
+        proxy = True
+
+    def do_something(self):
+        # ...
+        pass
+```
+
+您可以使用proxy model在模型上定義不同的默認排序。 你可能並不是每次想要排序Person model，但可以透過使用proxy model 按last_name屬性排序
+
+```python
+
+class OrderedPerson(Person):
+    class Meta:
+        ordering = ["last_name"]
+        proxy = True
+```
+Person 查詢將是無序的，OrderedPerson查詢將按last_name排序。
+
+### Base class restrictions
+
+A proxy model must inherit from exactly one non-abstract model class. You can’t inherit from multiple non-abstract models as the proxy model doesn’t provide any connection between the rows in the different database tables. A proxy model can inherit from any number of abstract model classes, providing they do not define any model fields. A proxy model may also inherit from any number of proxy models that share a common non-abstract parent class.<br/>
+
+### Proxy model managers
+376/5000
+如果未在proxy model上指定任何model managers，則它將從其模型父項繼承managers。 如果您在proxy model上定義managers，它將成為默認managers，儘管在父類上定義的任何管理器(managers)仍然可用。<br/>
+
+繼續上面的示例，您可以更改查詢Person模型時使用的默認管理器，如下所示：<br/>
+
+
+```python
+from django.db import models
+
+class NewManager(models.Manager):
+    # ...
+    pass
+
+class MyPerson(Person):
+    objects = NewManager()
+
+    class Meta:
+        proxy = True
+```
+如果要在不替換現有默認值的情況下向代理添加新管理器，可以使用自定義管理器文檔中描述的技術：創建包含新管理器的基類，並在主基類之後繼承：<br/>
+
+
+```python 
+class ExtraManagers(models.Model):
+    secondary = NewManager()
+
+    class Meta:
+        abstract = True
+
+class MyPerson(Person, ExtraManagers):
+    class Meta:
+        proxy = True
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
