@@ -1,5 +1,8 @@
 # Django-Model Inheritance
 
+<a href="https://docs.djangoproject.com/en/2.1/topics/db/models/#model-inheritance">官方原文</a>
+
+
 >Django中有三種可能的繼承方式。
 >
 > > 1.如果您不想輸入的信息每個子類，您希望使用父類來保存訊息。 可以使用Abstract base classes
@@ -9,7 +12,7 @@
 > > 3.最後，如果您只想修改模型的Python級行為，而不更改模型字段，無論如何，您可以使用代理模型。
     
 ## 1.Abstract base classes 
-class Meta 寫入abstract=True，*注意父類別並不會建立Model在資料庫內*<br/>
+class Meta 寫入**abstract=True**，注意父類別並不會建立Model在資料庫內<br/>
 
 ```python
 from django.db import models
@@ -25,8 +28,8 @@ Student模型將包含三個字段：name，age和home_group。CommonInfo模型�
 
 
 ### Meta inheritance
-當創建一個抽象父類別(base class)時，父類別中聲明的任何一個屬性可以在Meta inner class 使用。<br /> 
-如果子類別(child class)沒有定義它自己的Meta類，它將繼承父類的Meta。 如果子類別想要擴展父類的Meta類，它可以繼承它。 例如：<br/>
+如果子類別(child class)沒有定義它自己的Meta class，它將繼承父類的Meta class。<br/> 
+如果子類別想要擴展父類的Meta類，它可以繼承它。 例如：<br/>
 
 ```python
 from django.db import models
@@ -43,6 +46,32 @@ class Student(CommonInfo):
         db_table = 'student_info'
 
 ```
+
+### Be careful with related_name and related_query_name
+如果你使用related_name 或者 related_query_name 在 ForeignKey or ManyToManyField，必須是唯一的名字。</br>
+這可能會在abstract base class造成問題，為了解決這個問題，在abstract base class使用related_name或related_query_name透過下列方法</br>
+
+
+
+```python
+from django.db import models
+class Base(models.Model):
+    m2m = models.ManyToManyField(
+    OtherModel,
+    related_name="%(app_label)s_%(class)s_related",
+    related_query_name="%(app_label)s_%(class)ss",
+    )
+    class Meta:
+        abstract = True
+        
+class ChildA(Base):
+    pass
+class ChildB(Base):
+    pass
+```
+
+
+
 
 ## 2.Multi-table inheritance
 Django支持的第二種模型繼承是當每個模型都是模型時本身。每個模型對應於自己的數據庫表，可以單獨查詢和創建。繼承relationship引入了子模型與其父模型之間的鏈接(通過自動創建的模型)OneToOneField<br />
