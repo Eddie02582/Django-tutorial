@@ -54,7 +54,7 @@ def ApLoss_View(request):
         <td>提交表單</td>
     </tr>
     <tr>
-        <td>創建對象</td>
+        <td>CreateView</td>
         <td>提交表單</td>
     </tr>
     <tr>
@@ -68,7 +68,7 @@ def ApLoss_View(request):
 </table>
 詳細各個View 的方法 可以參考<href>https://ccbv.co.uk/projects/Django/2.1/django.views.generic.edit/CreateView/</href>
 </br>
-介紹一些常用的Attributes
+介紹一些常用的Attributes</br>
 
 <table>
     <tr>
@@ -123,6 +123,49 @@ def ApLoss_View(request):
     </tr>   
 </table>
 
+
+介紹一些常用的Method,不一定每個View 都有</br>
+利用下面方式執行為override method
+```
+super().method_name(request, *args, **kwargs)
+```
+<table>
+    <tr>
+        <th>名稱</th>
+        <th>目的</th>
+        <th>Note</th>        
+    </tr>
+     <tr>
+        <td>get_context_data</td>
+        <td>取得context值</td>
+        <td>若想增加回傳內容,可自行修改</td>
+    </tr> 
+    <tr>
+        <td>get_queryset</td>
+        <td>取得queryset</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>get</td>
+        <td>get 動作</td>
+        <td></td>
+    </tr>    
+    <tr>
+        <td>post </td>
+        <td>post 動作</td>
+        <td></td>
+    </tr>       
+    <tr>
+        <td>form_valid</td>
+        <td>表單驗證</td>
+        <td> </td>
+    </tr>
+    <tr>
+        <td>get_success_url</td>
+        <td>取得成功導入的網址</td>
+        <td>通常用在create,update</td>
+    </tr>    
+</table>
 
 
 ### FormView
@@ -230,6 +273,26 @@ class HWTask_Edit(UpdateView):
         if obj.author != self.request.user:
             raise Http404()
 ```
+
+你希望導回自己建立的網頁而非raise Http404(),先利用get_object()取得物件,在判斷是否是為同一使用者,不是返回access_error網頁
+**view.py**
+```python
+class HWTask_Edit(UpdateView):
+    model = HW
+    form_class=HWForm  
+    template_name = 'HW/Edit.html'
+    pk_url_kwarg = 'hwtask_id'
+    context_object_name = 'tasks' 
+ 
+    def get(self, request, *args, **kwargs): 
+        obj=self.get_object()
+        username=[ owner.username for owner in obj.owner.all()]
+        if self.request.user.username  in username:
+            return super().get(request, *args, **kwargs)
+        else:            
+            return redirect('/accounts/access_error/')
+```
+
 
 
 介紹一個View共用的方法，避免重複寫code，定義ActionEditGetMixin，覆寫get method
