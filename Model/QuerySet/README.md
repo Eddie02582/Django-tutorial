@@ -25,7 +25,7 @@ class Task(models.Model):
 
 ## 1.Create Object
 介紹以下方法建立Object
-### 第一種
+#### 第一種
 
 ```python
     task = Task()
@@ -35,26 +35,26 @@ class Task(models.Model):
     ....
     task.save()
 ```
-### 第二種
+#### 第二種
 
 ```python
     task = Task(project='Django',priority='High',status='Open') 
     task.save()
 ```
 
-### 第三種
+#### 第三種
 這種方法和上面不同會直接儲存
 ```python
     Task.objects.create(project='Django',priority='High',status='Open') 
 ```
 
-### 第四種
+#### 第四種
 這種方法會判斷是否還有資料,會回傳兩個,task,bcreate
 ```python
     task,bcreate,Task.objects.get_or_create(project='Django',priority='High',status='Open') 
 ```
 
-## Query 
+## 2.Query 
 <table>
     <tr>
         <td>Operation</td>
