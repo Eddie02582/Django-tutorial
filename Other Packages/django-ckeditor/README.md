@@ -69,7 +69,9 @@ from .models import Tasks
 admin.site.register(Task)
 ```
 
-結果
+結果</br>
+
+
 <img src="admin.png" alt="Smiley face">
 
 
@@ -99,7 +101,7 @@ html
 {{form.issue}}
 ```
 
-結果
+結果</br>
 <img src="html.png" alt="Smiley face">
 
 
