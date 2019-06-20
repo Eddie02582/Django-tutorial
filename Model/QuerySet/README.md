@@ -94,7 +94,7 @@ class Task(models.Model):
 ```
 
 
-### filter 外鍵
+#### filter 外鍵
 假設我們想得到owner 的first_name包含Eddie,James...,owner 是關聯User資料庫,User 資料庫包和 username,first_name....
 ```python
     Task.objects.filter(owner__first_name_in=['Eddie','James']) 
