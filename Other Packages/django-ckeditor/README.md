@@ -68,6 +68,8 @@ from django.contrib import admin
 from .models import Tasks
 admin.site.register(Task)
 ```
+
+結果
 <img src="admin.png" alt="Smiley face">
 
 
@@ -97,6 +99,7 @@ html
 {{form.issue}}
 ```
 
+結果
 <img src="html.png" alt="Smiley face">
 
 
