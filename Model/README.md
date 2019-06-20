@@ -65,8 +65,8 @@ python manage.py makemigrations --empty app
 <u1>
     <li>Create Object</li>
     <li><a href=https://github.com/Eddie02582/Django-tutorial/tree/master/Model/QuerySet#2query>Query</a></li>
-    <li>Update</li>
-    <li>Order By</li>
+    <li><a href=https://github.com/Eddie02582/Django-tutorial/tree/master/Model/QuerySet#3update>Update</a></li>
+    <li><a href=https://github.com/Eddie02582/Django-tutorial/tree/master/Model/QuerySet#4orderby>Order By</a></li> 
 </ul>
 
 
