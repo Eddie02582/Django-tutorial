@@ -60,7 +60,7 @@ class Task(models.Model):
   python manage.py makemigrations
   python manage.py migrate
 ```
-## admin結果
+## admin顯示
 
 首先admin.py註冊
 ```
@@ -68,12 +68,12 @@ from django.contrib import admin
 from .models import Tasks
 admin.site.register(Task)
 ```
+<img src="admin.png" alt="Smiley face">
 
 
 
 
-
-## 網頁結果
+## 前台顯示
 首先在form.py 建立model form
 
 ```python
@@ -91,12 +91,13 @@ class Task_Create(CreateView):
     template_name = 'Create.html'
     success_url = reverse_lazy('Task_View')
 ```
-html 顯示
+
+html 
 ```
 {{form.issue}}
 ```
 
-
+<img src="html.png" alt="Smiley face">
 
 
 
