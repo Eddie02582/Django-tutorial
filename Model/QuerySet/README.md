@@ -123,7 +123,7 @@ class Task(models.Model):
     tasks= Task.objects.filter(project__contains="python").update(status="Close")    
 ``` 
 
-## 3.Orderby
+## 4.Orderby
 
 #### order_by
 假設我們想取出open 資料,然後照案名排序,照依照開始時間排序
