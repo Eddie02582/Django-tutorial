@@ -55,6 +55,9 @@ class Task(models.Model):
 ```
 
 ## 2.Query 
+
+#### 一般的使用方法
+以下為常用query的方法
 <table>
     <tr>
         <td>Operation</td>
@@ -78,19 +81,23 @@ class Task(models.Model):
     </tr>
 </table>
 
-#### 進階filter使用
-假設我們想得到owner 包含Eddie,James...
+#### Field lookupst
+
+用法FilesName__Fieldlookups
+
+假設我們想得到案名跟含有python有關.
+
 ```python
-    Task.objects.filter(priority='High',status='Open',owner__first_name_in=['Eddie','James']) 
+    Task.objects.filter(priority='High',status='Open',projects__contains='python') 
 ```
+注意在django __(雙底線)用來進行連結，因此命名時請勿用__，可用_(單底線)</br>
 
 詳情其他與法可以參考<a href="https://docs.djangoproject.com/en/2.1/ref/models/querysets/#methods-that-return-new-querysets">QuerySet API</a>
 
 #### filter or 用法
 假設我們想找Project 是open 或是 priority 是 High
 ```python
-    tasks= Task.objects.filter(Q(status='Open') | Q(priority='High'))   
-
+    tasks= Task.objects.filter(Q(status='Open') | Q(priority='High')) 
 ```
 
 
@@ -99,7 +106,7 @@ class Task(models.Model):
 ```python
     Task.objects.filter(owner__first_name_in=['Eddie','James']) 
 ```
-注意在django __(雙底線)用來進行連結，因此命名時請勿用__，可用_(單底線)</br>
+
 
 外鍵時可以透過select_related()和prefetch_related()可以減少數據庫提請求，以提高效能
 
@@ -116,9 +123,24 @@ class Task(models.Model):
     tasks= Task.objects.filter(project__contains="python").update(status="Close")    
 ``` 
 
+## 3.Orderby
 
+#### order_by
+假設我們想取出open 資料,然後照案名排序,照依照開始時間排序
+若要降序排序就在filed name 前面加-
+ ```python
+    tasks= Task.objects.filter(status="Open").order_by("project",'start_date')    
+    tasks= Task.objects.filter(status="Open").order_by("project",'-start_date')   
+``` 
+#### 自訂order_by
+想要依照priority 排序,
 
-
-
+ ```python
+ from django.db.models import Case, When
+    pk_list =['High','Middle','Low']
+    preserved = Case(*[When(priority=pk, then=pos) for pos, pk in enumerate(pk_list)]) 
+    tasks= Task.objects.filter(status="Open").order_by(preserved)    
+  
+``` 
 
 
