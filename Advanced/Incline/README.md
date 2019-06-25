@@ -4,6 +4,8 @@
 
 我們想在網頁上使用跟admin 管理一樣 incline </br>
 
+<img src="admin-incline.png" alt="Smiley face">
+
 
 ### Model with ForeignKey
 
@@ -152,8 +154,8 @@ class HWConfig(CreateView):
 {% endblock %}
 ```
 
-
-
+### Result
+<img src="Incline.png" alt="Smiley face">
 
 
 
