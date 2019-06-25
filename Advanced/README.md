@@ -4,6 +4,8 @@
 
 
 <u1>
-    <a href="https://github.com/Eddie02582/Django-tutorial/tree/master/Model/Field">網頁顯示Incline</a>    
+    <li>
+    <a href="https://github.com/Eddie02582/Django-tutorial/tree/master/Model/Field">網頁顯示Incline</a>
+    </li>    
 </ul>
 
