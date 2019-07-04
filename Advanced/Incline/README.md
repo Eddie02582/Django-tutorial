@@ -1,6 +1,6 @@
 # Django inline formsets with Class-based 
 
-
+<a href = "https://dev.to/zxenia/django-inline-formsets-with-class-based-views-and-crispy-forms-14o6">原文參考 </a>
 
 我們想在網頁上使用跟admin 管理一樣 incline </br>
 
