@@ -6,9 +6,10 @@
 
 <a href="https://github.com/Eddie02582/Django-tutorial/tree/master/Model/Field">Django Filter</a>
 <u1>
-    <li><a href=https://github.com/Eddie02582/Django-tutorial/tree/master/Model/QuerySet#2query>Query</a></li>
-    <li><a href=https://github.com/Eddie02582/Django-tutorial/tree/master/Model/QuerySet#3update>Update</a></li>
-    <li><a href=https://github.com/Eddie02582/Django-tutorial/tree/master/Model/QuerySet#4orderby>Order By</a></li> 
+    <li><a href=https://github.com/Eddie02582/Django-tutorial/tree/master/Other%20Packages/django-filter#install>Install</a></li>
+    <li><a href=https://github.com/Eddie02582/Django-tutorial/tree/master/Other%20Packages/django-filter#model>Model</a></li>
+    <li><a href=https://github.com/Eddie02582/Django-tutorial/tree/master/Other%20Packages/django-filter#filter>Filter</a></li> 
+    <li><a href=https://github.com/Eddie02582/Django-tutorial/tree/master/Other%20Packages/django-filter#template>Template</a></li> 
 </ul>
 
 

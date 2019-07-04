@@ -4,7 +4,7 @@
 
 
 
-## 安裝
+## Install
 
 首先在cmd 執行
 
@@ -27,7 +27,7 @@ INSTALLED_APPS = [
 ```
 
 
-## 模型
+## Model
 
 ```python
 from django.db import models
@@ -56,7 +56,7 @@ class ProductFilter(django_filters.FilterSet):
         model = Product
         fields = ['price', 'release_date']
 ```
-filter with lookup_expr
+### filter with lookup_expr
 
 <ul>
     <li>field_name :指定欄位</li>
@@ -79,8 +79,9 @@ class ProductFilter(django_filters.FilterSet):
         model = Product
 ```
 
-filter with ChoiceFilter
-假設
+### filter with ChoiceFilter
+
+假設 model
 ```python
 from django.db import models
 
@@ -90,10 +91,13 @@ class Manufacturer(models.Model):
     def __str__(self):
         return self.name
 ```
+
 我們可以改寫 manufacturer__name = django_filters.CharFilter(lookup_expr='icontains'),讓選項從資料庫抓取
+
 ```
     manufacturer = django_filters.ModelChoiceFilter(queryset=PLTasks.objects.all())
 ```
+
 也可以自訂選項
 
 ```python
@@ -103,11 +107,12 @@ class Manufacturer(models.Model):
     ('', 'All'),  
     )  
     manufacturer__location = django_filters.ChoiceFilter(choices=Location_CHOICES) 
-```python
+```
 
 ## Views
 
-FBV
+### FBV
+
 ```python
 def product_list(request):
     f = ProductFilter(request.GET, queryset=Product.objects.all())
@@ -115,7 +120,7 @@ def product_list(request):
 ```
 
 
-CBV
+### CBV
 ```python
 class product_list(FilterView):
     model = Product
@@ -128,7 +133,6 @@ class product_list(FilterView):
 
 
 ## Template
-
 
 ```
 {% load bootstrap3 %}
