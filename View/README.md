@@ -76,7 +76,7 @@ BMI.html
 </form>
 ```
 
-
+網頁顯示
 <img src="view_example.png">
 
 ## Use  FormView
