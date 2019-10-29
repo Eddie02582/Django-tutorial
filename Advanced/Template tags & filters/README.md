@@ -28,7 +28,10 @@ Note :eamsfilter 可自己取名,但是注意 {% load name %} ,name.py 名字要
 ## 定義 template filters
 
 eamsfilter.py
+
 ``` python 
+from django import template
+register = template.Library()
 @register.filter(name='lower')
 def lower(value): # Only one argument.
     """Converts a string into all lowercase"""
@@ -37,6 +40,8 @@ def lower(value): # Only one argument.
 
 html 
 ``` 
+{% load eamsfilter %} 
+
 {{ somevariable|lower}}
 ``` 
 

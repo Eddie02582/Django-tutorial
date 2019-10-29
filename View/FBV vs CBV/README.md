@@ -136,7 +136,7 @@ super().method_name(request, *args, **kwargs)
         <th>Note</th>        
     </tr>
      <tr>
-        <td>get_context_data</td>
+        <th>get_context_data</th>
         <td>取得context值</td>
         <td>若想增加回傳內容,可自行修改</td>
     </tr> 
