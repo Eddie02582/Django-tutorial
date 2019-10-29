@@ -3,7 +3,7 @@
 有時候我們希望網頁在不重新讀取的情況下更新資料
 
 
-##example 1
+## example 1
 
 利用ajax 連動 下拉選單
 
@@ -29,7 +29,7 @@ def ajax_example(request):
     return render(request,'Ajax.html')	
 ```
 
-
+再url.py 新增ajax網址
 ```python
     #path('ajax/test_item_save_all/', views.ajax_test_item_save_all, name='ajax_test_item_save_all'),
     re_path(r'^ajax/test_item_save_all/$', views.ajax_test_item_save_all, name='ajax_test_item_save_all'), 
@@ -91,7 +91,91 @@ def ajax_example(request):
 
 ```
 
-##example 2
+## example 2
 
 利用ajax 顯示table
+
+table html template
+```html
+<table class="table table-striped table-horver" id="table-info">
+    <thead>
+      <tr>
+        <th>Firstname</th>
+        <th>Lastname</th>
+        <th>Email</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for user in users %}   
+      <tr>
+        {{for user in users}}
+        <td>{{user.firstname}}</td>
+        <td>{{user.lastname}}</td>
+        <td>{{user.email}}</td>
+      </tr>
+      {% endfor %} 
+
+    </tbody>
+</table>
+```
+
+html 模板
+```html
+	<div id="Users-content"> 
+	</div>
+    
+    <script>
+        function load_users_content () {           
+       
+            var data = {} ;	
+            
+            $.get("/ajax/get_user_data",data, function(data){
+                $('#Users-content').html(data.html_form);                    
+            })    
+           
+        }    
+    </script>
+```
+
+```
+
+from django.template.loader import render_to_string
+def ajax_get_user_data(request):
+    if request.method == 'GET':
+        context = {} 
+        context ["users"] = User.objects.all()     
+
+
+        html_form = render_to_string('Users.html',
+            context,            
+            )     
+         
+
+        return JsonResponse({'html_form': html_form}) 
+        
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
