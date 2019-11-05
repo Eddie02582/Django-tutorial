@@ -123,6 +123,16 @@ class Task(models.Model):
     tasks= Task.objects.filter(project__contains="python").update(status="Close")    
 ``` 
 
+在2.2版新增了bulk_update ,可以大量更新
+ ```python
+        tasks = [ Task.objects.get(id = id) for id in data_id]
+        for i in range(len(objs)):          
+            objs[i].status = data_status[i]           
+            objs[i].priority = data_priority[i]             
+        Task.objects.bulk_update(tasks, ['status','priority']) 
+``` 
+
+
 ## 4.Orderby
 
 #### order_by
