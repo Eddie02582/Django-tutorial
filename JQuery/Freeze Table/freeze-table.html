@@ -1,11 +1,36 @@
-# Freeze Table
+<!DOCTYPE html>
+<html>
+<head> 
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
+  <script src="https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://cdn.staticfile.org/popper.js/1.15.0/umd/popper.min.js"></script>
+  <script src="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+  <script src="freeze-table.js"></script>
+</head>
+<body>
+
+  <script>
+      $(document).ready(function() {
+      
+        $(".table-scrollable").freezeTable({
+          'scrollable': false,
+          'freezeColumn':true,
+          'columnNum':1,
+        }); 
+      });
+  </script>
+
+<!--   <script>
+    function updatfreezeTablee() {     
+       
+      var freezeTable = new FreezeTable('.table-scrollable', {'columnNum': '3'});
+      freezeTable.update();   
+    }
+  </script> -->
 
 
-<a href = https://github.com/yidas/jquery-freeze-table>參考 yidas github </a>
-
-
-html
-```html
 <div class="table-scrollable" style="overflow-x: auto;">  
 <table class="table table-striped table-horver" id="table-info">
     <thead>
@@ -125,60 +150,10 @@ html
     </tbody>
 </table>
  </div>	
-```
 
-## freeze-row
-
- ``` javascript
-    $(document).ready(function() {
-      
-        $(".table-scrollable").freezeTable({
-          'scrollable': false,
-          'freezeColumn':false,
-          'columnNum':1,
-        }); 
-    });
-
-```
-
-## freeze-col
-若想要固定Column,需將freezeColumn改成True,再設定固定的欄位columnNum
- ``` javascript
-    $(document).ready(function() {
-      
-        $(".table-scrollable").freezeTable({
-          'scrollable': false,
-          'freezeColumn':true,
-          'columnNum':1,
-        }); 
-    });
-
-```
-
-
-## freeze-update
-
- ``` javascript
-    function updatfreezeTablee() {     
-       
-      var freezeTable = new FreezeTable('.table-scrollable', {'columnNum': '3'});
-      freezeTable.update();   
-    }
-```
+</body>
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+</html>
