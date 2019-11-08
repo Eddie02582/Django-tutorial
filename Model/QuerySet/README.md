@@ -153,4 +153,43 @@ class Task(models.Model):
   
 ``` 
 
+## 5.aggregates
+aggregate的中文意思是聚合, 源於SQL的聚合函數。 Django的aggregate()方法作用是對一組值
 
+```python 
+
+TestItem.objects.aggregate(Max('end_date'))
+```
+ result 
+ ```python 
+{'end_date__max': datetime.date(2020, 1, 3)}
+```
+
+## 6.annotate
+
+#### 
+注意回傳為queryset 只是新增一個欄位
+```python
+from django.db.models.aggregates import Max,Min,Count
+
+##對Priority 分組 ,並取出分組開始時間最早的日期,和最晚結束日期
+
+PL.objects.annotate(hw_owner_cnt=Count('hw_owner'))
+
+```
+
+
+#### value
+使用value進行分組,對Priority 分組 ,並取出分組開始時間最早的日期,和最晚結束日期
+```python
+from django.db.models.aggregates import Max,Min,Count
+request_values1 = Task.objects.values('priority').annotate(min_start_date=Min('start_date'),max_end_date=Max('end_date'),status = Count('status')).order_by("status")
+
+```
+#### 搭配filter,orderby
+使用value進行分組,對Priority 分組 ,並取出分組開始時間最早的日期,和最晚結束日期
+```python
+from django.db.models.aggregates import Max,Min,Count
+request_values1 = Task.objects.values('priority').annotate(min_start_date=Min('start_date')).order_by("status")
+
+```
