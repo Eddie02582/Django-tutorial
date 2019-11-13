@@ -7,10 +7,11 @@
 </ul>
 
 
-##　Form
+## Form
 
 建立簡的form
 
+form.py
 ```python 
 
 from django import forms
@@ -21,7 +22,7 @@ class BMIForm(forms.Form):
 
 ```
 
-
+html
 ```html
 <form enctype="multipart/form-data" action="" method="post">
     {% csrf_token %}
@@ -37,7 +38,7 @@ class BMIForm(forms.Form):
 <img src="form_example.png">
 
 
-##　ModelForm
+## ModelForm
 假設有一個Model
 
 model.py
@@ -67,8 +68,7 @@ class Task(models.Model):
 form.py
 使用fields 指定表單model 的欄位
 
-```
-python 
+```python 
 class CommentForm(forms.ModelForm): 
     class Meta:       
         model = Comment         
@@ -81,8 +81,7 @@ class CommentForm(forms.ModelForm):
  
  
 
-```
-python 
+```python 
 class CommentForm(forms.ModelForm): 
 owner= forms.ModelMultipleChoiceField(queryset=User.objects.filter(groups=Group.objects.get(name='RD')),                                            
                                               widget=FilteredSelectMultiple("Validation Staff", is_stacked=False), required=False)	  
@@ -97,8 +96,7 @@ upload = forms.FileField(widget=forms.ClearableFileInput(attrs={'multiple': True
 修改widgets
  
  
- ```
-python 
+ ```python 
 class CommentForm(forms.ModelForm): 
 owner= forms.ModelMultipleChoiceField(queryset=User.objects.filter(groups=Group.objects.get(name='RD')),                                            
                                               widget=FilteredSelectMultiple("Validation Staff", is_stacked=False), required=False)	  
