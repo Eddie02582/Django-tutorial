@@ -109,3 +109,25 @@ upload = forms.FileField(widget=forms.ClearableFileInput(attrs={'multiple': True
             'note': forms.Textarea(attrs={'cols': 120,'rows':10}),          
 		}
 ```
+
+### 自訂form error
+
+ ```python 
+class ResourceForm(forms.Form):   
+     
+    start_date = forms.DateField(widget=forms.DateInput(attrs={'type': 'date'},format=('%Y-%m-%d')), required=True,initial=GetMonthFirstDay())	
+    end_date = forms.DateField(label='結束日期',widget=forms.DateInput(attrs={'type': 'date'},format=('%Y-%m-%d')), required=True)	 
+
+    def clean(self):   
+        # data from the form is fetched using super function 
+        cleaned_data  = super(ResourceForm, self).clean()  
+        start_date = self.cleaned_data.get('start_date') 
+        end_date = self.cleaned_data.get('end_date') 
+        if not end_date>=start_date:            
+            #self._errors['end_date'] = self.error_class(['End date must be greater than start date']) 
+            #self.add_error('end_date', "End date must be greater than start date")
+            raise forms.ValidationError("End date must be greater than start date")
+        return self.cleaned_data 
+
+```
+
