@@ -287,7 +287,7 @@ class HWTask_Detail(DetailView):
 
 ### 其他應用
 
-####　get_context_data
+#### get_context_data
 額外傳入資訊，可以修改context_data
 
 
@@ -299,7 +299,7 @@ def get_context_data(self, **kwargs):
     context['book_list'] = Book.objects.all()
     return context
 ```
-####　get_queryset
+#### get_queryset
 修改queryset
 
 ```python
@@ -307,7 +307,7 @@ def get_queryset(self)
     return Book.objects.filter(publisher=self.publisher)
 ```
 
-####　get_success_url
+#### get_success_url
 
 希望成功後進入url傳入參數,因此改寫def get_success_url<br>
 
@@ -322,7 +322,7 @@ class HWTask_Creat(CreateView):
         
 ```
 
-####　form_valid
+#### form_valid
 
 ```python
 class HWTask_Create(CreateView):
@@ -337,7 +337,7 @@ class HWTask_Create(CreateView):
         return redirect('hwtask_detail', hwtask_id=tasks.pk) 
 ```
 
-####　get_object
+#### get_object
 ```python
 class HWTask_Edit(UpdateView):
     model = HW
@@ -353,7 +353,7 @@ class HWTask_Edit(UpdateView):
 ```
 
 
-####　get
+#### get
 ```python
 class HWTask_Edit(UpdateView):
     model = HW
