@@ -127,7 +127,7 @@ class ResourceForm(forms.Form):
             #self._errors['end_date'] = self.error_class(['End date must be greater than start date']) 
             #self.add_error('end_date', "End date must be greater than start date")
             raise forms.ValidationError("End date must be greater than start date")
-        return self.cleaned_data 
+        return cleaned_data 
 
 ```
 

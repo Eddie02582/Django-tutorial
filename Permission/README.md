@@ -5,9 +5,9 @@
 
 1.permission_required(perm, login_url=None, raise_exception=False) 
 >> perm:設定權限 </br> 
->>>   add: user.has_perm('foo.add_hw')</br>
+>>>    add: user.has_perm('foo.add_hw')</br>
 >>>    change: user.has_perm('foo.change_hw')</br>
->>> delete: user.has_perm('foo.delete_hw')</br>
+>>>    delete: user.has_perm('foo.delete_hw')</br>
 >>>    view: user.has_perm('foo.view_hw') </br>     
   
 >>  login_url :沒權限導入的網址</br>
@@ -77,12 +77,13 @@ class HWTask_Create(CreateView):
 class HWTask_Create(CreateView):
     model = HW
     form_class=HWForm	
-    template_name = 'HW/Creat.html'  
-    
+    template_name = 'HW/Creat.html'      
 ``` 
 
 
 ## url.py 
+也可以在url.py 直接使用裝飾器
+
 
 **FBV**
 ```python

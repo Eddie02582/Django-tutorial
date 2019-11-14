@@ -28,9 +28,10 @@ def ApLoss_View(request):
             return render(request, 'APLoss.html', {'form': form,'feet':feet,'meters':meters})
 ```
 
+
 **url.py**
 ```python
-    path('APLoss/', views.ApLoss_View.as_view(), name='AP_Loss'),	
+    path('APLoss/', views.ApLoss_View, name='AP_Loss'),	
 ```
 
 
@@ -185,6 +186,24 @@ class ApLoss_View(FormView):
         return render(self.request, 'APLoss.html', {'form': form,'feet':feet,'meters':meters})
 ```
 
+```python
+class ApLoss_View(FormView):
+    form_class=APLossForm  
+    template_name = 'APLoss.html'	
+    
+    def post(self, request, *args, **kwargs):
+        form = self.form_class(request.POST) 
+        if form.is_valid():
+            Freq = form.cleaned_data.get('FreqInMHz')         
+            levelInDb = form.cleaned_data['levelInDb']
+            result = (27.55 - (20 * math.log10(Freq)) + math.fabs(levelInDb)) / 20.0
+            meters = math.pow(10, result)       
+            feet = meters * 3.2808            	    
+            return render(request, 'APLoss.html', {'form': form,'feet':feet,'meters':meters})
+        render(request, self.template_name, {'form': form}) 
+```
+
+
 
 ### ListView
 
@@ -195,10 +214,7 @@ class HWTask_View(ListView):
     context_object_name = 'tasks'
     template_name =  'Task/HW/ListView.html'
     paginate_by = 10
-
-    def get_queryset(self):
-        queryset= HW.objects.all().order_by('-modify_date') 
-        return queryset
+    
 ```
 
 ### CreatView
@@ -207,38 +223,13 @@ class HWTask_View(ListView):
 ```python
 class HWTask_Creat(CreateView):
     model = HW
-    #form_class=HWForm   
+    form_class = HWForm   
     template_name = 'Task/HW/Creat.html'
     success_url = reverse_lazy('hwtask_View')   
 ```
 
-希望成功後進入url傳入參數,因此改寫def get_success_url<br>
 
-**view.py**
-```python
-class HWTask_Creat(CreateView):
-    model = HW
-    form_class=HWForm   
-    template_name = 'Task/HW/Creat.html'
-    
-    def get_success_url(self):
-        return reverse('hwtask_detail', args=(self.object.id,))
-        
-```
 
-或者改寫form_valid
-
-**view.py**
-```python
-class HWTask_Create(CreateView):
-    model = HW
-    form_class=HWForm	
-    template_name = 'HW/Creat.html'  
-    
-    def form_valid(self, form): 
-        tasks = form.save(commit=True)   
-        return redirect('hwtask_detail', hwtask_id=tasks.pk) 
-```
 
 ### UpdateView
 **url.py**
@@ -256,70 +247,8 @@ class HWTask_Edit(UpdateView):
     context_object_name = 'tasks'  
 ```
 
-比如你希望一個用戶只能查看或編輯自己發表的文章對象。當用戶查看別人的對象時，返回http 404錯誤。<br>
-這時候你可以通過更具體的get_object（）方法來返回一個更具體的對象。如下：<br>
-
-**view.py**
-```python
-class HWTask_Edit(UpdateView):
-    model = HW
-    form_class=HWForm  
-    template_name = 'HW/Edit.html'
-    pk_url_kwarg = 'hwtask_id'
-    context_object_name = 'tasks' 
- 
-    def get_object(self, queryset=None):
-        obj = super().get_object(queryset=queryset)
-        if obj.author != self.request.user:
-            raise Http404()
-```
-
-你希望導回自己建立的網頁而非raise Http404(),先利用get_object()取得物件,在判斷是否是為同一使用者,不是返回access_error網頁
-**view.py**
-```python
-class HWTask_Edit(UpdateView):
-    model = HW
-    form_class=HWForm  
-    template_name = 'HW/Edit.html'
-    pk_url_kwarg = 'hwtask_id'
-    context_object_name = 'tasks' 
- 
-    def get(self, request, *args, **kwargs): 
-        obj=self.get_object()
-        username=[ owner.username for owner in obj.owner.all()]
-        if self.request.user.username  in username:
-            return super().get(request, *args, **kwargs)
-        else:            
-            return redirect('/accounts/access_error/')
-```
 
 
-
-介紹一個View共用的方法，避免重複寫code，定義ActionEditGetMixin，覆寫get method
-
-   
-```python
-class ActionEditGetMixin(object):
-    def get(self, request, *args, **kwargs): 
-        obj=self.get_object()
-        username=[ owner.username for owner in obj.owner.all()]
-        if self.request.user.username  in username:
-            return super().get(request, *args, **kwargs)
-        else:
-            #raise PermissionDenied
-            return redirect('/accounts/access_error/')
-
-```
-HWTask_Edit 同時繼承ActionEditGetMixin和UpdateView
-
-```python  
-class HWTask_Edit(ActionEditGetMixin,UpdateView):
-    model = HW
-    form_class=HWForm  
-    template_name = 'HW/Edit.html'
-    pk_url_kwarg = 'hwtask_id'
-    context_object_name = 'tasks' 
-```
 
 
 希望表單驗證時，有些資料需要在後台編輯修改(Form 可能沒完全包含整個Model fields)，可以透過override form_valid()
@@ -356,12 +285,118 @@ class HWTask_Detail(DetailView):
 
 
 
+### 其他應用
+
+####　get_context_data
+額外傳入資訊，可以修改context_data
 
 
+```python
+def get_context_data(self, **kwargs):
+    # Call the base implementation first to get a context
+    context = super().get_context_data(**kwargs)
+    # Add in a QuerySet of all the books
+    context['book_list'] = Book.objects.all()
+    return context
+```
+####　get_queryset
+修改queryset
+
+```python
+def get_queryset(self)
+    return Book.objects.filter(publisher=self.publisher)
+```
+
+####　get_success_url
+
+希望成功後進入url傳入參數,因此改寫def get_success_url<br>
+
+```python
+class HWTask_Creat(CreateView):
+    model = HW
+    form_class=HWForm   
+    template_name = 'Task/HW/Creat.html'
+    
+    def get_success_url(self):
+        return reverse('hwtask_detail', args=(self.object.id,))
+        
+```
+
+####　form_valid
+
+```python
+class HWTask_Create(CreateView):
+    model = HW
+    form_class=HWForm	
+    template_name = 'HW/Creat.html'  
+    
+    def form_valid(self, form): 
+        tasks = form.save(commit=False)  
+        tasks.starter = request.user
+        task.save()
+        return redirect('hwtask_detail', hwtask_id=tasks.pk) 
+```
+
+####　get_object
+```python
+class HWTask_Edit(UpdateView):
+    model = HW
+    form_class=HWForm  
+    template_name = 'HW/Edit.html'
+    pk_url_kwarg = 'hwtask_id'
+    context_object_name = 'tasks' 
+ 
+    def get_object(self, queryset=None):
+        obj = super().get_object(queryset=queryset)
+        if obj.author != self.request.user:
+            raise Http404()
+```
 
 
+####　get
+```python
+class HWTask_Edit(UpdateView):
+    model = HW
+    form_class=HWForm  
+    template_name = 'HW/Edit.html'
+    pk_url_kwarg = 'hwtask_id'
+    context_object_name = 'tasks' 
+ 
+    def get(self, request, *args, **kwargs): 
+        obj=self.get_object()
+        username=[ owner.username for owner in obj.owner.all()]
+        if self.request.user.username  in username:
+            return super().get(request, *args, **kwargs)
+        else:            
+            return redirect('/accounts/access_error/')
 
+```
 
+#### Mixin
 
+介紹一個View共用的方法，避免重複寫code，定義ActionEditGetMixin，覆寫get 
 
+   
+```python
+class ActionEditGetMixin(object):
+    def get(self, request, *args, **kwargs): 
+        obj=self.get_object()
+        username=[ owner.username for owner in obj.owner.all()]
+        if self.request.user.username  in username:
+            return super().get(request, *args, **kwargs)
+        else:
+            #raise PermissionDenied
+            return redirect('/accounts/access_error/')
+
+```
+HWTask_Edit 同時繼承ActionEditGetMixin和UpdateView
+
+```python  
+class HWTask_Edit(ActionEditGetMixin,UpdateView):
+    model = HW
+    form_class=HWForm  
+    template_name = 'HW/Edit.html'
+    pk_url_kwarg = 'hwtask_id'
+    context_object_name = 'tasks' 
+```
 
