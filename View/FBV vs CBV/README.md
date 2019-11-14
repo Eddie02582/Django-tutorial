@@ -372,7 +372,7 @@ class HWTask_Edit(UpdateView):
 
 ```
 
-#### Mixin
+### Mixin
 
 介紹一個View共用的方法，避免重複寫code，定義ActionEditGetMixin，覆寫get 
 
