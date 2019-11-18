@@ -141,7 +141,7 @@ class ChoiceInline(admin.TabularInline):
 
 給定ForeignKey出始値
 
-```
+```python 
 from django.forms.models import BaseInlineFormSet
 
 class ChoiceFormset(BaseInlineFormSet):
