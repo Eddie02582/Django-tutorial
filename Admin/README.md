@@ -14,4 +14,5 @@ class QuestionAdmin(admin.ModelAdmin):
 
 透過 admin.site.register 修改admin 方式
 
-<img src="admin.jpg" ></img>
+
+<img src="admin.png" alt="Smiley face">
