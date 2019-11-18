@@ -79,6 +79,49 @@ class Profiledmin(admin.ModelAdmin):
 
 
 #### 關聯式資料
+透過inlines將兩種資料庫連接,有兩種堆疊方式StackedInline,TabularInline
+
+
+##### OneToOneField
+我們建立一個Profile 對User使用 OneToOneField 擴充,希望能在User 建立介面能一起建立Profile
+
+```python 
+class ProfileInline(admin.StackedInline):
+    model = Profile   
+    verbose_name_plural = 'Profile'
+    fk_name = 'user'
+
+    fieldsets = [
+        ("Information", {'fields': ['Team','Supervisor','incumbent']}),
+        ('Contact information', {'fields': ['Ext','Cellphone_number','Short_number','WeChat_ID']}),
+    ]
+
+class CustomUserAdmin(UserAdmin):
+    inlines = (ProfileInline, )
+admin.site.unregister(User)
+admin.site.register(User, CustomUserAdmin)
+```
+
+StackedInline
+<img src="admin_4.png" alt="Smiley face">
+
+
+TabularInline
+<img src="admin_5.png" alt="Smiley face">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
