@@ -48,33 +48,58 @@ class Task(models.Model):
     Status_CHOICES = (
         ('Close', 'Close'),       
 		('Open', 'Open'),         
-    )    
+    )  
  
-    
     name = models.CharField(max_length=200,blank=True,default="") 
 
     start_date = models.DateField(default=timezone.now,null=True,blank=True)	  	
     end_date = models.DateField(null=True,blank=True)	 
 
-    owner= models.ManyToManyField(User,related_name='+',blank=True)
+    owner = models.ForeignKey(User, on_delete=models.CASCADE)
 
     note = TextField(max_length=8000,blank=True,default="")    
     status = models.CharField(max_length=10, null=False,choices=Status_CHOICES,default='Open')
     upload = models.FileField(upload_to=user_directory_path,null=True,blank=True) 
-    owner = models.ManyToManyField(User,related_name='+',blank=True)  
+   
 
 ```
 
-form.py
+不使用form.py <br>
+**view.py**
+
+```python 
+class AuthorCreate(CreateView):
+    model = Task
+    fields = ['name','status','start_date','end_date','note','upload']
+    def form_valid(self, form):
+        form.instance.owner = self.request.user
+        return super().form_valid(form)
+```
+
+**form.py**
 使用fields 指定表單model 的欄位
 
 ```python 
-class CommentForm(forms.ModelForm): 
+class TaskForm(forms.ModelForm): 
     class Meta:       
-        model = Comment         
-        fields = ['name','start_date','owner','note']
+        model = Task         
+        fields = ['name','status','start_date','end_date','note','upload']
         #fields = "__al__"
 ```
+
+**view.py**
+
+```python 
+class AuthorCreate(CreateView):
+    model = Task
+    form = TaskForm
+    def form_valid(self, form):
+        tasks = form.save(commit=False)
+        tasks.owner = self.request.user
+        #tasks.save()        
+        return super().form_valid(form)
+```
+
 
 
 進階修改欄位
@@ -121,11 +146,23 @@ class ResourceForm(forms.Form):
     def clean(self):   
         # data from the form is fetched using super function 
         cleaned_data  = super(ResourceForm, self).clean()  
-        start_date = self.cleaned_data.get('start_date') 
-        end_date = self.cleaned_data.get('end_date') 
+        start_date = cleaned_data.get('start_date') 
+        end_date = cleaned_data.get('end_date') 
         if not end_date>=start_date:            
             #self._errors['end_date'] = self.error_class(['End date must be greater than start date']) 
             #self.add_error('end_date', "End date must be greater than start date")
+            raise forms.ValidationError("End date must be greater than start date")
+        return cleaned_data 
+
+```
+指定欄位
+ ```python 
+    def clean_start_date(self):   
+        # data from the form is fetched using super function 
+        cleaned_data  = super(ResourceForm, self).clean()  
+        start_date = cleaned_data.get('start_date') 
+        end_date = cleaned_data.get('end_date') 
+        if not end_date>=start_date:    
             raise forms.ValidationError("End date must be greater than start date")
         return cleaned_data 
 
