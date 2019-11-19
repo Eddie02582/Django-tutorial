@@ -8,48 +8,140 @@
 
 
 ## Form
+自行定義form 表單欄位,在form.py 定義
 
-建立簡的form
+這邊設定欄位required=True,所以在進行表單驗證時,欄位必須需要填寫,才會驗證成功
+**form.py**
+```python 
+from django import forms			 
+class APLossForm(forms.Form):
+    FreqInMHz  = forms.FloatField(label='Freq (MHz)', required=True)
+    levelInDb = forms.FloatField(label='Rssi Level In dB', required=True)
+```
 
-form.py
+#### View 
+這邊分別介紹兩種view 函數的方法FBV 和CBV,詳情可以參考<a href = "https://github.com/Eddie02582/Django-tutorial/tree/master/View/FBV%20vs%20CBV">FBV VS CBV</a>
+
+##### FBV 
+這邊有幾個重點
+<ul>
+    <li>form = APLossForm()</li>
+    <li>form = APLossForm(request.POST)取得form POST 的資料</li>
+    <li>form.is_valid() 用來驗證表單資料是否正確</li>
+    <li>form.cleaned_data[field] 取得資料(field 對應form.py欄位)</li>
+</ul>
+
+**view.py**
+```python 
+def ApLoss_View(request):	
+    form = APLossForm()  
+    if request.method == 'POST':
+        form = APLossForm(request.POST)	
+        if form.is_valid():             
+            Freq = form.cleaned_data.get('FreqInMHz')         
+            levelInDb = form.cleaned_data['levelInDb']
+            result = (27.55 - (20 * math.log10(Freq)) + math.fabs(levelInDb)) / 20.0
+            meters = math.pow(10, result)       
+            feet = meters * 3.2808            	    
+            return render(request, 'APLoss.html', {'form': form,'feet':feet,'meters':meters})		        
+    else:        
+        return render(request, 'APLoss.html', {'form': form})	
+
+```
+
+
+##### CBV
+這邊有幾個重點
+<ul>
+    <li>form_class 指定 form格式</li>
+    <li>template_name 指定 模版</li>
+    <li>form_valid 如果資料驗證成功會執行的函數</li>   
+</ul>
+
+**view.py**
 ```python 
 
-from django import forms
-			 
-class BMIForm(forms.Form):
-    Height  = forms.FloatField(label='Height (m)', required=True)
-    Weight = forms.FloatField(label='Weight (kg)', required=True)
-
+class ApLoss_View(FormView):
+    form_class = APLossForm  
+    template_name = 'APLoss.html'
+	
+    def form_valid(self, form):        
+        Freq = form.cleaned_data.get('FreqInMHz')         
+        levelInDb = form.cleaned_data['levelInDb']
+        result = (27.55 - (20 * math.log10(Freq)) + math.fabs(levelInDb)) / 20.0
+        meters = math.pow(10, result)       
+        feet = meters * 3.2808            	    
+        return render(self.request, 'APLoss.html', {'form': form,'feet':feet,'meters':meters})
 ```
 
-html
+
+#### html
+
+
+##### form.as_p
+
+**html**
 ```html
-<form enctype="multipart/form-data" action="" method="post">
+<form enctype="form-data" action="" method="post">
+    {% csrf_token %}	
+	{{form.as_p}}	
+    <input type="submit" value="Run">		
+</form>
+{% if  feet and meters %}
+	feet: {{feet}}<br>
+	meters: {{meters}} <br>
+{% endif %}
+```
+
+<img src="form_1.png">
+
+##### form.as_table
+
+**html**
+```html
+<form enctype="form-data" action="" method="post">
+    {% csrf_token %}	
+	{{form.as_table}}	
+    <input type="submit" value="Run">		
+</form>
+{% if  feet and meters %}
+	feet: {{feet}}<br>
+	meters: {{meters}} <br>
+{% endif %}
+```
+
+<img src="form_2.png">
+
+##### form.field
+也可以自訂顯示
+```html
+<form enctype="form-data" action="" method="post">
     {% csrf_token %}
-    {{form.as_p}}	
-        <input type="submit" value="Run">	
-	{% if  bmi %}
-        BMI is : {{bmi}}
-	{% endif %} 	
+	<div class="form-group ">
+		 {{form.FreqInMHz.label}} {{form.FreqInMHz}} 				
+	</div>	
+	
+	<div class="form-group ">
+		 {{form.levelInDb.label}} {{form.levelInDb}} 				
+	</div> 	
+    <input type="submit" value="Run">	
+	
 </form>
 ```
-
-網頁顯示
-<img src="form_example.png">
 
 
 ## ModelForm
 假設有一個Model
 
-model.py
+**model.py**
+
 ```python 
 class Task(models.Model):
 
     Status_CHOICES = (
         ('Close', 'Close'),       
 		('Open', 'Open'),         
-    )  
- 
+    )   
     name = models.CharField(max_length=200,blank=True,default="") 
 
     start_date = models.DateField(default=timezone.now,null=True,blank=True)	  	
@@ -89,6 +181,7 @@ class TaskForm(forms.ModelForm):
 
 **view.py**
 
+也可以使用FBV
 ```python 
 class AuthorCreate(CreateView):
     model = Task
@@ -135,7 +228,7 @@ upload = forms.FileField(widget=forms.ClearableFileInput(attrs={'multiple': True
 		}
 ```
 
-### 自訂form error
+## 自訂form error
 
  ```python 
 class ResourceForm(forms.Form):   
