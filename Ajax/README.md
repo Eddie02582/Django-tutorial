@@ -2,6 +2,10 @@
 
 有時候我們希望網頁在不重新讀取的情況下更新資料
 
+ajax 
+
+
+
 
 ## example 1
 
@@ -66,7 +70,9 @@ def ajax_example(request):
     </select>     
 </form>
 
+```
 
+```javascript
 <script>
     function load_city_choice () {  
 		var country = $(this).val();
@@ -75,20 +81,17 @@ def ajax_example(request):
         
 		$.get("/ajax/get_city_choices",data, function(data){ 
             var content = ''; 
-                $.each(data["city"], function(i, item) {                                                                       
-                     content += '<option value=' + item + '>' + item + '</option>'
-                    });
-                $('#select-city').html(content);  
-			})    
+            $.each(data["city"], function(i, item) {                                                                       
+                content += '<option value=' + item + '>' + item + '</option>'
+             });
+            $('#select-city').html(content);  
+		})    
    
 	} 
 	
 	$("#select-country").change(load_city_choice);
 
 </script>
-
-
-
 ```
 
 ## example 2
@@ -262,7 +265,7 @@ html 模板
                     'data_lastname':data_lastname,
                     'data_gender':data_gender,
             },            
-            type: "GET",
+            type: "POST",
             dataType: "json", 
             contentType: "application/x-www-form-urlencoded/json",
         });          
@@ -282,12 +285,12 @@ html 模板
 js存入陣列在python 取資料的方法
 ```python
 def ajax_test_item_save_all(request):
-    if request.method == 'GET':
+    if request.method == 'POST':
     
-        data_firstname = request.GET.getlist('data_firstname[]')
-        data_id = request.GET.getlist('data_id[]')
-        data_gender = request.GET.getlist('data_gender[]')
-        data_lastname = request.GET.getlist('data_lastname[]')  
+        data_firstname = request.POST.getlist('data_firstname[]')
+        data_id = request.POST.getlist('data_id[]')
+        data_gender = request.POST.getlist('data_gender[]')
+        data_lastname = request.POST.getlist('data_lastname[]')  
    
         objs = [ User.objects.get(id = id) for id in data_id]
         for i in range(len(objs)):          
