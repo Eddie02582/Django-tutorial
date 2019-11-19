@@ -19,10 +19,10 @@ class APLossForm(forms.Form):
     levelInDb = forms.FloatField(label='Rssi Level In dB', required=True)
 ```
 
-#### View 
+### View 
 這邊分別介紹兩種view 函數的方法FBV 和CBV,詳情可以參考<a href = "https://github.com/Eddie02582/Django-tutorial/tree/master/View/FBV%20vs%20CBV">FBV VS CBV</a>
 
-##### FBV 
+#### FBV 
 這邊有幾個重點
 <ul>
     <li>form = APLossForm()</li>
