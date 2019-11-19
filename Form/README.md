@@ -50,7 +50,7 @@ def ApLoss_View(request):
 ```
 
 
-##### CBV
+#### CBV
 這邊有幾個重點
 <ul>
     <li>form_class 指定 form格式</li>
@@ -75,7 +75,7 @@ class ApLoss_View(FormView):
 ```
 
 
-#### html
+### html
 
 
 ##### form.as_p
@@ -95,7 +95,7 @@ class ApLoss_View(FormView):
 
 <img src="form_1.png">
 
-##### form.as_table
+#### form.as_table
 
 **html**
 ```html
@@ -112,7 +112,7 @@ class ApLoss_View(FormView):
 
 <img src="form_2.png">
 
-##### form.field
+#### form.field
 也可以自訂顯示
 ```html
 <form enctype="form-data" action="" method="post">
