@@ -282,8 +282,12 @@ html 模板
 </ul> 
 
 
-js存入陣列在python 取資料的方法
+js存入陣列在python 取資料的方法,注意使用Ajax POST 要使用csrf驗證
 ```python
+
+from django.views.decorators.csrf import csrf_exempt
+@csrf_exempt
+
 def ajax_test_item_save_all(request):
     if request.method == 'POST':
     
