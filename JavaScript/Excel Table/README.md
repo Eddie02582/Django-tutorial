@@ -3,13 +3,17 @@
 <a href = https://github.com/chestercharles/excel-bootstrap-table-filter>參考 chestercharles github </a>
 
 
+
 <img src = "1.png"> 
+
+
 
 
 
 
 ## 如何使用
 
+<a href ="https://github.com/Eddie02582/Django-tutorial/blob/master/JavaScript/Excel%20Table/excel-bootstrap-table-filter-style.html">example code</a>
 #### 1. Include css/script
 
 ```html
@@ -39,7 +43,7 @@
     </thead>
 ```
 
-<a href ="https://github.com/Eddie02582/Django-tutorial/blob/master/JavaScript/Excel%20Table/excel-bootstrap-table-filter-style.html">example code</a>
+
 
 
 
