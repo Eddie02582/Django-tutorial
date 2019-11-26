@@ -40,6 +40,14 @@ def HWTask_Detail(request,hwtask_id):
 def HWTask_Detail(request,hwtask_id): 
     task = get_object_or_404(HW, pk=hwtask_id) 
     return render(request, 'HW/Detail.html', {'task': task})
+    
+
+def HWTask_Detail(request,hwtask_id): 
+    if not request.user.has_perm('catalog.view_hw'):
+         return redirect('/accounts/access_error/')  
+    task = get_object_or_404(HW, pk=hwtask_id) 
+    return render(request, 'HW/Detail.html', {'task': task})
+        
 
 ```
 
