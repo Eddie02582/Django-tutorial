@@ -75,61 +75,6 @@ class ApLoss_View(FormView):
 ```
 
 
-### html
-
-
-##### form.as_p
-
-**html**
-```html
-<form enctype="form-data" action="" method="post">
-    {% csrf_token %}	
-	{{form.as_p}}	
-    <input type="submit" value="Run">		
-</form>
-{% if  feet and meters %}
-	feet: {{feet}}<br>
-	meters: {{meters}} <br>
-{% endif %}
-```
-
-<img src="form_1.png">
-
-#### form.as_table
-
-**html**
-```html
-<form enctype="form-data" action="" method="post">
-    {% csrf_token %}	
-	{{form.as_table}}	
-    <input type="submit" value="Run">		
-</form>
-{% if  feet and meters %}
-	feet: {{feet}}<br>
-	meters: {{meters}} <br>
-{% endif %}
-```
-
-<img src="form_2.png">
-
-#### form.field
-也可以自訂顯示
-```html
-<form enctype="form-data" action="" method="post">
-    {% csrf_token %}
-	<div class="form-group ">
-		 {{form.FreqInMHz.label}} {{form.FreqInMHz}} 				
-	</div>	
-	
-	<div class="form-group ">
-		 {{form.levelInDb.label}} {{form.levelInDb}} 				
-	</div> 	
-    <input type="submit" value="Run">	
-	
-</form>
-```
-
-
 ## ModelForm
 假設有一個Model
 
@@ -193,31 +138,56 @@ class AuthorCreate(CreateView):
         return super().form_valid(form)
 ```
 
-
-
-進階修改欄位
+## Form 進階(Form 與ModelForm 皆適用) 
+一般簡單的
+```python 
+from django import forms			 
+class APLossForm(forms.Form):
+    FreqInMHz  = forms.FloatField(label='Freq (MHz)', required=True)
+    levelInDb = forms.FloatField(label='Rssi Level In dB', required=True)
+```
  
- 
+
+###進階修改欄位
+修改widget
 
 ```python 
-class CommentForm(forms.ModelForm): 
-owner= forms.ModelMultipleChoiceField(queryset=User.objects.filter(groups=Group.objects.get(name='RD')),                                            
-                                              widget=FilteredSelectMultiple("Validation Staff", is_stacked=False), required=False)	  
-start_date= forms.DateField(widget=forms.DateInput(attrs={'type': 'date'},format=('%Y-%m-%d')), required=False)	
-upload = forms.FileField(widget=forms.ClearableFileInput(attrs={'multiple': True}), required=False) 
-    class Meta:       
-        model = Comment         
-        fields = ['name','start_date','owner','note']
-        #fields = "__al__"
+from django import forms			 
+class APLossForm(forms.Form):
+    FreqInMHz = forms.CharField(label='Freq',required=True,widget=forms.TextInput(attrs={'placeholder': 'Freq (MHz)','class':'form-control'}))
+    levelInDb = forms.CharField(label='Rssi',required=True,widget=forms.TextInput(attrs={'placeholder': 'Rssi (dB)','class':'form-control'}))
 ```
 
-修改widgets
+假設我們不改變widget 只想改變屬性可以修改__init__
+```python  
+class APLossForm(forms.Form):
+    FreqInMHz  = forms.FloatField(label='Freq (MHz)', required=True)
+    levelInDb = forms.FloatField(label='Rssi Level In dB', required=True)
+    def __init__(self, *args, **kwargs):
+         super().__init__(*args, **kwargs)
+         for field_name, field in self.fields.items():
+            field.widget.attrs['class'] = 'form-control'	
  
+```
+
+修改特定欄位屬性
+```python 
+from django import forms			 
+class APLossForm(forms.Form):
+    FreqInMHz  = forms.FloatField(label='Freq (MHz)', required=True)
+    levelInDb = forms.FloatField(label='Rssi Level In dB', required=True)
+    def __init__(self, *args, **kwargs):
+         super().__init__(*args, **kwargs)
+         self.fields['FreqInMHz'].widget.attrs['class'] = 'form-control'	
+
+```
+
+ModelForm 還可以透過widgets修改<br>
+note為CharField預設的widget 將其修改為TextInput
+
  
  ```python 
 class CommentForm(forms.ModelForm): 
-owner= forms.ModelMultipleChoiceField(queryset=User.objects.filter(groups=Group.objects.get(name='RD')),                                            
-                                              widget=FilteredSelectMultiple("Validation Staff", is_stacked=False), required=False)	  
 start_date= forms.DateField(widget=forms.DateInput(attrs={'type': 'date'},format=('%Y-%m-%d')), required=False)	
 upload = forms.FileField(widget=forms.ClearableFileInput(attrs={'multiple': True}), required=False) 
     class Meta:       
@@ -228,7 +198,7 @@ upload = forms.FileField(widget=forms.ClearableFileInput(attrs={'multiple': True
 		}
 ```
 
-## 自訂form error
+### 自訂form error
 
  ```python 
 class ResourceForm(forms.Form):   
