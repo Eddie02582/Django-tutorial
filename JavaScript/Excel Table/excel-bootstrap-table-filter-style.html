@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>Bootstrap 实例</title>
+<head> 
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
@@ -16,76 +15,50 @@
 <table class="table table-striped table-horver" id="table-info">
     <thead>
       <tr>
-        <th>Firstname</th>
-        <th>Lastname</th>
-        <th class = "no-filter">Email</th>
+        <th class = "no-filter no-sort">Firstname</th>
+        <th class = "no-filter">Lastname</th>
+        <th>Team</th>       
       </tr>
     </thead>
-    <tbody>
+    <tbody>     
       <tr>
-        <td>John</td>
-        <td>Doe</td>
-        <td>john@example.com</td>
+        <td>James</td>
+        <td>Harden</td>
+        <td>Rocket</td>
       </tr>
       <tr>
-        <td>Mary</td>
-        <td>Moe</td>
-        <td>mary@example.com</td>
-      </tr>
-      <tr>
-        <td>July</td>
-        <td>Dooley</td>
-        <td>july@example.com</td>
-      </tr>
-      <tr>
-        <td>July</td>
-        <td>Dooley</td>
-        <td>july@example.com</td>
-      </tr>
-      <tr>
-        <td>July</td>
-        <td>Dooley</td>
-        <td>july@example.com</td>
+        <td>Russell</td>
+        <td>Westbook</td>
+        <td>Rocket</td>
       </tr>  
       <tr>
-        <td>July</td>
-        <td>Dooley</td>
-        <td>july@example.com</td>
+        <td>Lebron</td>
+        <td>James</td>
+        <td>Lakers</td>
       </tr>   
       <tr>
-        <td>July</td>
-        <td>Dooley</td>
-        <td>july@example.com</td>
-      </tr>         
+        <td>Luka</td>
+        <td>Doncic</td>
+        <td>Mavericks</td>
+      </tr>  
       <tr>
-        <td>July</td>
-        <td>Dooley</td>
-        <td>july@example.com</td>
-      </tr>   
+        <td>Paul</td>
+        <td>George</td>
+        <td>Clipper </td>
+      </tr>  
       <tr>
-        <td>July</td>
-        <td>Dooley</td>
-        <td>july@example.com</td>
-      </tr>   
-      
+        <td>Kawhi</td>
+        <td>Leonard</td>
+        <td>Clipper </td>
+      </tr>       
     </tbody>
 </table>
 
-
-
-
-
-  <script>
-    // Use the plugin once the DOM has been loaded.
-    $(function () {      
-      $('#table-info').excelTableFilter();
-    });
-  </script>
-
+ <script>
+    $('#table-info').excelTableFilter();
+  </script> 
 
 </body>
-
-
 
 
 </html>
