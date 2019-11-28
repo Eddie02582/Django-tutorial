@@ -35,8 +35,8 @@
 
 
 
-## html
-在table 前面新增<div>
+### 3. html
+在table 前面新增 div 
 
  ``` html
    <div class="table-scrollable" style="overflow-x: auto">  
