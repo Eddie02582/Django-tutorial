@@ -4,166 +4,47 @@
 <a href = https://github.com/yidas/jquery-freeze-table>參考 yidas github </a>
 
 
-html
+<img src = "1.png"> 
+
+
+## 如何使用
+
+
+
+#### 1. Include script
+
 ```html
-<div class="table-scrollable" style="overflow-x: auto;">  
-<table class="table table-striped table-horver" id="table-info">
-    <thead>
-      <tr>        
-        <th>Firstname</th>
-        <th>Lastname</th>
-        <th>Email</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>John</td>
-        <td>Doe</td>
-        <td>john@example.com</td>
-      </tr>
-      <tr>
-        <td>Mary</td>
-        <td>Moe</td>
-        <td>mary@example.com</td>
-      </tr>
-      <tr>
-        <td>July</td>
-        <td>Dooley</td>
-        <td>july@example.com</td>
-      </tr>
-      <tr>
-        <td>July</td>
-        <td>Dooley</td>
-        <td>july@example.com</td>
-      </tr>
-      <tr>
-        <td>July</td>
-        <td>Dooley</td>
-        <td>july@example.com</td>
-      </tr>  
-      <tr>
-        <td>July</td>
-        <td>Dooley</td>
-        <td>july@example.com</td>
-      </tr>   
-      <tr>
-        <td>July</td>
-        <td>Dooley</td>
-        <td>july@example.com</td>
-      </tr>         
-      <tr>
-        <td>July</td>
-        <td>Dooley</td>
-        <td>july@example.com</td>
-      </tr>   
-      <tr>
-        <td>July</td>
-        <td>Dooley</td>
-        <td>july@example.com</td>
-      </tr>   
-      <tr>
-        <td>John</td>
-        <td>Doe</td>
-        <td>john@example.com</td>
-      </tr>
-      <tr>
-        <td>Mary</td>
-        <td>Moe</td>
-        <td>mary@example.com</td>
-      </tr>
-      <tr>
-        <td>July</td>
-        <td>Dooley</td>
-        <td>july@example.com</td>
-      </tr>
-      <tr>
-        <td>July</td>
-        <td>Dooley</td>
-        <td>july@example.com</td>
-      </tr>
-      <tr>
-        <td>July</td>
-        <td>Dooley</td>
-        <td>july@example.com</td>
-      </tr>  
-      <tr>
-        <td>July</td>
-        <td>Dooley</td>
-        <td>july@example.com</td>
-      </tr>   
-      <tr>
-        <td>July</td>
-        <td>Dooley</td>
-        <td>july@example.com</td>
-      </tr>   
-      <tr>
-        <td>John</td>
-        <td>Doe</td>
-        <td>john@example.com</td>
-      </tr>
-      <tr>
-        <td>Mary</td>
-        <td>Moe</td>
-        <td>mary@example.com</td>
-      </tr>
-      <tr>
-        <td>July</td>
-        <td>Dooley</td>
-        <td>july@example.com</td>
-      </tr>
-      <tr>
-        <td>July</td>
-        <td>Dooley</td>
-        <td>july@example.com</td>
-      </tr>
-      <tr>
-        <td>July</td>
-        <td>Dooley</td>
-        <td>july@example.com</td>
-      </tr> 
-      
-    </tbody>
-</table>
- </div>	
+<script src="freeze-table.js"></script>
 ```
 
-## freeze-row
+
+#### 2. html Add javasctipt
+預設設定為固定第一欄<br>
+若想要固定Column,將freezeColumn 設定為true,並指定要凍結的個數(columnNum)
+
+
 
  ``` javascript
-    $(document).ready(function() {
-      
-        $(".table-scrollable").freezeTable({
-          'scrollable': false,
-          'freezeColumn':false,
-          'columnNum':1,
-        }); 
-    });
-
-```
-
-## freeze-col
-若想要固定Column,需將freezeColumn改成True,再設定固定的欄位columnNum
- ``` javascript
-    $(document).ready(function() {
-      
-        $(".table-scrollable").freezeTable({
-          'scrollable': false,
+    $(document).ready(function() {      
+        $(".table-scrollable").freezeTable({         
           'freezeColumn':true,
-          'columnNum':1,
+          'columnNum':5,
         }); 
-    });
-
+     });
 ```
 
 
-## freeze-update
 
- ``` javascript
-    function updatfreezeTablee() {     
-       
-      var freezeTable = new FreezeTable('.table-scrollable', {'columnNum': '3'});
-      freezeTable.update();   
-    }
+## html
+在table 前面新增<div>
+
+ ``` html
+   <div class="table-scrollable" style="overflow-x: auto">  
+        <table>
+            ......
+        </tablee>
+   
+   </div>
 ```
 
 

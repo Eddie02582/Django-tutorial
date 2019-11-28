@@ -1,4 +1,4 @@
-# Freeze Table
+# Excel Table
 
 <a href = https://github.com/chestercharles/excel-bootstrap-table-filter>參考 chestercharles github </a>
 
