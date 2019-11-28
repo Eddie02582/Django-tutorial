@@ -12,5 +12,9 @@ Table 相關應用
     <li><a href="https://github.com/Eddie02582/Django-tutorial/tree/master/JavaScript/Excel%20Table" >Export Table</a></li>
 </ul>
 
+Others
 
-<a href="https://github.com/Eddie02582/Django-tutorial/tree/master/JavaScript/Excel%20Table" >Excel Table</a>
+<ul>
+    <li><<a href="https://github.com/Eddie02582/Django-tutorial/tree/master/JavaScript/NavBar%20Muility%20Layer" >NavBar Muility Layer</a></li>
+ 
+</ul>

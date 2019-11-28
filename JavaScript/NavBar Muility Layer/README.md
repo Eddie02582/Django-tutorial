@@ -21,7 +21,7 @@
 
 
 ### 2. html
-在table 前面新增 div 
+
 
  ``` html
 <nav class="navbar navbar-expand-sm navbar-light" style="background: #96b97d;">
