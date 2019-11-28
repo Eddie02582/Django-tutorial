@@ -1,51 +1,26 @@
-# Tree Grid
+<!DOCTYPE html>
+<html>
+<head> 
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
+  <script src="https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://cdn.staticfile.org/popper.js/1.15.0/umd/popper.min.js"></script>
+  <script src="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
 
 
-<a href = https://github.com/maxazan/jquery-treegrid>參考 maxazan github </a>
-
-
-<img src = "1.png"> 
-
-
-## 如何使用
-
-
-
-#### 1. Include css/script
-
-
-```html
   <link rel="stylesheet" href="treegrid/css/jquery.treegrid.css">
   <script src="treegrid/js/jquery.treegrid.js"></script> 
-```
 
+</head>
 
-
-
-#### 2. html Add javasctipt
-預設設定為固定第一欄<br>
-若想要固定Column,將freezeColumn 設定為true,並指定要凍結的個數(columnNum)
-
-
- ``` html
 <script type="text/javascript">
   $(document).ready(function() {
     $('.tree').treegrid();               
   });
-</script>;
-```
+</script>
+<body>
 
-
-
-### 3. table
-<ul>
-    <li>透過 class="treegrid-[name]" 指定結點名稱</li>
-    <li>透過 class="treegrid-parent-[parent_name]" 指定父結點的名稱</li>  
-    <li>重複即可產生好幾層</li>  
-</ul>
-
-
- ``` html
 <table class="table tree table-striped">  
     <thead>  
         <tr>		             	 		
@@ -109,19 +84,9 @@
 </table>
 
 
-```
+
+</body>
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
+</html>
