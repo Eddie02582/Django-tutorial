@@ -60,7 +60,7 @@ if settings.DEBUG:
     ] 
 
 ```
-## Reslut
+## Result
 
 
 <img src="1.png" alt="Smiley face">
