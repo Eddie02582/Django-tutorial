@@ -120,7 +120,7 @@ owner 的first_name包含Eddie,James...,owner 是關聯User資料庫,User 資料
 Returns a new QuerySet containing objects that do not match the given lookup parameters.
 
 ```python
-    Task.objects.filter(status='Open').exclude(project_contaions ='Django')
+    Task.objects.filter(status='Open').exclude(name_contaions ='Django')
 ```
 #### values
 指定欄位匯出,格式字典
