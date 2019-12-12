@@ -236,10 +236,10 @@ TestItem.objects.aggregate(Max('end_date'))
 ``` 
 
 
-#### select_related() 
-適用Foreign key
+#### prefetch_related() 
+適用Many to Many
 
  ```python
-    tasks= Task.objects.all()..prefetch_related('owner')
+    tasks= Task.objects.all().prefetch_related('owner')
 ``` 
 
