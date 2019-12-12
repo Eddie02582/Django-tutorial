@@ -63,10 +63,8 @@ python manage.py makemigrations --empty app
 
 <a href="https://github.com/Eddie02582/Django-tutorial/tree/master/Model/QuerySet">QuerySet</a>
 <u1>
-    <li>Create Object</li>
+    <li><a href = "https://github.com/Eddie02582/Django-tutorial/tree/master/Model/QuerySet#1create-object">Create Object</a></li>
     <li><a href=https://github.com/Eddie02582/Django-tutorial/tree/master/Model/QuerySet#2query>Query</a></li>
-    <li><a href=https://github.com/Eddie02582/Django-tutorial/tree/master/Model/QuerySet#3update>Update</a></li>
-    <li><a href=https://github.com/Eddie02582/Django-tutorial/tree/master/Model/QuerySet#4orderby>Order By</a></li> 
 </ul>
 
 
