@@ -1,6 +1,6 @@
 # Django-ckeditor
 
-<a href="https://django-filter.readthedocs.io/en/master/">官方教學</a>
+<a href="https://django-filter.readthedocs.io/en/master/index.html">官方教學</a>
 
 
 
