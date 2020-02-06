@@ -1,12 +1,12 @@
 # Admin
 
+
+model.py如下,Topics ForeignKey Board
+
+
+```python 
 from django.db import models
 from django.contrib.auth.models import User
-
-
-model.py如下
-```python 
-
 class Board(models.Model):
     name = models.CharField(max_length=30, unique=True)
     description = models.CharField(max_length=100)
@@ -16,9 +16,7 @@ class Board(models.Model):
         return Post.objects.filter(topic__board=self).count()
 
     def get_last_post(self):
-        return Post.objects.filter(topic__board=self).order_by('-created_at').first()
-
-	
+        return Post.objects.filter(topic__board=self).order_by('-created_at').first()	
 		
 class Topic(models.Model):
     subject = models.CharField(max_length=255)
@@ -86,7 +84,7 @@ class Profiledmin(admin.ModelAdmin):
 
 
 ##### ForeignKey
-這邊incline 有2種方式TabularInline和StackedInline
+這邊incline 有2種方式TabularInline和StackedInline 顯示方式
 
 ```python 
 class Topic_Incline(admin.TabularInline):
@@ -102,15 +100,16 @@ class Boarddmin(admin.ModelAdmin):
 admin.site.register(Board,BoardAdmin)
 ```
 
-TabularInline
-<img src="admin_4.png" alt="Smiley face">
-
-StackedInline
+<ul>
+    <li>TabularInline 顯示<img src="admin_4.png" alt="Smiley face"></li>
+    <li>StackedInline 顯示<img src="admin_5.png" alt="Smiley face"></li>
+</ul>
+StackedInline 顯示
 <img src="admin_5.png" alt="Smiley face">
 
 
 
-固定extra個數,修改get_extra函數
+如何固定extra個數,修改get_extra函數
 
 
 ```python 
@@ -125,7 +124,7 @@ class Topic_Incline(admin.TabularInline):
 	
 ```
 
-給定ForeignKey出始値
+如何固定出始値
 
 ```python 
 from django.forms.models import BaseInlineFormSet
