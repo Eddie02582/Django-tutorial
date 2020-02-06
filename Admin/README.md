@@ -149,9 +149,12 @@ class Topic_Incline(admin.TabularInline):
         return extra	
         
 ```
+##### OneToOneField
+
+
 
 ##### ManyToMany
-修改ManyToMany 顯示方式
+修改ManyToMany 編輯顯示方式
 
 ```python 
 class AuthorAdmin(admin.ModelAdmin):  
