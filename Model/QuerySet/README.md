@@ -232,7 +232,7 @@ TestItem.objects.aggregate(Max('end_date'))
 適用Foreign key
 
  ```python
-    tasks= Task.objects.all().select_related('project')..distinct() 
+    tasks= Task.objects.all().select_related('project').distinct() 
 ``` 
 
 
@@ -242,4 +242,52 @@ TestItem.objects.aggregate(Max('end_date'))
  ```python
     tasks= Task.objects.all().prefetch_related('owner')
 ``` 
+
+
+
+## 3.Advance
+
+
+### Q
+
+```python
+from django.db.models import Q
+
+
+models.objects.all().filter(Q(id=1)|Q(id__gt=3))#條件是or的關係
+models.Uinfo.objects.all().filter(Q(id=1) & Q(id=4))# 條件是and的關係
+
+
+```
+另一種使用方法
+
+```python
+from django.db.models import Q
+q1=Q()
+q1.connector = 'OR'
+q1.children.append(('id',1))
+q1.children.append(('id',3))
+q1.children.append(('id',6))
+
+q2=Q()
+q2.connector = 'OR'
+q2.children.append(('c',2))
+q2.children.append(('c',4))
+q2.children.append(('c',6))
+
+#con 通過and的條件把q1和q2 合在一起 
+    con=Q()
+    con.add(q1,'AND')
+    con.add(q2,'AND')
+```
+
+
+
+
+
+
+
+
+
+
 
