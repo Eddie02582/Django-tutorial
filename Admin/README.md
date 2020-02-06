@@ -151,7 +151,7 @@ class Topic_Incline(admin.TabularInline):
 ```
 ##### OneToOneField
 
-
+請參考此連結<a href = "https://github.com/Eddie02582/Django-tutorial/tree/master/Advanced/Admin%20User%20Modify#incline">OneToOneField</a>
 
 ##### ManyToMany
 修改ManyToMany 編輯顯示方式
