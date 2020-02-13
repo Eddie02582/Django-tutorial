@@ -24,6 +24,7 @@ python manage.py dumpdata > db.json
 <img src="3.png" >
 設定權限
 <img src="4.png" >
+
 #### 建立資料庫
 
 <img src="5.png" >
