@@ -75,7 +75,7 @@ python manage migrate auth
 python manage migrate 
 ```
 
-如果還是不行,請照下面作法
+如果還是不行,可能你其他的app 與profile 相關,請照下面作法
 
 將url 相關app 註解 和setting.py installapp註解
 
