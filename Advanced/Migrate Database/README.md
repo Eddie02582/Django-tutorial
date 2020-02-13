@@ -64,3 +64,33 @@ quit()
 ```
 python manage.py loaddata db.json
 ```
+
+## python manage migrate error
+假設你使用<a href="https://github.com/Eddie02582/Django-tutorial/tree/master/Extend%20Django%20USER%20Model#using-one-to-one-link-with-a-user-modelprofile">Using One-To-One Link With a User Model(Profile) </a>
+
+可能會使得python manage.py migrate報錯,這時候你可能需要分開
+
+```
+python manage migrate auth
+python manage migrate 
+```
+
+如果還是不行,請照下面作法
+
+將url 相關app 註解 和setting.py installapp註解
+
+在執行 python manage.py migrate auth即可
+
+在把 setting install app 取消註解
+
+執行 python manage.py migrate 
+
+
+
+
+
+
+
+
+
+
