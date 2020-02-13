@@ -49,7 +49,8 @@ DATABASES = {
 
 ### 遷移資料庫
 ```
-python manage migrate
+#python manage migrate
+python manage.py migrate --run-syncdb
 ```
 
 ### 修復資料
