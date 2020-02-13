@@ -15,7 +15,15 @@ python manage.py dumpdata > db.json
 ### 建立PostgreSQL DataBase
 這邊使用pgAdmin建立<br>
 #### 先建立使用者
+步驟如下
 
+<img src="1.png">
+設定使用者名稱
+<img src="2.png">
+設定密碼
+<img src="3.png">
+設定權限
+<img src="4.png">
 
 #### 建立資料庫
 
