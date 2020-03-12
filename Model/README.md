@@ -38,7 +38,6 @@ python manage.py makemigrations --empty app
 
 以下Model相關介紹
 
-<a href="https://github.com/Eddie02582/Django-tutorial/tree/master/Model/Field">Field</a>
 <u1>
     <li>
     <a href="https://github.com/Eddie02582/Django-tutorial/tree/master/Model/Field">Field</a>    
@@ -73,5 +72,13 @@ python manage.py makemigrations --empty app
     </li>
 </ul>
 
+<ul>
+    <li><a href = "/automation/">Automation
+        <ul>
+            <li><a href = "/automation/modularizedBom/">Modularized Bom</a></li>  
+            <li><a href = "/automation/compareModularizedBom/">Compare Modularized Bom </a></li>                                  
+        </ul>
+    </li>  
+</ul>
 
 
