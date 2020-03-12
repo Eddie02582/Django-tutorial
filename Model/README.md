@@ -73,10 +73,10 @@ python manage.py makemigrations --empty app
 </ul>
 
 <ul>
-    <li><a href = "/automation/">Automation
+    <li><a href="https://github.com/Eddie02582/Django-tutorial/tree/master/Model/Field">Field</a>  
         <ul>
-            <li><a href = "/automation/modularizedBom/">Modularized Bom</a></li>  
-            <li><a href = "/automation/compareModularizedBom/">Compare Modularized Bom </a></li>                                  
+            <li> <a href = "https://github.com/Eddie02582/Django-tutorial/tree/master/Model/Field#field-introduction"> Field Introduction</a></li>
+            <li> <a href = "https://github.com/Eddie02582/Django-tutorial/tree/master/Model/Field#field-option"> Field Option</a></li>                              
         </ul>
     </li> 
     <li><a href = "/automation/">Automation
