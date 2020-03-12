@@ -3,6 +3,7 @@
 
 ## 安裝
 
+<a href ="http://www.jishuwen.com/d/2IGy/zh-tw">詳情可以參考這篇</a>
 首先在cmd 執行
 
 ```
@@ -30,28 +31,10 @@ INSTALLED_APPS = [
 
 ```python
 from ckeditor.fields import RichTextField
-class Task(models.Model):
-    Status_CHOICES = (
-        ('Close', 'Close'),       
-		('Open', 'Open'), 
-    )
-    Priority_CHOICES = (         
-        ('High', 'High'),       
-		('Middle', 'Middle'),  
-        ('Low', 'Low'),  
-    )
-    
-    project=models.CharField(max_length=50,blank=True,default="") 
-    start_date = models.DateField('開始日期',default=timezone.now,null=True,blank=True)	   
-    end_date = models.DateField('結束日期',null=True,blank=True) 
-    owner= models.ManyToManyField(User,related_name='+',blank=True)   
-    priority=models.CharField(max_length=10, null=False,choices=Priority_CHOICES,default='Low') 
-    status=models.CharField(max_length=10, null=False,choices=Status_CHOICES,default='Open')  
-    
+class Task(models.Model): 
+    ....    
     #issue=models.TextField(max_length=2000,blank=True,default="")   
-    issue=RichTextField(max_length=2000,blank=True,default="")   
-
-
+    issue=RichTextField(max_length=2000,blank=True,default="") 
 ```
 
 修改模型後要遷移資料
@@ -69,33 +52,10 @@ from .models import Tasks
 admin.site.register(Task)
 ```
 
-結果</br>
-
-
+結果
 <img src="admin.png" alt="Smiley face">
 
-
-
-
 ## 前台顯示
-首先在form.py 建立model form
-
-```python
-class TaskForm(forms.ModelForm):     
-
-    class Meta:
-        model = Task       
-```
-
-view.py 以下以CBV 示範,亦也可以使用FBV
-```python
-class Task_Create(CreateView):
-    model = Task
-    form_class=TaskForm	
-    template_name = 'Create.html'
-    success_url = reverse_lazy('Task_View')
-```
-
 html 
 ```
 {{form.issue}}
