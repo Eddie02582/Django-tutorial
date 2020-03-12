@@ -40,24 +40,24 @@ python manage.py makemigrations --empty app
 
 <a href="https://github.com/Eddie02582/Django-tutorial/tree/master/Model/Field">Field</a>
 <u1>
-    <li>Field Introduction</li>
-    <li>Field Option</li>
+    <li> <a href = "https://github.com/Eddie02582/Django-tutorial/tree/master/Model/Field#field-introduction"> Field Introduction</a></li>
+    <li> <a href = "https://github.com/Eddie02582/Django-tutorial/tree/master/Model/Field#field-option"> Field Option</a></li>
 </ul>
 
 
 
 <a href="https://github.com/Eddie02582/Django-tutorial/tree/master/Model/Relationships">Relationships</a>
 <u1>
-    <li>Many-to-One</li>
-    <li>Many-to-Many</li>
-    <li>One-to-One</li>
+    <li><a href = "https://github.com/Eddie02582/Django-tutorial/tree/master/Model/Relationships#many-to-one">Many-to-One</a></li>
+    <li><a href = "https://github.com/Eddie02582/Django-tutorial/tree/master/Model/Relationships#many-to-many">Many-to-Many</a></li>
+    <li><a href = "https://github.com/Eddie02582/Django-tutorial/tree/master/Model/Relationships#one-to-one">One-to-One</a></li>
 </ul>
 
 <a href="https://github.com/Eddie02582/Django-tutorial/tree/master/Model/Inheritance">Django-Model Inheritance</a>
 <u1>
-    <li>Abstract base classes</li>
-    <li>Multi-table inheritance</li>
-    <li>Proxy</li>
+    <li><a href = "https://github.com/Eddie02582/Django-tutorial/tree/master/Model/Inheritance#1abstract-base-classes">Abstract base classes</a></li>
+    <li><a href = "https://github.com/Eddie02582/Django-tutorial/tree/master/Model/Inheritance#2multi-table-inheritance">Multi-table inheritance</a></li>
+    <li><a href = "https://github.com/Eddie02582/Django-tutorial/tree/master/Model/Inheritance#3proxy">Proxy</a></li>
 </ul>
 
 
