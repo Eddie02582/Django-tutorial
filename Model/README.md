@@ -44,6 +44,7 @@ python manage.py makemigrations --empty app
     <li> <a href = "https://github.com/Eddie02582/Django-tutorial/tree/master/Model/Field#field-option"> Field Option</a></li>
 </ul>
 
+<a href="https://github.com/Eddie02582/Django-tutorial/blob/master/Model/Example/README.md">Example</a>
 
 
 <a href="https://github.com/Eddie02582/Django-tutorial/tree/master/Model/Relationships">Relationships</a>
