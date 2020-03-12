@@ -78,7 +78,13 @@ python manage.py makemigrations --empty app
             <li><a href = "/automation/modularizedBom/">Modularized Bom</a></li>  
             <li><a href = "/automation/compareModularizedBom/">Compare Modularized Bom </a></li>                                  
         </ul>
-    </li>  
+    </li> 
+    <li><a href = "/automation/">Automation
+        <ul>
+            <li><a href = "/automation/modularizedBom/">Modularized Bom</a></li>  
+            <li><a href = "/automation/compareModularizedBom/">Compare Modularized Bom </a></li>                                  
+        </ul>
+    </li>     
 </ul>
 
 
