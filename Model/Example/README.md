@@ -2,10 +2,10 @@
 
 
 觀看範例請先閱讀
-<
+
 <u1>
-    <li> <a href = "https://github.com/Eddie02582/Django-tutorial/tree/master/Model/Field#field-introduction"> Field Introduction</a></li>
-    <li> <a href = "https://github.com/Eddie02582/Django-tutorial/tree/master/Model/Field#field-option"> Field Option</a></li>
+    <li><a href = "https://github.com/Eddie02582/Django-tutorial/tree/master/Model/Field#field-introduction"> Field Introduction</a></li>
+    <li><a href = "https://github.com/Eddie02582/Django-tutorial/tree/master/Model/Field#field-option"> Field Option</a></li>
     <li><a href = "https://github.com/Eddie02582/Django-tutorial/tree/master/Model/Relationships#many-to-one">Many-to-One</a></li>
 </ul>
 

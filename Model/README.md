@@ -40,34 +40,38 @@ python manage.py makemigrations --empty app
 
 <a href="https://github.com/Eddie02582/Django-tutorial/tree/master/Model/Field">Field</a>
 <u1>
-    <li> <a href = "https://github.com/Eddie02582/Django-tutorial/tree/master/Model/Field#field-introduction"> Field Introduction</a></li>
-    <li> <a href = "https://github.com/Eddie02582/Django-tutorial/tree/master/Model/Field#field-option"> Field Option</a></li>
+    <li>
+    <a href="https://github.com/Eddie02582/Django-tutorial/tree/master/Model/Field">Field</a>    
+        <ul>
+            <li> <a href = "https://github.com/Eddie02582/Django-tutorial/tree/master/Model/Field#field-introduction"> Field Introduction</a></li>
+            <li> <a href = "https://github.com/Eddie02582/Django-tutorial/tree/master/Model/Field#field-option"> Field Option</a></li>
+        </ul>
+    </li>
+    <li><a href="https://github.com/Eddie02582/Django-tutorial/blob/master/Model/Example/README.md">Example</a></li>  
+    <li>  
+        <a href="https://github.com/Eddie02582/Django-tutorial/tree/master/Model/Relationships">Relationships</a>
+        <ul>
+            <li><a href = "https://github.com/Eddie02582/Django-tutorial/tree/master/Model/Relationships#many-to-one">Many-to-One</a></li>
+            <li><a href = "https://github.com/Eddie02582/Django-tutorial/tree/master/Model/Relationships#many-to-many">Many-to-Many</a></li>
+            <li><a href = "https://github.com/Eddie02582/Django-tutorial/tree/master/Model/Relationships#one-to-one">One-to-One</a></li>
+        </ul>
+    </li>   
+    <li>  
+        <a href="https://github.com/Eddie02582/Django-tutorial/tree/master/Model/Inheritance">Django-Model Inheritance</a>
+        <ul>
+            <li><a href = "https://github.com/Eddie02582/Django-tutorial/tree/master/Model/Inheritance#1abstract-base-classes">Abstract base classes</a></li>
+            <li><a href = "https://github.com/Eddie02582/Django-tutorial/tree/master/Model/Inheritance#2multi-table-inheritance">Multi-table inheritance</a></li>
+            <li><a href = "https://github.com/Eddie02582/Django-tutorial/tree/master/Model/Inheritance#3proxy">Proxy</a></li>
+        </ul>
+    </li>  
+    <li>  
+        <a href="https://github.com/Eddie02582/Django-tutorial/tree/master/Model/QuerySet">QuerySet</a>
+        <ul>
+            <li><a href = "https://github.com/Eddie02582/Django-tutorial/tree/master/Model/QuerySet#1create-object">Create Object</a></li>
+            <li><a href=https://github.com/Eddie02582/Django-tutorial/tree/master/Model/QuerySet#2query>Query</a></li>
+        </ul>
+    </li>
 </ul>
-
-<a href="https://github.com/Eddie02582/Django-tutorial/blob/master/Model/Example/README.md">Example</a>
-
-
-<a href="https://github.com/Eddie02582/Django-tutorial/tree/master/Model/Relationships">Relationships</a>
-<u1>
-    <li><a href = "https://github.com/Eddie02582/Django-tutorial/tree/master/Model/Relationships#many-to-one">Many-to-One</a></li>
-    <li><a href = "https://github.com/Eddie02582/Django-tutorial/tree/master/Model/Relationships#many-to-many">Many-to-Many</a></li>
-    <li><a href = "https://github.com/Eddie02582/Django-tutorial/tree/master/Model/Relationships#one-to-one">One-to-One</a></li>
-</ul>
-
-<a href="https://github.com/Eddie02582/Django-tutorial/tree/master/Model/Inheritance">Django-Model Inheritance</a>
-<u1>
-    <li><a href = "https://github.com/Eddie02582/Django-tutorial/tree/master/Model/Inheritance#1abstract-base-classes">Abstract base classes</a></li>
-    <li><a href = "https://github.com/Eddie02582/Django-tutorial/tree/master/Model/Inheritance#2multi-table-inheritance">Multi-table inheritance</a></li>
-    <li><a href = "https://github.com/Eddie02582/Django-tutorial/tree/master/Model/Inheritance#3proxy">Proxy</a></li>
-</ul>
-
-
-<a href="https://github.com/Eddie02582/Django-tutorial/tree/master/Model/QuerySet">QuerySet</a>
-<u1>
-    <li><a href = "https://github.com/Eddie02582/Django-tutorial/tree/master/Model/QuerySet#1create-object">Create Object</a></li>
-    <li><a href=https://github.com/Eddie02582/Django-tutorial/tree/master/Model/QuerySet#2query>Query</a></li>
-</ul>
-
 
 
 
