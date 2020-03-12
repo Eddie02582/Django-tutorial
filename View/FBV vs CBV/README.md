@@ -1,8 +1,5 @@
 # FBV Vs CBV
 
-
-
-
 Django視圖本質是一個函數：接受HttpRequest對像作為參數，返回一個HttpResponse對像作為返回.FBV直接就是這樣一個函數，而CBV類的方法as_view（），它的返回也是這樣一個函數。<br>
 Django提供了一些通用視圖，基於通用類的視圖（GCBV），可以加快開發。實現所有內容。<br>
 
@@ -184,23 +181,6 @@ class ApLoss_View(FormView):
         meters = math.pow(10, result)       
         feet = meters * 3.2808            	    
         return render(self.request, 'APLoss.html', {'form': form,'feet':feet,'meters':meters})
-```
-
-```python
-class ApLoss_View(FormView):
-    form_class=APLossForm  
-    template_name = 'APLoss.html'	
-    
-    def post(self, request, *args, **kwargs):
-        form = self.form_class(request.POST) 
-        if form.is_valid():
-            Freq = form.cleaned_data.get('FreqInMHz')         
-            levelInDb = form.cleaned_data['levelInDb']
-            result = (27.55 - (20 * math.log10(Freq)) + math.fabs(levelInDb)) / 20.0
-            meters = math.pow(10, result)       
-            feet = meters * 3.2808            	    
-            return render(request, 'APLoss.html', {'form': form,'feet':feet,'meters':meters})
-        render(request, self.template_name, {'form': form}) 
 ```
 
 
