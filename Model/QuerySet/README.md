@@ -25,7 +25,7 @@ class Task(models.Model):
     start_date = models.DateField('開始日期',default=timezone.now,null=True,blank=True)	   
     end_date = models.DateField('結束日期',null=True,blank=True) 
     owner = models.ManyToManyField(User,related_name='+',blank=True)     
-    priority=models.CharField(max_length=10, null=False,choices=Priority_CHOICES,default='Low')    
+    priority = models.CharField(max_length=10, null=False,choices=Priority_CHOICES,default='Low')    
     status = models.CharField(max_length=10, null=False,choices=Status_CHOICES,default='Open') 
 ```
 
@@ -239,13 +239,53 @@ TestItem.objects.aggregate(Max('end_date'))
 #### prefetch_related() 
 適用Many to Many
 
- ```python
+```python
     tasks= Task.objects.all().prefetch_related('owner')
 ``` 
 
+## 3.Update
+
+### 更新多筆
+
+```python
+    Task.objects.filter(priority = "High").update(status="Close")     
+``` 
+
+透過字典,但會無法更新auto_now的值
+
+```python
+    Task.objects.filter(priority = "High").update(**{'status':'Close'}))     
+``` 
 
 
-## 3.Advance
+也可以使用bulk_update
+```python 
+    tasks = [ Task.objects.get(id = id) for id in data_id]
+    for i in range(len(objs)):          
+        objs[i].status = data_status[i]           
+        objs[i].priority = data_priority[i]             
+    Task.objects.bulk_update(tasks, ['status','priority'])    
+```   
+
+### 單筆更新
+ ```python 
+    task = Task.objects.get(id = 1)
+    task.status = "Close"
+    task.priority = "High"
+    task.save()    
+```   
+
+透過字典,但會無法更新auto_now的值
+```python 
+    data = {'status':'Close'}
+    task = Task.objects.get(id=1)
+    task.__dict__.update(**data)
+    task.save()   
+```   
+
+
+## 4.Advance
+
 
 
 ### Q
