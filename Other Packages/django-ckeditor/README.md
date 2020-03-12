@@ -3,9 +3,10 @@
 
 ## 安裝
 
-<a href ="http://www.jishuwen.com/d/2IGy/zh-tw">詳情可以參考這篇</a>
-首先在cmd 執行
+<a href ="http://www.jishuwen.com/d/2IGy/zh-tw">詳情可以參考這篇</a><br>
 
+
+先在cmd 執行
 ```
     pip install django-ckeditor
 ```
@@ -23,7 +24,6 @@ INSTALLED_APPS = [
     'ckeditor',     
 ]
 ```
-
 
 ## 修改模型
 
