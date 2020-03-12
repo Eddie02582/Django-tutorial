@@ -4,6 +4,7 @@
     
 ## Appache+wsgi
 
+<a href = "https://zwindr.blogspot.com/2017/09/django-window-apache.html" >可以參考這篇</a>
 
 ### For Windows
 

@@ -6,23 +6,37 @@
 
 定義多對一關係，使用django.db.models.ForeignKey。 你可以像其他任何一樣使用它</br>
 字段類型：將其包含為模型的類屬性。ForeignKey需要一個位置參數：與模型相關的類。</br>
-以下為範例，有一個公告的模型，使用者可以發布多個公告，相反來說多個公告由同一位使用者發布，</br>
-可以定義
+定義了兩個模型，一個是老師模型，一個是學生模型，一個老師對應多個學生，這個算是一個一對多的類型(如下)</br>
+
+
 
 ```python 
-user = models.ForeignKey(User, related_name='News',on_delete=models.CASCADE)	
+class Teacher(models.Model):
+    name = models.CharField(max_length = 50)
+
+class Student(models.Model):
+    name = models.CharField(max_length = 50)
+    teacher = models.ForeignKey(Teacher , related_name = "has_students",on_delete = models.CASCADE)
+
 ```
+
+
+幾個重點
+<ul>
+    <li>related_name:用來反向查詢,teacher.has_students() 即可查詢某位老師的學生,而不必Student.objects.filter(teacher = teacher)</li>     
+    <li>on_delete:用來設定當ForeignKey 的model 被刪除時,處理動作(modle.CASCADE,models.SET_NULL)</li>
+</ul>
+
+
+
 
 ```python 
 class Proclamation(models.Model):
-    Category_CHOICES = (
-        ('公告', '公告'),       
-    )
-    category = models.CharField(max_length=10, null=False,choices=Category_CHOICES) #類別關聯   
-    title = models.CharField(max_length=50, null=False) #標題
-    user = models.ForeignKey(User, related_name='News',on_delete=models.CASCADE)	
+    
+    title = models.CharField(max_length = 50, null = False) #標題
+    user = models.ForeignKey(User, related_name = 'News' ,on_delete = models.CASCADE)	
     message = models.TextField(max_length=4000)
-    pubtime = models.DateTimeField(auto_now_add=True) #發布時間  
+    pubtime = models.DateTimeField(auto_now_add = True) #發布時間  
     press =  models.PositiveIntegerField(default=0) #點擊次數
     def __str__(self):
         return self.title
