@@ -276,7 +276,7 @@ models.objects.all().filter(Q(id = 1) & Q(id = 4))  #條件是and的關係
 
 
 ```
-另一種使用方法
+other Method
 
 ```python
 from django.db.models import Q
