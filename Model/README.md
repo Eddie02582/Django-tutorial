@@ -49,8 +49,8 @@ python manage.py makemigrations --empty app
     <li><a href="https://github.com/Eddie02582/Django-tutorial/tree/master/Model/Model">Model</a>  
         <ul>
             <li> <a href = "https://github.com/Eddie02582/Django-tutorial/tree/master/Model/Model#create-model"> Create Model</a></li>
+            <li> <a href = "https://github.com/Eddie02582/Django-tutorial/tree/master/Model/Model#model-method"> Model method</a></li>    
             <li> <a href = "https://github.com/Eddie02582/Django-tutorial/tree/master/Model/Model#model-method"> Model method</a></li>      
-            <li> <a href = "https://github.com/Eddie02582/Django-tutorial/tree/master/Model/Model#FileField%20Path%20used%20instance">FileField Path used instance</a></li>       
         </ul>
     </li>
     
