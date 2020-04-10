@@ -74,7 +74,7 @@ python manage.py makemigrations --empty app
             <li><a href = "https://github.com/Eddie02582/Django-tutorial/tree/master/Model/Inheritance#3proxy">Proxy</a></li>
         </ul>
     </li>  
-
+       <li><a href="https://github.com/Eddie02582/Django-tutorial/blob/master/Model/Example/README.md">Example</a></li> 
     
 </ul>
 
