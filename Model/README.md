@@ -50,10 +50,9 @@ python manage.py makemigrations --empty app
         <ul>
             <li> <a href = "https://github.com/Eddie02582/Django-tutorial/tree/master/Model/Model#create-model"> Create Model</a></li>
             <li> <a href = "https://github.com/Eddie02582/Django-tutorial/tree/master/Model/Model#model-method"> Model method</a></li>    
-            <li> <a href = "https://github.com/Eddie02582/Django-tutorial/tree/master/Model/Model#model-method"> Model method</a></li>      
+            <li> <a href = "https://github.com/Eddie02582/Django-tutorial/tree/master/Model/Model#filefield-path-used-instance"> FileField Path used instance</a></li>      
         </ul>
-    </li>
-    
+    </li>    
     <li><a href="https://github.com/Eddie02582/Django-tutorial/tree/master/Model/QuerySet">QuerySet</a>
         <ul>
             <li><a href = "https://github.com/Eddie02582/Django-tutorial/tree/master/Model/QuerySet#1create-object">Create Object</a></li>
