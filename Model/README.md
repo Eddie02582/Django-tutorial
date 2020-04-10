@@ -46,14 +46,6 @@ python manage.py makemigrations --empty app
             <li> <a href = "https://github.com/Eddie02582/Django-tutorial/tree/master/Model/Field#field-option"> Field Option</a></li>                              
         </ul>
     </li> 
-    <li>
-        <a href="https://github.com/Eddie02582/Django-tutorial/tree/master/Model/QuerySet">QuerySet</a>
-        <ul>
-            <li><a href = "https://github.com/Eddie02582/Django-tutorial/tree/master/Model/QuerySet#1create-object">Create Object</a></li>
-            <li><a href = "https://github.com/Eddie02582/Django-tutorial/tree/master/Model/QuerySet#2query">Query</a></li>
-            <li><a href = "https://github.com/Eddie02582/Django-tutorial/tree/master/Model/QuerySet#3update">Update</a></li>
-        </ul>
-    </li>
     
     <li><a href="https://github.com/Eddie02582/Django-tutorial/blob/master/Model/Example/README.md">Example</a></li> 
     
@@ -73,7 +65,14 @@ python manage.py makemigrations --empty app
             <li><a href = "https://github.com/Eddie02582/Django-tutorial/tree/master/Model/Inheritance#3proxy">Proxy</a></li>
         </ul>
     </li>  
-
+    <li>
+        <a href="https://github.com/Eddie02582/Django-tutorial/tree/master/Model/QuerySet">QuerySet</a>
+        <ul>
+            <li><a href = "https://github.com/Eddie02582/Django-tutorial/tree/master/Model/QuerySet#1create-object">Create Object</a></li>
+            <li><a href = "https://github.com/Eddie02582/Django-tutorial/tree/master/Model/QuerySet#2query">Query</a></li>
+            <li><a href = "https://github.com/Eddie02582/Django-tutorial/tree/master/Model/QuerySet#3update">Update</a></li>
+        </ul>
+    </li>
     
 </ul>
 
