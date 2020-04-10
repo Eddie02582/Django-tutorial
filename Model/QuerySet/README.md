@@ -23,7 +23,6 @@ class Person(models.Model):
   
 ```
 
-
 ## 1.Create Object
 
 
