@@ -53,8 +53,15 @@ python manage.py makemigrations --empty app
             <li><a href = "https://github.com/Eddie02582/Django-tutorial/tree/master/Model/QuerySet#3update">Update</a></li>                           
         </ul>
     </li>     
-
-
+    <li><a href="https://github.com/Eddie02582/Django-tutorial/blob/master/Model/Example/README.md">Example</a></li> 
+    <li>
+        <a href="https://github.com/Eddie02582/Django-tutorial/tree/master/Model/Relationships">Relationships</a>
+        <ul>
+            <li><a href = "https://github.com/Eddie02582/Django-tutorial/tree/master/Model/Relationships#many-to-one">Many-to-One</a></li>
+            <li><a href = "https://github.com/Eddie02582/Django-tutorial/tree/master/Model/Relationships#many-to-many">Many-to-Many</a></li>
+            <li><a href = "https://github.com/Eddie02582/Django-tutorial/tree/master/Model/Relationships#one-to-one">One-to-One</a></li>
+        </ul>
+    </li> 
 
     
 </ul>
