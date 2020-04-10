@@ -4,13 +4,23 @@
 假設有一個模型如下</br>
 
 
-```python    
+
+
+```python  
+class Team(models.Model):
+    name = models.CharField(max_length=50,blank=True,default="") 
 
 class Person(models.Model):
-    first_name = models.CharField(max_length=50,blank=True,default="") 
-    last_name = models.CharField(max_length=50,blank=True,default="")    
+    position_choices = (('C','C'),('PF','PF'),('SF','SF'),('SG','SG'),('PG','PG'))
+    team = models.ForeignKey(Team, on_delete = models.CASCADE,null = True,blank = True,related_name="players")
+    first_name = models.CharField(max_length=50) 
+    last_name = models.CharField(max_length=50) 
+    age = models.IntegerField()
     height = models.FloatField()
-    weight = models.FloatField()   
+    weight = models.FloatField() 
+    position = models.CharField(max_length=50,choices = position_choices) 
+
+  
 ```
 
 
@@ -107,49 +117,37 @@ example:
 
 
 ### Query API
+以下皆可搭配使用
 
 #### filter 
-
-owner 的first_name包含Eddie,James...,owner 是關聯User資料庫,User 資料庫包和 username,first_name....
 ```python
-    Task.objects.filter(owner__first_name_in=['Eddie','James']) 
+    Person.objects.filter(team__name = "Lakers") 
 ```
 
 外鍵時可以透過select_related()和prefetch_related()可以減少數據庫提請求，以提高效能
 
 
-
 #### exclude 
-Returns a new QuerySet containing objects that do not match the given lookup parameters.
-
 ```python
-    Task.objects.filter(status='Open').exclude(name_contaions ='Django')
+    Person.objects.filter(team__name = "Lakers").exclude(first_name ='Lebron')
 ```
+
 #### values
 指定欄位匯出,格式字典
 ```python
-    Task.objects.value('project','status')
-    #Task.objects.value(*['project','status'])
+    Person.objects.value('first_name','last_name')    
 ```
-
-回傳格式
-```
-<QuerySet [{'project': 'project1', 'status': 'Open'},{'project': 'project2', 'status': 'Open'}]>
-```
-
 
 #### values_list
-與value 相同但是回傳turple
+與value 相同但回傳turple型態
 ```python
-    Task.objects.values_list('project','status')   
+    Person.objects.values_list('first_name','last_name')   
 ```
 
 ##### order_by
-假設我們想取出open 資料,然後照案名排序,照依照開始時間排序
-若要降序排序就在filed name 前面加-
+排序,若加'-' 為降序
  ```python
-    tasks= Task.objects.filter(status="Open").order_by("project",'start_date')    
-    tasks= Task.objects.filter(status="Open").order_by("project",'-start_date')   
+    Person.objects.filter(team__name = "Lakers").order_by("-height",'first_name')     
 ``` 
 
 ###### 自訂order_by
@@ -157,9 +155,9 @@ Returns a new QuerySet containing objects that do not match the given lookup par
 
  ```python
  from django.db.models import Case, When
-    pk_list =['High','Middle','Low']
-    preserved = Case(*[When(priority=pk, then=pos) for pos, pk in enumerate(pk_list)]) 
-    tasks= Task.objects.filter(status="Open").order_by(preserved)    
+    order_list =['C','PF','SF','SG','PG']
+    preserved = Case(*[When( position = pk, then = pos) for pos, pk in enumerate(order_list)]) 
+    Person.objects.order_by(preserved)    
   
 ``` 
 
@@ -170,8 +168,8 @@ Returns a new QuerySet containing objects that do not match the given lookup par
 ```python
 from django.db.models.aggregates import Max,Min,Count
 
-tasks = Task.objects.annotate(owner_cnt=Count('owner'))
-tasks[0].owner_cnt
+teams = Team.objects.annotate(teams_players = Count('players'))
+teams[0].players_cnt
 ```
 
 
@@ -180,49 +178,28 @@ tasks[0].owner_cnt
 
 ```python
 from django.db.models.aggregates import Max,Min,Count
-request_values1 = Task.objects.values('status').annotate(min_start_date=Min('start_date'),max_end_date=Max('end_date'),status = Count('status')).order_by("status")
+
+Person.objects.values('team__name').annotate(max_height = Max('max_height'))
 ```
 
-結果如下,這邊回傳一樣式字典的型式
+這邊使用values 所以回傳字典形式
 
 
 ```
->>><QuerySet [ {'status': 'Close', 'min_start_date': datetime.datetime(2017, 9, 15, 0, 0)},               
-               {'status': 'Open', 'min_start_date': datetime.datetime(2017, 9, 25, 8, 0)},
-               {'status': 'Pending', 'min_start_date': datetime.datetime(2019, 2, 19, 8, 0)}]>
+>>><QuerySet [ {'status': 'Lakers', 'max_height': 211},               
+               {'status': 'Clipper', 'max_height': 226},
+               {'status': 'Net', 'max_height': 208}]>
 ```
 
 #### aggregates
 aggregate的中文意思是聚合, 源於SQL的聚合函數。 Django的aggregate()方法作用是對一組值
 
-```python 
 
-TestItem.objects.aggregate(Max('end_date'))
+```python
+    from django.db.models import Avg, Max, Min
+    Person.objects.aggregate(Max('height'),Min('height'))
+    >>{'height__max':211,height__min:185}
 ```
- result 
- ```python 
-{'end_date__max': datetime.date(2020, 1, 3)}
-```
-
-
-
-
-#### update
-
-更新符合特定規格的資料關閉結案,可以用下列方法,此方法會自動儲存
-
- ```python
-    tasks= Task.objects.filter(project__contains="python").update(status="Close")    
-``` 
-
-在2.2版新增了bulk_update ,可以大量更新
- ```python
-        tasks = [ Task.objects.get(id = id) for id in data_id]
-        for i in range(len(objs)):          
-            objs[i].status = data_status[i]           
-            objs[i].priority = data_priority[i]             
-        Task.objects.bulk_update(tasks, ['status','priority']) 
-``` 
 
 #### distinct(*fields)
 過濾重複的
@@ -230,55 +207,52 @@ TestItem.objects.aggregate(Max('end_date'))
    Task.objects.distinct() 
 ```
 
-
 #### select_related() 
-適用Foreign key
-
+提高ForeignKey的效能
  ```python
-    tasks= Task.objects.all().select_related('project').distinct() 
+    Person.objects.all().select_related('team')
 ``` 
 
-
 #### prefetch_related() 
-適用Many to Many
-
+提高ManyToManyField的效能
 ```python
-    tasks= Task.objects.all().prefetch_related('owner')
+    Person.objects.all().prefetch_related('ManyToManyField')
 ``` 
 
 ## 3.Update
 
-### 更新多筆
+### update multi
 
 ```python
-    Task.objects.filter(priority = "High").update(status="Close")     
+    Person.objects.filter(id__in[1,2]).update(position = "C")     
 ``` 
 
-透過字典,但會無法更新auto_now的值
+使用字典,但會無法更新auto_now的值
 
 ```python
-    Task.objects.filter(priority = "High").update(**{'status':'Close'}))     
+    Person.objects.filter(id__in[1,2]").update(**{'position':'C'}))     
 ``` 
 
 
-也可以使用bulk_update
+#### bulk_update
+適用於更新資料不同
 ```python 
-    tasks = [ Task.objects.get(id = id) for id in data_id]
+    objs = [ Person.objects.get(id = id) for id in [1,2,3]]    
     for i in range(len(objs)):          
         objs[i].status = data_status[i]           
-        objs[i].priority = data_priority[i]             
+        objs[i].priority = data_priority[i]   
+        
     Task.objects.bulk_update(tasks, ['status','priority'])    
 ```   
 
-### 單筆更新
+### update single
  ```python 
-    task = Task.objects.get(id = 1)
-    task.status = "Close"
-    task.priority = "High"
-    task.save()    
+    person = Person.objects.get(id = 1)
+    person.position = "C"   
+    person.save()    
 ```   
 
-透過字典,但會無法更新auto_now的值
+使用字典,但會無法更新auto_now的值
 ```python 
     data = {'status':'Close'}
     task = Task.objects.get(id=1)
@@ -297,8 +271,8 @@ TestItem.objects.aggregate(Max('end_date'))
 from django.db.models import Q
 
 
-models.objects.all().filter(Q(id=1)|Q(id__gt=3))#條件是or的關係
-models.Uinfo.objects.all().filter(Q(id=1) & Q(id=4))# 條件是and的關係
+models.objects.all().filter(Q(id = 1)|Q(id__gt = 3))#條件是or的關係
+models.objects.all().filter(Q(id = 1) & Q(id = 4))  #條件是and的關係
 
 
 ```
@@ -306,13 +280,13 @@ models.Uinfo.objects.all().filter(Q(id=1) & Q(id=4))# 條件是and的關係
 
 ```python
 from django.db.models import Q
-q1=Q()
+q1 = Q()
 q1.connector = 'OR'
 q1.children.append(('id',1))
 q1.children.append(('id',3))
 q1.children.append(('id',6))
 
-q2=Q()
+q2 = Q()
 q2.connector = 'OR'
 q2.children.append(('c',2))
 q2.children.append(('c',4))
@@ -324,11 +298,12 @@ q2.children.append(('c',6))
     con.add(q2,'AND')
 ```
 
+### F
 
-
-
-
-
+```python
+from django.db.models import F
+Person.objects.update(age = F("age")+ 1)  
+```  
 
 
 
