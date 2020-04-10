@@ -3,61 +3,63 @@
 以下介紹Django 資料庫如何操作</br>
 假設有一個模型如下</br>
 
-```python
 
-class Project (models.Model): 
-    name = models.CharField(max_length=50,blank=True,default="") 
-    
+```python    
 
-class Task(models.Model):
-    Status_CHOICES = (
-        ('Close', 'Close'),       
-		('Open', 'Open'),
-        ('Pending', 'Pending'),      
-    )
-    Priority_CHOICES = (         
-        ('High', 'High'),       
-		('Middle', 'Middle'),  
-        ('Low', 'Low'),  
-    )
-    project = models.ForeignKey(Project, related_name='tasks',on_delete=models.CASCADE,null=True, blank=True)	    
-    name = models.CharField(max_length=50,blank=True,default="") 
-    start_date = models.DateField('開始日期',default=timezone.now,null=True,blank=True)	   
-    end_date = models.DateField('結束日期',null=True,blank=True) 
-    owner = models.ManyToManyField(User,related_name='+',blank=True)     
-    priority = models.CharField(max_length=10, null=False,choices=Priority_CHOICES,default='Low')    
-    status = models.CharField(max_length=10, null=False,choices=Status_CHOICES,default='Open') 
+class Person(models.Model):
+    first_name = models.CharField(max_length=50,blank=True,default="") 
+    last_name = models.CharField(max_length=50,blank=True,default="")    
+    height = models.FloatField()
+    weight = models.FloatField()   
 ```
 
 
 ## 1.Create Object
 
 
-介紹以下方法建立Object
-### 第一種
+### Method 1
 
 ```python
-    project = Project()
-    project.name = 'Django' 
-    project.save()
+    person = Person()
+    person.first_name = 'LeBron' 
+    person.last_name = 'James' 
+    person.height = 206
+    person.weight = 113
+    person.save()
 ```
-### 第二種
+### Method 2
 
 ```python
-    project = Project(name = 'Django') 
-    project.save()
+    person = Person(first_name = 'LeBron',last_name = 'James',height = 206 ,weight = 113 ) 
+    person.save()
 ```
 
-### 第三種
-這種方法和上面不同會直接儲存
+used dictionary
+
 ```python
-    Project.objects.create(name = 'Django') 
+    info = {first_name : 'LeBron',last_name : 'James',height : 206 ,weight : 113}
+    person = Person(**info) 
+    person.save()
+```
+
+
+### Method 3
+This method will automatically save
+```python
+    Person.objects.create(first_name = 'LeBron',last_name = 'James',height = 206 ,weight = 113 ) 
+```
+used dictionary
+
+```python
+    info = {first_name : 'LeBron',last_name : James,height : 206 ,weight : 113}
+    Person.objects.create(**info)  
 ```
 
 ### 第四種
-這種方法會判斷是否還有資料,會回傳兩個,task,bcreate
+這種方法會判斷是否還有資料,會回傳兩個,person,bcreate
+
 ```python
-    task,bcreate = Project.objects.get_or_create(name = 'Django') 
+    task,bcreate = Project.objects.get_or_create(first_name : 'LeBron',last_name : 'James') 
 ```
 
 ## 2.Query 
@@ -93,14 +95,15 @@ class Task(models.Model):
 
 用法 FieldName__Fieldlookups
 
-取得案名含有有python有關.
+example:
+取得名字含有James
 
 ```python
-    Task.objects.filter(priority='High',status='Open',projects__contains='python') 
+    Person.objects.filter(first_name__contains = "James") 
 ```
 注意在django __(雙底線)用來進行連結，因此命名時請勿用__，可用_(單底線)</br>
 
-詳情其他與法可以參考<a href="https://docs.djangoproject.com/en/2.1/ref/models/querysets/#methods-that-return-new-querysets">QuerySet API</a>
+其他Fieldlookups參考<a href="https://docs.djangoproject.com/en/2.1/ref/models/querysets/#methods-that-return-new-querysets">QuerySet API</a>
 
 
 ### Query API
