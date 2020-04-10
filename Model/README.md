@@ -45,15 +45,22 @@ python manage.py makemigrations --empty app
             <li> <a href = "https://github.com/Eddie02582/Django-tutorial/tree/master/Model/Field#field-introduction"> Field Introduction</a></li>
             <li> <a href = "https://github.com/Eddie02582/Django-tutorial/tree/master/Model/Field#field-option"> Field Option</a></li>                              
         </ul>
-    </li> 
+    </li>
+    <li><a href="https://github.com/Eddie02582/Django-tutorial/tree/master/Model/Model">Model</a>  
+        <ul>
+            <li> <a href = "https://github.com/Eddie02582/Django-tutorial/tree/master/Model/Model#create-model"> Create Model</a></li>
+            <li> <a href = "https://github.com/Eddie02582/Django-tutorial/tree/master/Model/Model#model-method"> Model method</a></li>      
+            <li> <a href = "https://github.com/Eddie02582/Django-tutorial/tree/master/Model/Model#FileField%20Path%20used%20instance">FileField Path used instance</a></li>       
+        </ul>
+    </li>
+    
     <li><a href="https://github.com/Eddie02582/Django-tutorial/tree/master/Model/QuerySet">QuerySet</a>
         <ul>
             <li><a href = "https://github.com/Eddie02582/Django-tutorial/tree/master/Model/QuerySet#1create-object">Create Object</a></li>
             <li><a href = "https://github.com/Eddie02582/Django-tutorial/tree/master/Model/QuerySet#2query">Query</a></li>
             <li><a href = "https://github.com/Eddie02582/Django-tutorial/tree/master/Model/QuerySet#3update">Update</a></li>                           
         </ul>
-    </li>     
-    <li><a href="https://github.com/Eddie02582/Django-tutorial/blob/master/Model/Example/README.md">Example</a></li> 
+    </li> 
     <li>
         <a href="https://github.com/Eddie02582/Django-tutorial/tree/master/Model/Relationships">Relationships</a>
         <ul>
@@ -62,6 +69,7 @@ python manage.py makemigrations --empty app
             <li><a href = "https://github.com/Eddie02582/Django-tutorial/tree/master/Model/Relationships#one-to-one">One-to-One</a></li>
         </ul>
     </li> 
+    <li><a href="https://github.com/Eddie02582/Django-tutorial/blob/master/Model/Example/README.md">Example</a></li> 
     <li>  
         <a href="https://github.com/Eddie02582/Django-tutorial/tree/master/Model/Inheritance">Django-Model Inheritance</a>
         <ul>

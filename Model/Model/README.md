@@ -1,4 +1,4 @@
-#Mode1
+# Mode1
 
 ## Create Model
 ```
@@ -43,7 +43,7 @@ class Person(models.Model):
 
 
    
-## FileField 路徑使用instance
+## FileField Path used instance
 
 model如下
 ```
