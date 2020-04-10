@@ -2,16 +2,10 @@
 
 有時候我們希望網頁在不重新讀取的情況下更新資料
 
-ajax 
-
-
 
 
 ## example 1
-
-利用ajax 連動 下拉選單
-
-
+連動下拉選單
 
 view.py 建立一個 ajax_get_city_choices函數
 ```python
@@ -35,8 +29,7 @@ def ajax_example(request):
 
 再url.py 新增ajax網址
 ```python
-    #path('ajax/test_item_save_all/', views.ajax_test_item_save_all, name='ajax_test_item_save_all'),
-    re_path(r'^ajax/test_item_save_all/$', views.ajax_test_item_save_all, name='ajax_test_item_save_all'), 
+    path('ajax/test_item_save_all/', views.ajax_test_item_save_all, name='ajax_test_item_save_all'),
 ```
 
 
@@ -44,54 +37,35 @@ def ajax_example(request):
 在 Ajax.html 使用 jquery 呼叫ajax,再覆寫 select
 ```html
 
-{% load static %}
-<!doctype html>
-<html>
-<head>
-  <meta charset="utf-8">  
-  <script src="{% static 'js/jquery-3.3.1.min.js' %}"></script> 
-  <script src="{% static 'js/bootstrap.min.js' %}"></script>  
-  <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.min.css' %}"> 
-</head>
-
 <h1>Ajax Example </h1>
-
-<form method="POST" class="post-form." enctype="multipart/form-data">
+<form method="POST" class="post-form.">
 	{% csrf_token %}    
     <select id ="select-country">
             <option value=""></option>
             <option value="Taiwan">Taiwan</option>
             <option value="Japan">Japan</option>
             <option value="China">China</option>    
-        </select>
-    <br>
+    </select>    
     <select id ="select-city">
         <option value=""></option>          
     </select>     
 </form>
-
 ```
 
 ```javascript
-<script>
     function load_city_choice () {  
-		var country = $(this).val();
-        // var country = $("#select-country").val();
-		var data = {'country':country} ;
-        
+		var country = $(this).val();       
+		var data = {'country':country} ;        
 		$.get("/ajax/get_city_choices",data, function(data){ 
             var content = ''; 
             $.each(data["city"], function(i, item) {                                                                       
                 content += '<option value=' + item + '>' + item + '</option>'
              });
             $('#select-city').html(content);  
-		})    
-   
+		})   
 	} 
 	
 	$("#select-country").change(load_city_choice);
-
-</script>
 ```
 
 ## example 2
@@ -117,7 +91,6 @@ table html template
         <td>{{user.email}}</td>
       </tr>
       {% endfor %} 
-
     </tbody>
 </table>
 ```
@@ -141,12 +114,8 @@ from django.template.loader import render_to_string
 def ajax_get_user_data(request):
     if request.method == 'GET':
         context = {} 
-        context ["users"] = User.objects.all()     
-
-
-        html_form = render_to_string('Users.html',context,)     
-         
-
+        context ["users"] = User.objects.all()  
+        html_form = render_to_string('Users.html',context,request)  
         return JsonResponse({'html_form': html_form}) 
         
 ```
@@ -158,15 +127,6 @@ html 模板
 
 
 ```html
-
-<!doctype html>
-<html>
-<head>
-  <meta charset="utf-8">  
-  <script src="jquery-3.3.1.min.js"></script> 
-  <script src="bootstrap.min.js"></script>   
-  <link rel="stylesheet" type="text/css" href="bootstrap.min.css"> 
-</head>
 
 <button class="btn btn-outline-primary" onclick="saveAllData()">Save All</button>
 <table class="table table-horver table-striped" style="width:100%">    
@@ -210,8 +170,6 @@ html 模板
         </td>
     </tr>         
 </table>
-
-
 
 <script>
 
@@ -273,7 +231,6 @@ html 模板
      };        
 </script>
 ```
-
 
 重點注意
 <ul>

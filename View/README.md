@@ -73,7 +73,7 @@ class BMIForm(forms.Form):
 
 
 views.py
-```
+```python
 from .forms import BMIForm
 def BMI(request):	
     form = BMIForm()  
@@ -91,7 +91,7 @@ def BMI(request):
 
 
 BMI.html
-```
+```html
 <form enctype="multipart/form-data" action="" method="post">
     {% csrf_token %}
     {{form.as_p}}	
