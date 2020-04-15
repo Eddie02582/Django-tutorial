@@ -47,7 +47,13 @@ def HWTask_Detail(request,hwtask_id):
          return redirect('/accounts/access_error/')  
     task = get_object_or_404(HW, pk=hwtask_id) 
     return render(request, 'HW/Detail.html', {'task': task})
-        
+  
+  
+def HWTask_Detail(request,hwtask_id): 
+    if 'catalog.view_hw' not in user.get_all_permissions:   
+         return redirect('/accounts/access_error/')  
+    task = get_object_or_404(HW, pk=hwtask_id) 
+    return render(request, 'HW/Detail.html', {'task': task})  
 
 ```
 
