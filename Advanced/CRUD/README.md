@@ -5,6 +5,9 @@
 
 
 ## view
+使用ajax 需回傳Json格式,透過render_to_string轉成字串,在透過JsonResponse 回傳json 形式
+
+
 ```python 
 
 def book_list(request):
@@ -107,13 +110,86 @@ $(function () {
 
 ```
 
+### loadForm
+<ul>
+    <li>url:透過button的data-url 屬性取得 <li>
+    <li>$("#modal-book").modal("show") 修改show 顯示modal<li>
+</ul>
 
 
+```javascript
+$(function () {
+  var loadForm = function () {
+    var btn = $(this);
+    $.ajax({
+      url: btn.attr("data-url"),
+      type: 'get',
+      dataType: 'json',
+      beforeSend: function () {
+        $("#modal-book .modal-content").html("");
+        $("#modal-book").modal("show");
+      },
+      success: function (data) {
+        $("#modal-book .modal-content").html(data.html_form);
+      }
+    });
+  };
+```
 
+###　saveForm
+<ul>
+    <li>url:透過form的action 屬性取得 <li>
+    <li>data:form.serialize()輸出序列化表單値(注意如果form 含有file 要另外處理)<li>
+    <li>$("#book-table tbody").html(data.html_book_list) 成功更新list<li>
+</ul>
+
+
+```javascript
+  var saveForm = function () {
+    var form = $(this);
+    $.ajax({
+      url: form.attr("action"),
+      data: form.serialize(),
+      type: form.attr("method"),
+      dataType: 'json',
+      success: function (data) {
+        if (data.form_is_valid) {
+          $("#book-table tbody").html(data.html_book_list);
+          $("#modal-book").modal("hide");
+        }
+        else {
+          $("#modal-book .modal-content").html(data.html_form);
+        }
+      }
+    });
+    return false;
+  };
+```
+### Binding
+這邊注意若元件並非一開始就有,而是透過js觸發產生,需使用$("#select").on
+
+
+```javascript
+  /* Binding */
+
+  // Create book
+  $(".js-create-book").click(loadForm);
+  $("#modal-book").on("submit", ".js-book-create-form", saveForm);
+
+  // Update book
+  $("#book-table").on("click", ".js-update-book", loadForm);
+  $("#modal-book").on("submit", ".js-book-update-form", saveForm);
+});
+```
 
 ## template
 
 #### listview
+<ul>
+    <li>create button 新增class  js-create-book 用於觸發顯示createform<li>
+    <li>將table data 分開寫,負責的資料更新,注意不能將整個table會造成沒有element 可以selector on<li>
+</ul>
+
 
 book_list.html
 ```html
@@ -155,6 +231,7 @@ book_list.html
   
 {% endblock %}
 ```
+
 
 ```html
 partial_book_list.html
