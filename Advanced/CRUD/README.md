@@ -112,8 +112,8 @@ $(function () {
 
 ### loadForm
 <ul>
-    <li>url:透過button的data-url 屬性取得 <li>
-    <li>$("#modal-book").modal("show") 修改show 顯示modal<li>
+    <li>url:透過button的data-url 屬性取得 </li>
+    <li>$("#modal-book").modal("show") 修改show 顯示modal</li>
 </ul>
 
 
@@ -139,8 +139,8 @@ $(function () {
 ###　saveForm
 <ul>
     <li>url:透過form的action 屬性取得 <li>
-    <li>data:form.serialize()輸出序列化表單値(注意如果form 含有file 要另外處理)<li>
-    <li>$("#book-table tbody").html(data.html_book_list) 成功更新list<li>
+    <li>data:form.serialize()輸出序列化表單値(注意如果form 含有file 要另外處理)</li>
+    <li>$("#book-table tbody").html(data.html_book_list) 成功更新list</li>
 </ul>
 
 
@@ -186,8 +186,8 @@ $(function () {
 
 #### listview
 <ul>
-    <li>create button 新增class  js-create-book 用於觸發顯示createform<li>
-    <li>將table data 分開寫,負責的資料更新,注意不能將整個table會造成沒有element 可以selector on<li>
+    <li>create button 新增class  js-create-book 用於觸發顯示createform</li>
+    <li>將table data 分開寫,負責的資料更新,注意不能將整個table會造成沒有element 可以selector on</li>
 </ul>
 
 
