@@ -136,9 +136,9 @@ $(function () {
   };
 ```
 
-###　saveForm
+### saveForm
 <ul>
-    <li>url:透過form的action 屬性取得 <li>
+    <li>url:透過form的action 屬性取得 </li>
     <li>data:form.serialize()輸出序列化表單値(注意如果form 含有file 要另外處理)</li>
     <li>$("#book-table tbody").html(data.html_book_list) 成功更新list</li>
 </ul>
