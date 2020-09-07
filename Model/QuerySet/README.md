@@ -68,7 +68,7 @@ used dictionary
 這種方法會判斷是否還有資料,會回傳兩個,person,bcreate
 
 ```python
-    task,bcreate = Project.objects.get_or_create(first_name : 'LeBron',last_name : 'James') 
+    person,bcreate = Person.objects.get_or_create(first_name : 'LeBron',last_name : 'James') 
 ```
 
 ## 2.Query 
@@ -110,6 +110,10 @@ example:
 ```python
     Person.objects.filter(first_name__contains = "James") 
 ```
+
+
+
+
 注意在django __(雙底線)用來進行連結，因此命名時請勿用__，可用_(單底線)</br>
 
 其他Fieldlookups參考<a href="https://docs.djangoproject.com/en/2.1/ref/models/querysets/#methods-that-return-new-querysets">QuerySet API</a>
@@ -122,9 +126,6 @@ example:
 ```python
     Person.objects.filter(team__name = "Lakers") 
 ```
-
-外鍵時可以透過select_related()和prefetch_related()可以減少數據庫提請求，以提高效能
-
 
 #### exclude 
 ```python
