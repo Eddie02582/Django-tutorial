@@ -34,40 +34,10 @@ class Profile(models.Model):
 	
     get_user_id.short_description   = 'ID'
     
-@receiver(post_save, sender = User)
-def update_user_profile(sender, instance, created, **kwargs):
-    if created:
-        Profile.objects.create(user=instance)
-    instance.profile.save()
 
-	
-@receiver(post_save, sender = User)
-def save_user_profile(sender, instance, **kwargs):
-    instance.profile.save()	    
     
     
 ```
-## view
-
-```
-class SignupView(CreateView):
-    model = User
-    form_class = SignUpForm  
-    template_name = 'signup.html'
-	
-    def form_valid(self, form):
-        team = form.cleaned_data.get('Team')
-        user = form.save()
-        user.refresh_from_db()  # load the profile instance created by the signal
-        user.profile.Team = team
-        user.profile.Ext = form.cleaned_data.get('Ext')
-        
-        raw_password = form.cleaned_data.get('password1')
-        user = authenticate(username=user.username, password=raw_password)
-        login(self.request, user)
-        return redirect('HomePage')
-```
-
 
 ## Incline
 admin.py
