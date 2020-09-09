@@ -25,19 +25,23 @@ class Person(models.Model):
 
 ## Create Object
 
+### create single
 
-### Method 1
+#### method 1
+used create(**kwargs)
 
 ```python
-    person = Person()
-    person.first_name = 'LeBron' 
-    person.last_name = 'James' 
-    person.height = 206
-    person.weight = 113
-    person.save()
+    Person.objects.create(first_name = 'LeBron',last_name = 'James',height = 206 ,weight = 113 ) 
 ```
-### Method 2
 
+used dictionary
+
+```python
+    info = {first_name : 'LeBron',last_name : 'James',height : 206 ,weight : 113}
+    Person.objects.create(**info)    
+```
+
+#### method 2
 ```python
     person = Person(first_name = 'LeBron',last_name = 'James',height = 206 ,weight = 113 ) 
     person.save()
@@ -50,8 +54,27 @@ used dictionary
     person = Person(**info) 
     person.save()
 ```
+#### method 3
 
-搭配bulk_create可create多個
+```python
+    person = Person()
+    person.first_name = 'LeBron' 
+    person.last_name = 'James' 
+    person.height = 206
+    person.weight = 113
+    person.save()
+```
+#### method 4
+
+```python
+    person,bcreate = Person.objects.get_or_create(first_name : 'LeBron',last_name : 'James') 
+```
+
+
+### create muliti
+
+#### method 1
+bulk_create
 
 ```python
 datas = []
@@ -61,28 +84,6 @@ datas.append({first_name : 'Anthony',last_name : 'Davis',height : 208 ,weight : 
 persons = [person(**data) for data in datas]
 Person.objects.bulk_create(persons)
 ```
-
-
-### Method 3
-This method will automatically save
-```python
-    Person.objects.create(first_name = 'LeBron',last_name = 'James',height = 206 ,weight = 113 ) 
-```
-used dictionary
-
-```python
-    info = {first_name : 'LeBron',last_name : James,height : 206 ,weight : 113}
-    Person.objects.create(**info)  
-```
-
-### Method 4
-這種方法會判斷是否還有資料,會回傳兩個,person,bcreate
-
-```python
-    person,bcreate = Person.objects.get_or_create(first_name : 'LeBron',last_name : 'James') 
-```
-
-
 
 
 
