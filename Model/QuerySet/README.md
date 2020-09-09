@@ -51,6 +51,17 @@ used dictionary
     person.save()
 ```
 
+搭配bulk_create可create多個
+
+```python
+datas = []
+datas.append({first_name : 'LeBron',last_name : 'James',height : 206 ,weight : 113})
+datas.append({first_name : 'Anthony',last_name : 'Davis',height : 208 ,weight : 115})
+
+persons = [person(**data) for data in datas]
+Person.objects.bulk_create(persons)
+```
+
 
 ### Method 3
 This method will automatically save
@@ -64,12 +75,16 @@ used dictionary
     Person.objects.create(**info)  
 ```
 
-### 第四種
+### Method 4
 這種方法會判斷是否還有資料,會回傳兩個,person,bcreate
 
 ```python
     person,bcreate = Person.objects.get_or_create(first_name : 'LeBron',last_name : 'James') 
 ```
+
+
+
+
 
 ## 2.Query 
 
@@ -119,6 +134,40 @@ example:
 其他Fieldlookups參考<a href="https://docs.djangoproject.com/en/2.1/ref/models/querysets/#methods-that-return-new-querysets">QuerySet API</a>
 
 
+### Query AND
+
+### Method 1
+```python
+queryset = Person.objects.filter(first_name__startswith='R') & Person.objects.filter(last_name__startswith='D')
+```
+
+### Method 1
+```python
+queryset = Person.objects.filter(first_name__startswith='R',last_name__startswith='D')
+```
+
+### Method 3
+使用Q
+```python
+from django.db.models import Q
+queryset = Person.objects.all().filter(Q(first_name__startswith = 'R') & Q(last_name__startswith='D'))#條件是or的關係
+```
+
+### Query OR
+
+### Method 1
+```python
+queryset = Person.objects.filter(first_name__startswith='R')  Person.objects.filter(last_name__startswith='D')
+```
+
+### Method 2
+使用Q
+```python
+from django.db.models import Q
+queryset = Person.objects.all().filter(Q(first_name__startswith = 'R')|Q(last_name__startswith='D'))#條件是or的關係
+```
+
+
 ### Query API
 以下皆可搭配使用
 
@@ -135,13 +184,15 @@ example:
 #### values
 指定欄位匯出,格式字典
 ```python
-    Person.objects.value('first_name','last_name')    
+>>>Person.objects.values('first_name','last_name') 
+<QuerySet [{'first_name': 'Anthony', 'last_name': 'Davis'}, {'first_name': 'LeBron', 'last_name': 'James'}]>
 ```
 
 #### values_list
 與value 相同但回傳turple型態
 ```python
-    Person.objects.values_list('first_name','last_name')   
+>>>Person.objects.values_list('first_name','last_name')   
+<QuerySet [('Anthony', 'Davis'), ('LeBron', 'James')]>
 ```
 
 ##### order_by
@@ -154,7 +205,7 @@ example:
 想要依照priority 排序
 
  ```python
- from django.db.models import Case, When
+from django.db.models import Case, When
     order_list =['C','PF','SF','SG','PG']
     preserved = Case(*[When( position = pk, then = pos) for pos, pk in enumerate(order_list)]) 
     Person.objects.order_by(preserved)    
@@ -174,7 +225,7 @@ teams[0].players_cnt
 
 
 
-使用value進行分組,對Status 分組 ,並取出分組開始時間最早的日期,和最晚結束日期
+使用values對Team分組 ,搭配組annotate取出最高身高
 
 ```python
 from django.db.models.aggregates import Max,Min,Count
@@ -219,6 +270,11 @@ aggregate的中文意思是聚合, 源於SQL的聚合函數。 Django的aggregat
     Person.objects.all().prefetch_related('ManyToManyField')
 ``` 
 
+
+
+
+
+
 ## 3.Update
 
 ### update multi
@@ -239,10 +295,11 @@ aggregate的中文意思是聚合, 源於SQL的聚合函數。 Django的aggregat
 ```python 
     objs = [ Person.objects.get(id = id) for id in [1,2,3]]    
     for i in range(len(objs)):          
-        objs[i].status = data_status[i]           
-        objs[i].priority = data_priority[i]   
+        objs[i].weight = data_weight[i]           
+        objs[i].height = data_height   [i]   
         
-    Task.objects.bulk_update(tasks, ['status','priority'])    
+    Task.objects.bulk_update(tasks, ['weight','height'])  
+  
 ```   
 
 ### update single
@@ -259,6 +316,10 @@ aggregate的中文意思是聚合, 源於SQL的聚合函數。 Django的aggregat
     task.__dict__.update(**data)
     task.save()   
 ```   
+
+
+
+
 
 
 ## 4.Advance
