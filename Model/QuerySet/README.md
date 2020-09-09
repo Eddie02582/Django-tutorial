@@ -23,7 +23,7 @@ class Person(models.Model):
   
 ```
 
-## 1.Create Object
+## Create Object
 
 
 ### Method 1
@@ -86,7 +86,7 @@ used dictionary
 
 
 
-## 2.Query 
+## Query 
 
 ### 一般的使用方法
 
@@ -275,7 +275,7 @@ aggregate的中文意思是聚合, 源於SQL的聚合函數。 Django的aggregat
 
 
 
-## 3.Update
+## Update
 
 ### update multi
 
@@ -322,7 +322,7 @@ aggregate的中文意思是聚合, 源於SQL的聚合函數。 Django的aggregat
 
 
 
-## 4.Advance
+## Advance
 
 
 
