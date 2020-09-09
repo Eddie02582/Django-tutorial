@@ -136,17 +136,17 @@ example:
 
 ### Query AND
 
-### Method 1
+#### Method 1
 ```python
 queryset = Person.objects.filter(first_name__startswith='R') & Person.objects.filter(last_name__startswith='D')
 ```
 
-### Method 1
+#### Method 2
 ```python
 queryset = Person.objects.filter(first_name__startswith='R',last_name__startswith='D')
 ```
 
-### Method 3
+#### Method 3
 使用Q
 ```python
 from django.db.models import Q
@@ -155,12 +155,12 @@ queryset = Person.objects.all().filter(Q(first_name__startswith = 'R') & Q(last_
 
 ### Query OR
 
-### Method 1
+#### Method 1
 ```python
 queryset = Person.objects.filter(first_name__startswith='R')  Person.objects.filter(last_name__startswith='D')
 ```
 
-### Method 2
+#### Method 2
 使用Q
 ```python
 from django.db.models import Q
