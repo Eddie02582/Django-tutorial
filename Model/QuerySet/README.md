@@ -89,10 +89,7 @@ Person.objects.bulk_create(persons)
 
 ## Query 
 
-### 一般的使用方法
-
-
-以下為常用query的方法
+### 常用query的方法
 <table>
     <tr>
         <td>Operation</td>
@@ -118,10 +115,9 @@ Person.objects.bulk_create(persons)
 
 ### Field lookups
 
-用法 FieldName__Fieldlookups
+使用用法 FieldName__Fieldlookups
 
-example:
-取得名字含有James
+example:取得名字含有James
 
 ```python
     Person.objects.filter(first_name__contains = "James") 
@@ -182,12 +178,38 @@ queryset = Person.objects.all().filter(Q(first_name__startswith = 'R')|Q(last_na
     Person.objects.filter(team__name = "Lakers").exclude(first_name ='Lebron')
 ```
 
-#### values
-指定欄位匯出,格式字典
+#### values(*fields, **expressions)
+
+輸出為字典格式
+```python
+>>>Person.objects.values()
+```
+
+指定欄位
 ```python
 >>>Person.objects.values('first_name','last_name') 
 <QuerySet [{'first_name': 'Anthony', 'last_name': 'Davis'}, {'first_name': 'LeBron', 'last_name': 'James'}]>
 ```
+
+使用 **expressions,輸出自訂欄位
+
+```python
+from django.db.models.functions import Lower
+>>>Person.objects.values('first_name',lower_name = Lower('first_name'))
+<QuerySet [{'first_name': 'Anthony', 'last_name': 'Davis'}, {'first_name': 'LeBron', 'last_name': 'James'}]>
+```
+
+
+也可以使用內嵌的
+```
+>>> from django.db.models import CharField
+>>> from django.db.models.functions import Lower
+>>> CharField.register_lookup(Lower)
+>>>Person.objects.values('first_name__lower','last_name')
+<QuerySet [{'first_name__lower': 'Anthony', 'last_name': 'Davis'}, {'first_name__lower': 'LeBron', 'last_name': 'James'}]>
+```
+
+
 
 #### values_list
 與value 相同但回傳turple型態
@@ -256,8 +278,13 @@ aggregate的中文意思是聚合, 源於SQL的聚合函數。 Django的aggregat
 #### distinct(*fields)
 過濾重複的
 ```
-   Task.objects.distinct() 
+   Person.objects.distinct() 
 ```
+
+```
+   Person.objects.distinct('first_name') 
+```
+
 
 #### select_related() 
 提高ForeignKey的效能
