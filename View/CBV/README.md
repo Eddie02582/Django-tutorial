@@ -113,7 +113,7 @@ class Task_Creat(CreateView):
     success_url = reverse_lazy('task_View')   
 ```
 
-### override form_valid
+### form_valid
 
 有些資料需要在後台編輯修改透過override form_valid()
 
@@ -133,7 +133,7 @@ class Task_Edit(UpdateView):
         return super().form_valid(form)    
 ```
 
-### override get_context_data
+### get_context_data
 ```python
     def get_context_data(self, **kwargs):   
         context = super().get_context_data(**kwargs)  
@@ -141,7 +141,7 @@ class Task_Edit(UpdateView):
         return context
 ```
 
-### override  get_form_kwargs
+### get_form_kwargs
 將參數傳給form使用
 ```python
     def get_form_kwargs(self):
@@ -150,7 +150,7 @@ class Task_Edit(UpdateView):
         return kwargs   
 ```
 
-### override get_success_url
+### get_success_url
 可以寫在success_url,但是需要傳入參數可以透過override get_success_url
 
 ```python
@@ -164,7 +164,7 @@ class Task_Edit(UpdateView):
         
 ```
 
-### override get_object
+### get_object
 ```python
 class Task_Edit(UpdateView):
     model = Task
@@ -177,7 +177,7 @@ class Task_Edit(UpdateView):
             raise Http404()
 ```
 
-### override get
+### get
 
 ```python
 class HWTask_Edit(UpdateView):
@@ -233,7 +233,7 @@ class Task_ListView(ListView):
 
 
 
-### override get
+### get_queryset
 
 ```python
     def get_queryset(self):    
