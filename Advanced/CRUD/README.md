@@ -21,6 +21,7 @@ def save_book_form(request, form, template_name):
             form.save()
             data['form_is_valid'] = True
             books = Book.objects.all()
+            #update new data
             data['html_book_list'] = render_to_string('books/includes/partial_book_list.html', {
                 'books': books
             })
