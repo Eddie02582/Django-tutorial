@@ -1,6 +1,6 @@
 # ModelForm
 
-## Form.py
+
 
 假設有一個model,用來記錄任務的開始和結束時間
 **model.py**
@@ -24,7 +24,7 @@ class TaskForm(forms.ModelForm):
     
 ```
 
-## modify widgets
+## Modify widgets
 希望能修改fileds輸出預設的欄位,有2種方式
 
 ### through meta override
@@ -69,7 +69,7 @@ class TaskForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         user = kwargs.pop('user', None)     
-        super(PLIssueForm, self).__init__(*args, **kwargs)      
+        super(TaskForm, self).__init__(*args, **kwargs)      
         self.fields['owner'] = forms.ModelChoiceField(queryset = User.objects.filter( first_name = user.first_name))
         
     class Meta:
@@ -98,7 +98,20 @@ class TaskForm(forms.ModelForm):
 
 
 
-## Pass argument to form
+## Pass argument to form 
+透過kwargs.pop,將參數取出
+
+ ```python 
+class TaskForm(forms.ModelForm):   
+
+    def __init__(self, *args, **kwargs):
+        user = kwargs.pop('user', None)     
+        super(TaskForm, self).__init__(*args, **kwargs)      
+        self.fields['owner'] = forms.ModelChoiceField(queryset = User.objects.filter( first_name = user.first_name))
+        
+
+```       
+    
     
 ### FBV 
 
