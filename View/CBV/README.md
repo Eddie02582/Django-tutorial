@@ -135,12 +135,20 @@ class Task_Edit(UpdateView):
 
 ### override get_context_data
 ```python
-def get_context_data(self, **kwargs):   
-    context = super().get_context_data(**kwargs)  
-    context['user'] = request.user
-    return context
+    def get_context_data(self, **kwargs):   
+        context = super().get_context_data(**kwargs)  
+        context['user'] = request.user
+        return context
 ```
 
+### override  get_form_kwargs
+將參數傳給form使用
+```python
+    def get_form_kwargs(self):
+        kwargs = super(task_create, self).get_form_kwargs()
+        kwargs['user'] = self.request.user # pass the 'user' in kwargs
+        return kwargs   
+```
 
 ### override get_success_url
 可以寫在success_url,但是需要傳入參數可以透過override get_success_url
