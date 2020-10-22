@@ -1,73 +1,52 @@
-# FBV Vs CBV
+# CBV (Generic Class-Based View)
 
-Django視圖本質是一個函數：接受HttpRequest對像作為參數，返回一個HttpResponse對像作為返回.FBV直接就是這樣一個函數，而CBV類的方法as_view（），它的返回也是這樣一個函數。<br>
+CBV類的方法as_view()，它的返回也是這樣一個函數。<br>
 Django提供了一些通用視圖，基於通用類的視圖（GCBV），可以加快開發。實現所有內容。<br>
 
 注意 FBV 與CBV path 中寫法不一樣
 
-    
-## FBV (Function Base View)
 
-以下是簡單的FBV
-**view.py**
-
-```python
-def ApLoss_View(request):   
-    form = APLossForm()  
-    if request.method == 'POST':
-        form = APLossForm(request.POST) 
-        if form.is_valid():             
-            Freq = form.cleaned_data.get('FreqInMHz')         
-            levelInDb = form.cleaned_data['levelInDb']
-            result = (27.55 - (20 * math.log10(Freq)) + math.fabs(levelInDb)) / 20.0
-            meters = math.pow(10, result)       
-            feet = meters * 3.2808                  
-            return render(request, 'APLoss.html', {'form': form,'feet':feet,'meters':meters})
-```
-
-
-**url.py**
-```python
-    path('APLoss/', views.ApLoss_View, name='AP_Loss'),	
-```
-
-
-## GCBV (Generic Class-Based View)
 
 <table>
     <tr>
         <th>名稱</th>
-        <th>目的</th>        
+        <th>目的</th>   
+        <th>Link</th>        
     </tr>
     <tr>
         <td>ListView</td>
-        <td>列出對象</td>
+        <td>列出對象</td>       
+        <td> <a href = "https://ccbv.co.uk/projects/Django/2.1/django.views.generic.list/ListView/">Link</a></td>
     </tr>
     <tr>
         <td>DetailView</td>
         <td>對象的詳細信息</td>
+        <td> <a href = "https://ccbv.co.uk/projects/Django/2.1/django.views.generic.detail/DetailView/">Link</a></td>
     </tr>    
     <tr>
         <td>FormView</td>
         <td>提交表單</td>
+        <td> <a href = "https://ccbv.co.uk/projects/Django/2.1/django.views.generic.edit/FormView/">Link</a></td>
     </tr>
     <tr>
         <td>CreateView</td>
         <td>提交表單</td>
+        <td> <a href = "https://ccbv.co.uk/projects/Django/2.1/django.views.generic.edit/CreateView/">Link</a></td>
     </tr>
     <tr>
         <td>UpdateView</td>
         <td>更新對象</td>
+        <td> <a href = "https://ccbv.co.uk/projects/Django/2.1/django.views.generic.edit/UpdateView/">Link</a></td>
     </tr>
     <tr>
         <td>DeleteView</td>
         <td>刪除對象</td>
+        <td> <a href = "https://ccbv.co.uk/projects/Django/2.1/django.views.generic.edit/DeleteView/">Link</a></td>
     </tr>
 </table>
-詳細各個View 的方法 可以參考<href>https://ccbv.co.uk/projects/Django/2.1/django.views.generic.edit/CreateView/</href>
-</br>
-介紹一些常用的Attributes</br>
 
+
+介紹一些共用的Attributes,其它的分別在介紹</br>
 <table>
     <tr>
         <th>名稱</th>
@@ -85,21 +64,6 @@ def ApLoss_View(request):
         <td></td>
     </tr>
     <tr>
-        <td>form_class</td>
-        <td>設定Form</td>
-        <td>不設定會照Model建form</td>
-    </tr>    
-    <tr>
-        <td>pk_url_kwarg </td>
-        <td>url 傳入的參數</td>
-        <td>使用在create,update,detail</td>
-    </tr>       
-    <tr>
-        <td>queryset</td>
-        <td> </td>
-        <td> </td>
-    </tr>
-    <tr>
         <td>success_url</td>
         <td>成功時導入的網址</td>
         <td>通常用在create,update</td>
@@ -108,25 +72,11 @@ def ApLoss_View(request):
         <td>template_name</td>
         <td>使用的模板</td>
         <td></td>
-    </tr>
-    <tr>
-        <td>paginate_by</td>
-        <td>多少筆資料作為分頁</td>
-        <td>list 專用</td>
     </tr>  
-    <tr>
-        <td>ordering</td>
-        <td>排序</td>
-        <td>list 專用</td>
-    </tr>   
 </table>
 
-
-介紹一些常用的Method,不一定每個View 都有</br>
-利用下面方式執行為override method
-```
-super().method_name(request, *args, **kwargs)
-```
+## CreatView/UpdateView
+Attributes
 <table>
     <tr>
         <th>名稱</th>
@@ -134,37 +84,153 @@ super().method_name(request, *args, **kwargs)
         <th>Note</th>        
     </tr>
      <tr>
-        <th>get_context_data</th>
-        <td>取得context值</td>
-        <td>若想增加回傳內容,可自行修改</td>
+        <td>fields</td>
+        <td>選擇form的輸出欄位,通常會透過form.py設定</td>
+        <td></td>
     </tr> 
     <tr>
-        <td>get_queryset</td>
-        <td>取得queryset</td>
-        <td></td>
+        <td>form_class</td>
+        <td>設定Form</td>
+        <td>沒設定會照Model建form,此時就可以搭配fields</td>
     </tr>
     <tr>
-        <td>get</td>
-        <td>get 動作</td>
+        <td>pk_url_kwarg </td>
+        <td>url 傳入的參數(　path('Task/<int:task_id>/edit/', views.Task_Edit.as_view(), name='task_edit'))</td>
+        <td>使用在create,update,detail</td>
+    </tr>  
+    <tr>
+        <td>initial</td>
+        <td>設定給form initial 參數,也可以透過form.py</td>
         <td></td>
-    </tr>    
-    <tr>
-        <td>post </td>
-        <td>post 動作</td>
-        <td></td>
-    </tr>       
-    <tr>
-        <td>form_valid</td>
-        <td>表單驗證</td>
-        <td> </td>
-    </tr>
-    <tr>
-        <td>get_success_url</td>
-        <td>取得成功導入的網址</td>
-        <td>通常用在create,update</td>
-    </tr>    
+    </tr>  
 </table>
 
+```python
+class Task_Creat(CreateView):
+    model = Task
+    form_class = TaskForm   
+    template_name = 'Task/Creat.html'
+    success_url = reverse_lazy('task_View')   
+```
+
+### override form_valid
+
+有些資料需要在後台編輯修改透過override form_valid()
+
+```python
+class Task_Edit(UpdateView):
+    model = Task
+    form_class=TaskForm  
+    template_name = 'Edit.html'
+    pk_url_kwarg = 'task_id'
+    context_object_name = 'task' 
+
+    def form_valid(self, form):         
+        tasks = form.save(commit = False) 
+        if tasks.status　==　"Close":
+            tasks.end_date = datetime.datetime.now()       
+        tasks.save()     
+        return super().form_valid(form)    
+```
+
+### override get_context_data
+```python
+def get_context_data(self, **kwargs):   
+    context = super().get_context_data(**kwargs)  
+    context['user'] = request.user
+    return context
+```
+
+
+### override get_success_url
+可以寫在success_url,但是需要傳入參數可以透過override get_success_url
+
+```python
+class Task_Edit(UpdateView):
+    model = Task
+    form_class = TaskForm  
+    template_name = 'Edit.html' 
+    
+    def get_success_url(self):
+        return reverse('task_detail', args=(self.object.id,))
+        
+```
+
+### override get_object
+```python
+class Task_Edit(UpdateView):
+    model = Task
+    form_class = TaskForm  
+    template_name = 'Edit.html' 
+ 
+    def get_object(self, queryset=None):
+        obj = super().get_object(queryset=queryset)
+        if obj.author != self.request.user:
+            raise Http404()
+```
+
+### override get
+
+```python
+class HWTask_Edit(UpdateView):
+    model = Task
+    form_class = TaskForm  
+    template_name = 'Edit.html' 
+    pk_url_kwarg = 'hwtask_id'   
+ 
+    def get(self, request, *args, **kwargs): 
+        obj = self.get_object()       
+        if self.request.user != self.request.user:
+            return super().get(request, *args, **kwargs)
+        else:            
+            return redirect('/accounts/access_error/')
+
+```
+
+## ListView
+
+Attributes
+<table>
+    <tr>
+        <th>名稱</th>
+        <th>目的</th>
+        <th>Note</th>        
+    </tr>
+     <tr>
+        <td>paginate_by</td>
+        <td>設定一頁多少筆資料</td>
+        <td></td>
+    </tr> 
+    <tr>
+        <td>ordering</td>
+        <td>設定排序</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>queryset</td>
+        <td></td>
+        <td></td>
+    </tr>  
+
+</table>
+
+
+```python
+class Task_ListView(ListView):
+    model = Task 
+    template_name = 'Task/List.html'
+    context_object_name = 'tasks'  
+    paginate_by = 10
+```
+
+
+
+### override get
+
+```python
+    def get_queryset(self):    
+        return Task.objects.all().fliter(owner = self.request.user)  
+```
 
 ### FormView
 可以比較一下和FBV 的差異<br>
@@ -184,75 +250,8 @@ class ApLoss_View(FormView):
 ```
 
 
-
-### ListView
-
-**view.py**
-```python
-class HWTask_View(ListView):
-    model = HW
-    context_object_name = 'tasks'
-    template_name =  'Task/HW/ListView.html'
-    paginate_by = 10
-    
-```
-
-### CreatView
-
-**view.py**
-```python
-class HWTask_Creat(CreateView):
-    model = HW
-    form_class = HWForm   
-    template_name = 'Task/HW/Creat.html'
-    success_url = reverse_lazy('hwtask_View')   
-```
-
-
-
-
-### UpdateView
-**url.py**
-```python
-	path('HWTask/<int:hwtask_id>/edit/', views.HWTask_Edit.as_view(), name='hwtask_edit'),      
-```
-
-**view.py**
-```python
-class HWTask_Edit(UpdateView):
-    model = HW
-    form_class=HWForm  
-    template_name = 'Task/HW/Edit.html'
-    pk_url_kwarg = 'hwtask_id'
-    context_object_name = 'tasks'  
-```
-
-
-
-
-
-希望表單驗證時，有些資料需要在後台編輯修改(Form 可能沒完全包含整個Model fields)，可以透過override form_valid()
-注意本資料包含Many to Many 資料所以使用form.save_m2m() 和 tasks.save()
-
-```python
-class HWTask_Edit(UpdateView):
-    model = HW
-    form_class=HWForm  
-    template_name = 'HW/Edit.html'
-    pk_url_kwarg = 'hwtask_id'
-    context_object_name = 'tasks' 
-
-    def form_valid(self, form):         
-        tasks = form.save(commit=False) 
-        if tasks.status=="Close":
-            tasks.end_date=datetime.datetime.now()
-        form.save_m2m()  
-        tasks.save()     
-        return redirect('hwtask_detail', hwtask_id=tasks.pk) 
-```
-
-
-### DetailView
+ 
+## DetailView
 
 
 ```python
@@ -263,96 +262,7 @@ class HWTask_Detail(DetailView):
     pk_url_kwarg = 'hwtask_id'
 ```
 
-
-
-### 其他應用
-
-#### get_context_data
-額外傳入資訊，可以修改context_data
-
-
-```python
-def get_context_data(self, **kwargs):
-    # Call the base implementation first to get a context
-    context = super().get_context_data(**kwargs)
-    # Add in a QuerySet of all the books
-    context['book_list'] = Book.objects.all()
-    return context
-```
-#### get_queryset
-修改queryset
-
-```python
-def get_queryset(self)
-    return Book.objects.filter(publisher=self.publisher)
-```
-
-#### get_success_url
-
-希望成功後進入url傳入參數,因此改寫def get_success_url<br>
-
-```python
-class HWTask_Creat(CreateView):
-    model = HW
-    form_class=HWForm   
-    template_name = 'Task/HW/Creat.html'
-    
-    def get_success_url(self):
-        return reverse('hwtask_detail', args=(self.object.id,))
-        
-```
-
-#### form_valid
-
-```python
-class HWTask_Create(CreateView):
-    model = HW
-    form_class=HWForm	
-    template_name = 'HW/Creat.html'  
-    
-    def form_valid(self, form): 
-        tasks = form.save(commit=False)  
-        tasks.starter = request.user
-        task.save()
-        return redirect('hwtask_detail', hwtask_id=tasks.pk) 
-```
-
-#### get_object
-```python
-class HWTask_Edit(UpdateView):
-    model = HW
-    form_class=HWForm  
-    template_name = 'HW/Edit.html'
-    pk_url_kwarg = 'hwtask_id'
-    context_object_name = 'tasks' 
- 
-    def get_object(self, queryset=None):
-        obj = super().get_object(queryset=queryset)
-        if obj.author != self.request.user:
-            raise Http404()
-```
-
-
-#### get
-```python
-class HWTask_Edit(UpdateView):
-    model = HW
-    form_class=HWForm  
-    template_name = 'HW/Edit.html'
-    pk_url_kwarg = 'hwtask_id'
-    context_object_name = 'tasks' 
- 
-    def get(self, request, *args, **kwargs): 
-        obj=self.get_object()
-        username=[ owner.username for owner in obj.owner.all()]
-        if self.request.user.username  in username:
-            return super().get(request, *args, **kwargs)
-        else:            
-            return redirect('/accounts/access_error/')
-
-```
-
-### Mixin
+## Mixin
 
 介紹一個View共用的方法，避免重複寫code，定義ActionEditGetMixin，覆寫get 
 
@@ -378,5 +288,11 @@ class HWTask_Edit(ActionEditGetMixin,UpdateView):
     template_name = 'HW/Edit.html'
     pk_url_kwarg = 'hwtask_id'
     context_object_name = 'tasks' 
-```
 
+
+
+
+
+
+    
+```

@@ -4,8 +4,8 @@
 主要分成兩大類
 
 <ul>
-    <li> <a href = "https://github.com/Eddie02582/Django-tutorial/tree/master/Form/Form">FBV</a></li>
-    <li> <a href = "https://github.com/Eddie02582/Django-tutorial/tree/master/Form/ModelForm">CBV</a></li>                              
+    <li> <a href = "https://github.com/Eddie02582/Django-tutorial/tree/master/View/FBV">FBV</a></li>
+    <li> <a href = "https://github.com/Eddie02582/Django-tutorial/tree/master/View/CBV">CBV</a></li>                              
 </ul>
 
 
