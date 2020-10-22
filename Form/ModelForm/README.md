@@ -25,6 +25,52 @@ class TaskForm(forms.ModelForm):
     
 ```
 
+## Use ModelForm in FBV & CBV
+
+### FBV
+```python 
+def task_create(request):    
+    context = {}    
+    if request.method == 'POST':        
+        form = TaskForm(request.POST)
+        if form.is_valid():  
+            form.save()
+    else:
+        form = TaskForm()
+    
+    return render(request,"task_create.html",context)
+
+``` 
+也可以使用modelform_factory,而不用在form.py定義
+
+```python 
+    TaskForm = modelform_factory(Task, fields=('name','owner','start_date','end_date','note')	)   
+``` 
+也可修改widgets
+
+```python 
+    TaskForm = modelform_factory(Task, fields=('name','owner','start_date','end_date','note'),widgets={'note': forms.Textarea(attrs={'cols': 120,'rows':10})})
+``` 
+
+### CBV
+
+```python 		
+class task_create(CreateView):
+    model = Task
+    form_class = TaskForm	
+    template_name = 'task_create.html'
+```  
+
+也可以不使用form_class
+
+```python 		
+class task_create(CreateView):
+    model = Task
+    form_class = TaskForm	
+    template_name = 'task_create.html'
+```  
+
+
 ## Modify widgets
 希望能修改fileds輸出預設的欄位,有2種方式
 
@@ -118,7 +164,7 @@ class TaskForm(forms.ModelForm):
 
 ```python 
 
-def task_create(request,pk,res):    
+def task_create(request):    
     context = {}
     
     if request.method == 'POST':        
@@ -151,7 +197,15 @@ class task_create(CreateView):
 
 ```   
 
-## User define clean
+## Validation form User define 
+There are two main steps involved in validating a ModelForm:
+<ul>
+    <li>Validating the form</li>
+    <li>Validating the model instance</li>
+</ul>
+這邊介紹Validating the form
+
+## Overriding the clean() method
 
  ```python 
  
@@ -161,7 +215,7 @@ class TaskForm(forms.Form):
         start_date = cleaned_data.get('start_date') 
         end_date = cleaned_data.get('end_date') 
         
-        if not end_date>=start_date:     
+        if not end_date >= start_date:     
             raise forms.ValidationError("End date must be greater than start date")
         return cleaned_data     
     
@@ -175,28 +229,76 @@ class TaskForm(forms.Form):
            
 		}  
 ```
-
-或者指定欄位
+## clean_fields()
 
  ```python  
     def clean_start_date(self):   
         # data from the form is fetched using super function 
-        cleaned_data  = super(ResourceForm, self).clean()  
+        cleaned_data  = super(ResourceForm, self).clean() 
+        
         start_date = cleaned_data.get('start_date') 
         end_date = cleaned_data.get('end_date') 
-        if not end_date>=start_date:    
+        if not end_date >= start_date:    
             raise forms.ValidationError("End date must be greater than start date")
         return cleaned_data 
 ```
 
+ ```python  
+    def clean_start_date(self):           
+        start_date = self.cleaned_data.get('start_date') 
+        end_date = self.cleaned_data.get('end_date') 
+  
+        if not end_date >= start_date:    
+            raise forms.ValidationError("End date must be greater than start date")
+            
+        return start_date 
+```
+
+
+
+## Pass initial value to form 
+設定出始値也可以透過form.py設定default,但是需要依招不同情況的初始値,就可以使用
 
 
 
 
+### FBV 
 
+```python 
 
+def task_create(request):    
+    context = {}
+    initial = {'note': 'NA'}
+    if request.method == 'POST':        
+        form = TaskForm(request.POST)
+        if form.is_valid():  
+            form.save()
+    else:
+        form = TaskForm(user = user,initial = initial)
+    
+    return render(request,"task_create.html",context)
 
+```   
 
+### CBV 
+
+```python 		
+class task_create(CreateView):
+    model = Task
+    form_class = TaskForm	
+    template_name = 'task_create.html'
+    success_url = reverse_lazy('task_View')
+    initial = {'note': 'NA'}
+
+    def get(self, request, *args, **kwargs):
+        form = self.form_class(initial = self.initial)
+        return render(request, self.template_name, {'form': form})
+        
+    def get_form_kwargs(self):
+        kwargs = super(task_create, self).get_form_kwargs()
+        kwargs['user'] = self.request.user # pass the 'user' in kwargs
+        return kwargs   
+```  
 
 
 
