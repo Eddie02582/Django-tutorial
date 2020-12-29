@@ -36,7 +36,7 @@ class Topic(models.Model):
 
 
 ## 註冊 model
-admin.py 透過 admin.site.register 註冊 Profile
+admin.py 透過 admin.site.register 註冊 Board
 
 
 ```python 
