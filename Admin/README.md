@@ -51,21 +51,18 @@ admin.site.register(Board)
 <img src="admin_2.png" alt="Smiley face">
 
 
-## 自訂 編輯格式
-建立一個BoardAdmin 的class ,繼承admin.ModelAdmin<br>
-透過 admin.site.register(Board,BoardAdmin) 修改admin格式
+## 自訂 ModelAdmin
 
+### 編輯欄位
+fields 自訂顯示編輯欄位(注意fields順序即為顯示順序)
 
-#### 修改編輯欄位
-fields 自訂顯示編輯欄位
 ```python 
-class Profiledmin(admin.ModelAdmin):    
+class BoardAdmin(admin.ModelAdmin):    
     fields = ['name','description']
-
 admin.site.register(Board,BoardAdmin)
 ```
 
-fieldsets 顯示編輯欄位title,注意fieldsets/fields 只能選一
+fieldsets 分門別類顯示欄位,注意fieldsets/fields 只能選一
 
 ```python 
 class Profiledmin(admin.ModelAdmin):   
@@ -78,7 +75,7 @@ class Profiledmin(admin.ModelAdmin):
 <img src="admin_3.png" alt="Smiley face">
 
 
-#### 關聯式資料
+#### 增加關聯式資料
 透過inlines將兩種資料庫連接,有兩種堆疊方式StackedInline,TabularInline
 
 
@@ -104,13 +101,11 @@ admin.site.register(Board,BoardAdmin)
     <li>TabularInline 顯示<img src="admin_4.png" alt="Smiley face"></li>
     <li>StackedInline 顯示<img src="admin_5.png" alt="Smiley face"></li>
 </ul>
-StackedInline 顯示
-<img src="admin_5.png" alt="Smiley face">
+
 
 
 
 如何固定extra個數,修改get_extra函數
-
 
 ```python 
 class Topic_Incline(admin.TabularInline):
@@ -171,7 +166,7 @@ class AuthorAdmin(admin.ModelAdmin):
          return super().formfield_for_manytomany(db_field, request, **kwargs)
 ```
 
-## 顯示介面
+### 顯示介面
 
 
 
