@@ -1,7 +1,6 @@
 # Admin
 
-
-model.py如下,Topics ForeignKey Board
+model.py如下,一個board有多個topics
 
 
 ```python 
@@ -10,6 +9,7 @@ from django.contrib.auth.models import User
 class Board(models.Model):
     name = models.CharField(max_length=30, unique=True)
     description = models.CharField(max_length=100)
+    
     def __str__(self):
         return self.name
     def get_posts_count(self):
@@ -17,15 +17,18 @@ class Board(models.Model):
 
     def get_last_post(self):
         return Post.objects.filter(topic__board=self).order_by('-created_at').first()	
-		
+
+
 class Topic(models.Model):
     subject = models.CharField(max_length=255)
     last_updated = models.DateTimeField(auto_now_add=True)
     board = models.ForeignKey(Board, related_name='topics',on_delete=models.CASCADE)
     starter = models.ForeignKey(User, related_name='topics',on_delete=models.CASCADE)
     views = models.PositiveIntegerField(default=0)
+    
     def __str__(self):
         return self.subject
+    
     def get_starter(self):
         return starter.__fullname__()
         
@@ -53,7 +56,94 @@ admin.site.register(Board)
 
 ## 自訂 ModelAdmin
 
-### 編輯欄位
+### 顯示介面
+
+
+#### 顯示欄位
+
+```python 
+class TopicAdmin(admin.ModelAdmin):
+    list_display=['board','subject','views']    
+```
+
+也可以自訂欄位<br>
+這邊定義Posts Count 欄位,其値取自於get_post_count()函數
+
+```python 
+class TopicAdmin(admin.ModelAdmin):
+    list_display=['board','subject','views','get_post_count']
+  
+    def get_post_count(self,obj):
+        return obj.posts.count() 
+        
+    get_post_count.short_description = 'Posts Count'
+    
+```
+
+
+<img src="admin_6.png" alt="Smiley face">
+
+#### 排序(ordering)
+使用ordering來設定資料排序的順序
+
+```python 
+class TopicAdmin(admin.ModelAdmin):
+    list_display=['board','subject','views','get_post_count']
+  
+    ordering = ('board__name',)
+  
+    def get_post_count(self,obj):
+        return obj.posts.count() 
+        
+    get_post_count.short_description = 'Posts Count'
+    
+```
+
+note:使用turple() or list []都可以,如果使用turple,要注意只有一個値後面要用逗號
+
+#### 收尋(search_fields)
+
+使用search_fields來設定收尋欄位
+
+```python 
+class TopicAdmin(admin.ModelAdmin):
+
+    list_display=['board','subject','views','get_post_count']  
+    ordering = ('board__name',)
+    search_fields=['subject']
+  
+    def get_post_count(self,obj):
+        return obj.posts.count() 
+        
+    get_post_count.short_description = 'Posts Count'
+    
+```
+
+
+#### 過濾欄位(list_filter)
+
+```python 
+class TopicAdmin(admin.ModelAdmin):
+
+    list_display=['board','subject','views','get_post_count']  
+    ordering = ('board__name',)
+    search_fields=['subject']
+    list_filter=['board__name']	
+    
+    def get_post_count(self,obj):
+        return obj.posts.count() 
+        
+    get_post_count.short_description = 'Posts Count'
+    
+```
+
+
+<img src="admin_7.png" alt="Smiley face">
+
+
+
+### 自訂編輯欄位
+
 fields 自訂顯示編輯欄位(注意fields順序即為顯示順序)
 
 ```python 
@@ -75,8 +165,8 @@ class Profiledmin(admin.ModelAdmin):
 <img src="admin_3.png" alt="Smiley face">
 
 
-#### 增加關聯式資料
-透過inlines將兩種資料庫連接,有兩種堆疊方式StackedInline,TabularInline
+#### 如何增加關聯式資料
+關聯式資料希望能在同一個介面編輯新增,透過incline將兩種資料庫連接,有兩種堆疊方式StackedInline,TabularInline
 
 
 
@@ -165,65 +255,3 @@ class AuthorAdmin(admin.ModelAdmin):
          )
          return super().formfield_for_manytomany(db_field, request, **kwargs)
 ```
-
-### 顯示介面
-
-
-
-#### 修改顯示欄位(list_display)
-這邊以Topic 示範<br>
-
-
-可以透過model.py 新增顯示欄位
-```python 
-class TopicAdmin(admin.ModelAdmin):
-    list_display=['board','subject','views']
-    
-```
-
-也可以透過admin.py 新增
-```python 
-class TopicAdmin(admin.ModelAdmin):
-    list_display=['board','subject','views','get_post_count']
-  
-    def get_post_count(self,obj):
-        return obj.posts.count()  
-    get_post_count.short_description = 'Posts Count'
-```
-
-
-<img src="admin_6.png" alt="Smiley face">
-
-#### 新增排序(ordering)
-使用turple() or list []都可以,如果使用turple,要注意只有一個値後面要用逗號
-
-```python 
-    ordering = ('board__name',)
-```
-
-#### 新增收尋(search_fields)
-```python 
-    search_fields=['subject']
-```
-
-#### 新增過濾欄位(list_filter)
-```python 
-    list_filter=['board__name']	
-```
-
-
-完整code
-```python 
-class TopicAdmin(admin.ModelAdmin):
-    list_display=['board','subject','views','get_post_count']
-    ordering = ('board__name',)
-    search_fields=['subject']
-    list_filter=['board__name']	
-    def get_post_count(self,obj):
-        return obj.posts.count()  
-    get_post_count.short_description = 'Posts Count'
-```
-
-<img src="admin_7.png" alt="Smiley face">
-
-
