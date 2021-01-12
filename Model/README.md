@@ -69,6 +69,7 @@ python manage.py makemigrations --empty app
         </ul>
     </li> 
     <li><a href="https://github.com/Eddie02582/Django-tutorial/blob/master/Model/Example/README.md">Example</a></li> 
+    <li><a href="https://github.com/Eddie02582/Django-tutorial/blob/master/Model/Managers/README.md">Managers</a></li> 
     <li>  
         <a href="https://github.com/Eddie02582/Django-tutorial/tree/master/Model/Inheritance">Django-Model Inheritance</a>
         <ul>
