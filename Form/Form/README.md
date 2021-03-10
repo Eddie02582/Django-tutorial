@@ -56,7 +56,7 @@ def ApLoss_View(request):
     <li>{{ form.as_ul }} will render them wrapped in <li> tags</li>
 </ul>
 
-```
+```html
     <form method="post">
         {% csrf_token %}
         {{form.as_table}}
@@ -65,7 +65,7 @@ def ApLoss_View(request):
 ```
 
 如果需要自訂格式也可以
-```
+```html
 	<form enctype="form-data" action="" method="post">
 		{% csrf_token %}
 		<div class="form-group ">{{form.FreqInMHz.label}} : {{form.FreqInMHz}}</div>		
@@ -109,12 +109,12 @@ def handle_uploaded_file(f,path):
 ```
 
 ### Template
-```
-	<form method="post" enctype="multipart/form-data">
-		{% csrf_token %}		
-        {{form.form.as_p}}
-		<input type="submit" value="Submit">
-	</form>	
+```html
+<form method="post" enctype="multipart/form-data">
+	{% csrf_token %}		
+    {{form.form.as_p}}
+	<input type="submit" value="Submit">
+</form>	
 ```
 
     
