@@ -14,6 +14,8 @@
 ### Form.py
 建立表單需要的欄位
 
+欄位介紹參考< a href  = "https://docs.djangoproject.com/en/3.1/ref/forms/fields/#built-in-field-classes">官方文件</a>
+
 ```python 
 from django import forms			 
 class APLossForm(forms.Form):
