@@ -19,8 +19,8 @@
 ```python 
 from django import forms			 
 class APLossForm(forms.Form):
-    FreqInMHz  = forms.FloatField(label='Freq (MHz)', required=True)
-    levelInDb  = forms.FloatField(label='Rssi Level In dB', required=True)
+    FreqInMHz  = forms.FloatField(label='Freq (MHz)', required = True)
+    levelInDb  = forms.FloatField(label='Rssi Level In dB', required = True)
 ```
 
 
