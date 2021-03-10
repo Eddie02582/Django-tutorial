@@ -230,8 +230,6 @@ class TaskForm(forms.Form):
 設定出始値也可以透過form.py設定default,但是需要依照不同情況時,就可以使用
 
 
-
-
 ### FBV 
 
 ```python 
