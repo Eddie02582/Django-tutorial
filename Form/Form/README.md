@@ -112,7 +112,7 @@ def handle_uploaded_file(f,path):
 ```html
 <form method="post" enctype="multipart/form-data">
 	{% csrf_token %}		
-    {{form.form.as_p}}
+    {{form.as_p}}
 	<input type="submit" value="Submit">
 </form>	
 ```
