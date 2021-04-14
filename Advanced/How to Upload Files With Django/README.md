@@ -50,7 +50,7 @@ def simple_upload(request):
     return render(request, 'simple_upload.html')
 
 ```
-## Model Form
+
 
 
 

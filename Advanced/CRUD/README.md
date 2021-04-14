@@ -233,9 +233,8 @@ book_list.html
 {% endblock %}
 ```
 
-
-```html
 partial_book_list.html
+```html
 {% for book in books %}
   <tr>
     <td>{{ book.id }}</td>
