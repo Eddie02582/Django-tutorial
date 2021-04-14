@@ -27,7 +27,7 @@ class RF(models.Model):
     chip_type = models.CharField(max_length=100)    
     transmit = models.IntegerField()
     recieve = models.IntegerField()
-    hardware  = models.ForeignKey(Hardware, related_name='+', on_delete=models.CASCADE,null=True)
+    hardware  = models.ForeignKey(Hardware, related_name='has_hardware', on_delete=models.CASCADE,null=True)
 ```
 
 
@@ -102,18 +102,16 @@ class HWConfig(CreateView):
 
 ### Template 
 
+#### table 
+
+
 ``` html
-{% extends "base.html" %}
-
-{% load static %}
-
-{% block content %}
 <div class="col-md-4">
-    <form action="" method="post">{% csrf_token %}
-        {{ form.as_p }}       
-        
+    <form action="" method="post">
+        {% csrf_token %}
+        {{ form.as_p }}  
         <table class="table">            
-            {{ incline_form.management_form }}
+            {{incline_form.management_form }}
             {% for form in incline_form.forms %}
                 {% if forloop.first %}
                     <thead>
@@ -142,16 +140,21 @@ class HWConfig(CreateView):
         </table>        
     </form>
 </div>
+```
+#### javascript 
+這邊重點在prefix,需要對應hardware  = models.ForeignKey(Hardware, related_name='has_hardware', on_delete=models.CASCADE,null=True)的related_name
+
+``` html
 <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 <script src="{% static 'js/jquery.formset.js' %}"></script>
 <script type="text/javascript">
     $('.formset_row').formset({
         addText: 'add new',
         deleteText: 'remove',
-        prefix: 'familymember_set'
+        prefix: 'has_hardware'
     });
 </script>
-{% endblock %}
+
 ```
 
 ### Result
