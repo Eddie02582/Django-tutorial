@@ -77,8 +77,26 @@ python manage.py makemigrations --empty app
             <li><a href = "https://github.com/Eddie02582/Django-tutorial/tree/master/Model/Inheritance#2multi-table-inheritance">Multi-table inheritance</a></li>
             <li><a href = "https://github.com/Eddie02582/Django-tutorial/tree/master/Model/Inheritance#3proxy">Proxy</a></li>
         </ul>
-    </li> 
-    
+    </li>  
+    <li>  
+        <a href="">其他</a>
+        <ul>
+            <li><a href = "https://books.agiliq.com/projects/django-orm-cookbook/en/latest/index.html">Django ORM Cookbook</a></li> 
+        </ul>
+    </li>   
 </ul>
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 

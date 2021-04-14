@@ -1,7 +1,7 @@
 # Mode1
 
 ## Create Model
-```
+```python
 from django.db import models
 class Person(models.Model):
     first_name = models.CharField(max_length=30)
@@ -25,7 +25,7 @@ class Person(models.Model):
 ```
 
 ## Model method
-```
+```python
 from django.db import models
 class Person(models.Model):
     first_name = models.CharField(max_length=30)
@@ -46,7 +46,7 @@ class Person(models.Model):
 ## FileField Path used instance
 
 model如下
-```
+```python
 def path(instance, filename):    
     return '{0}/{1}/{2}'.format("File",instance.pk,filename
     
@@ -57,7 +57,7 @@ class FileUpload(models.Model):
 ```
 objects 在尚未create 時,所以instance會為空,此時需分兩次儲存,修改save
 
-```
+```python
 class FileUpload(models.Model):    
     file = models.FileField(upload_to = path
     def save(self, *args, **kwargs):
