@@ -346,9 +346,68 @@ aggregate的中文意思是聚合, 源於SQL的聚合函數。 Django的aggregat
 ```   
 
 
+## instance to Dict 
+
+### instance.__dict__
+這邊會多回傳_state,但是少了many_to_many資料
+```
+    {
+        '_state': <django.db.models.base.ModelState object at 0x0000000005D0A630>, 
+        'id': 269, 
+        'name': 'Cut 1 PCB Layout', 
+        'duration': '20', 
+        'start_date': datetime.datetime(2019, 2, 28, 8, 0), 
+        'end_date': datetime.datetime(2019, 3, 27, 17, 0),
+        'pl_id': 13
+    }
+```
+
+### model_to_dict
+```
+    from django.forms.models import model_to_dict
+    model_to_dict(instance)
+```
+注意這邊回傳為pl而非pl_id
+```python
+    {
+        'id': 269, 
+        'name': 'Cut 1 PCB Layout',
+        'duration': '20',
+        'start_date': datetime.datetime(2019, 2, 28, 8, 0),
+        'end_date': datetime.datetime(2019, 3, 27, 17, 0),
+        'pl': 13,
+        'hw_owner': [], 
+     }
+```
+
+
+可以搭配fields　取出想要的欄位
+```python
+    model_to_dict(instance, fields=[field.name for field in instance._meta.fields])
+```
 
 
 
+### query_set.values()
+```python
+    SomeModel.objects.filter(id=instance.id).values()[0]
+```
+return 
+```python 
+    {
+        'id': 269, 
+        'name': 'Cut 1 PCB Layout', 
+        'duration': '20', 
+        'start_date': datetime.datetime(2019, 2, 28, 8, 0), 
+        'end_date': datetime.datetime(2019, 3, 27, 17, 0), 
+        'pl_id': 13
+     }
+```
+
+
+
+### Serializers
+使用drf
 
 ## Advance
 
