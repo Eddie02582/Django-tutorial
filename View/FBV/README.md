@@ -20,7 +20,7 @@ def ApLoss_View(request):
             
             return render(request, 'APLoss.html', {'form': form,'feet':feet,'meters':meters})
             
-    return return render(request, 'APLoss.html')
+    return render(request, 'APLoss.html')
 ```
 
 
