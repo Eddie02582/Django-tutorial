@@ -259,7 +259,7 @@ Person.objects.values('team__name').annotate(max_height = Max('max_height'))
 這邊使用values 所以回傳字典形式
 
 
-```
+```python
 >>><QuerySet [ {'status': 'Lakers', 'max_height': 211},               
                {'status': 'Clipper', 'max_height': 226},
                {'status': 'Net', 'max_height': 208}]>
@@ -277,11 +277,11 @@ aggregate的中文意思是聚合, 源於SQL的聚合函數。 Django的aggregat
 
 #### distinct(*fields)
 過濾重複的
-```
+```python
    Person.objects.distinct() 
 ```
 
-```
+```python
    Person.objects.distinct('first_name') 
 ```
 
@@ -363,7 +363,7 @@ aggregate的中文意思是聚合, 源於SQL的聚合函數。 Django的aggregat
 ```
 
 ### model_to_dict
-```
+```python
     from django.forms.models import model_to_dict
     model_to_dict(instance)
 ```
@@ -451,6 +451,17 @@ q2.children.append(('c',6))
 ```python
 from django.db.models import F
 Person.objects.update(age = F("age")+ 1)  
+```  
+
+```python
+from django.db.models import F, Func, Value 
+Person.objects.filter.update(
+        first_name = Func(
+            F('first_name'),
+            Value("old_name"), Value("new_name"),
+            function='replace',
+        )        
+    )
 ```  
 
 

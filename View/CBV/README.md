@@ -64,11 +64,6 @@ Django提供了一些通用視圖，基於通用類的視圖（GCBV），可以�
         <td></td>
     </tr>
     <tr>
-        <td>success_url</td>
-        <td>成功時導入的網址</td>
-        <td>通常用在create,update</td>
-    </tr> 
-    <tr>
         <td>template_name</td>
         <td>使用的模板</td>
         <td></td>
@@ -83,16 +78,21 @@ Attributes
         <th>目的</th>
         <th>Note</th>        
     </tr>
-     <tr>
-        <td>fields</td>
-        <td>選擇form的輸出欄位,通常會透過form.py設定</td>
-        <td></td>
-    </tr> 
     <tr>
         <td>form_class</td>
         <td>設定Form</td>
-        <td>沒設定會照Model建form,此時就可以搭配fields</td>
+        <td>沒設定會照Model建form</td>
     </tr>
+     <tr>
+        <td>fields</td>
+        <td>選擇model formg輸出欄位,不可同時跟form_class同時給值</td>
+        <td></td>
+    </tr> 
+    <tr>
+        <td>success_url</td>
+        <td>成功時導入的網址</td>
+        <td>通常用在create,update</td>
+    </tr> 
     <tr>
         <td>pk_url_kwarg </td>
         <td>url 傳入的參數(　path('Task/<int:task_id>/edit/', views.Task_Edit.as_view(), name='task_edit'))</td>
@@ -239,6 +239,8 @@ class Task_ListView(ListView):
     def get_queryset(self):    
         return Task.objects.all().fliter(owner = self.request.user)  
 ```
+
+
 
 ### FormView
 可以比較一下和FBV 的差異<br>
