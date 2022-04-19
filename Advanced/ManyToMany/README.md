@@ -41,8 +41,8 @@ class ProjectAdmin(admin.ModelAdmin):
 ``` python 
 class ProjectForm(forms.ModelForm):
     # if need modify queryset
-    #owner= forms.ModelMultipleChoiceField(queryset = User.objects.all(),                                              
-                                              widget = FilteredSelectMultiple("users", is_stacked=False), required=False)	
+    #owner= forms.ModelMultipleChoiceField(queryset = User.objects.all(),                                         
+    #                                          widget = FilteredSelectMultiple("users", is_stacked=False), required=False)	
    
     class Meta:       
         model = Project         
