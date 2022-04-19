@@ -441,9 +441,9 @@ q2.children.append(('c',4))
 q2.children.append(('c',6))
 
 #con 通過and的條件把q1和q2 合在一起 
-    con=Q()
-    con.add(q1,'AND')
-    con.add(q2,'AND')
+con=Q()
+con.add(q1,'AND')
+con.add(q2,'AND')
 ```
 
 ### F
