@@ -39,19 +39,24 @@ class ProjectAdmin(admin.ModelAdmin):
 
 
 ``` python 
-class ProjectForm(forms.ModelForm):   
+class ProjectForm(forms.ModelForm):
+    # if need modify queryset
+    #owner= forms.ModelMultipleChoiceField(queryset = User.objects.all(),                                              
+                                              widget = FilteredSelectMultiple("users", is_stacked=False), required=False)	
+   
     class Meta:       
         model = Project         
         fields=['project','owner']
 
     class Media:
-        css = {'all':('css/widgets.css', 'css/overrides.css'),}
+        #css = {'all':('css/widgets.css', 'css/overrides.css'),}
+        css = {'all': ('admin/css/widgets.css','css/overrides.css')} 
+        js = ('js/jquery.js','/admin/jsi18n/')	
 ```
 
 加入html 加入
 
 ```  html
 {{ form.media }} 
-<script src="/admin/jsi18n/"></script>
 ```
 
